@@ -1,7 +1,8 @@
 #ifndef ETBASE_THREAD_H
 #define ETBASE_THREAD_H
 
-#include "./mutex.h"
+#include "types.h"
+#include "mutex.h"
 #include <functional>
 #include <utility>
 #ifndef THREADOP

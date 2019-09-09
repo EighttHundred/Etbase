@@ -1,11 +1,12 @@
 #ifndef ETBASE_THREADPOOL_H
 #define ETBASE_THREADPOOL_H
 
+#include "thread.h"
+#include "mutex.h"
+#include "types.h"
 #include <queue>
 #include <vector>
 #include <memory>
-#include "./thread.h"
-#include "./mutex.h"
 typedef size_t sizetype;
 namespace Etbase
 {

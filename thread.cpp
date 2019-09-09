@@ -1,4 +1,4 @@
-#include "./thread.h"
+#include "thread.h"
 
 void Etbase::Thread::start() {
     assert(!started);

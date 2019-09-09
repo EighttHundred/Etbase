@@ -1,5 +1,5 @@
-#include "./socket.h"
-#include "../base/log.h"
+#include "socket.h"
+#include "log.h"
 #include <sys/ioctl.h>
 #include <linux/if.h>
 Etbase::BaseSocket::BaseSocket()
