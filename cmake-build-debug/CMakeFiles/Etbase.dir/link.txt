@@ -1,0 +1,2 @@
+/usr/bin/ar qc libEtbase.a  CMakeFiles/Etbase.dir/library.cpp.o
+/usr/bin/ranlib libEtbase.a

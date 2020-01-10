@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/eight/Code/Etbase/library.cpp
+library.h
+/home/eight/Code/Etbase/library.h
+iostream
+-
+
+/home/eight/Code/Etbase/library.h
+
