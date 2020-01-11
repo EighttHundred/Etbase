@@ -4,7 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/eight/Code/Etbase/library.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/library.cpp.o"
+  "/home/eight/Code/Etbase/Sockaddr.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Sockaddr.cpp.o"
+  "/home/eight/Code/Etbase/Socket.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Socket.cpp.o"
+  "/home/eight/Code/Etbase/Test.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Test.cpp.o"
+  "/home/eight/Code/Etbase/Util.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Util.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

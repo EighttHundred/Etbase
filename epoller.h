@@ -1,7 +1,6 @@
 #ifndef ETBASE_EPOLLER_H
 #define ETBASE_EPOLLER_H
 
-#include "socket.h"
 #include "log.h"
 #include "types.h"
 #include "eventmap.h"

@@ -4,7 +4,7 @@
 
 #include "Util.h"
 
-int ehd::strToInt(const char *str) {
+int Etbase::strToInt(const char *str) {
     int res=0;
     if(str!= nullptr){
         for(int i=0;str[i];++i){
@@ -15,7 +15,8 @@ int ehd::strToInt(const char *str) {
     return res;
 }
 
-void ehd::intToStr(int x,char* str) {
+char* Etbase::intToStr(int x) {
+    char* str= nullptr;
     if(x>=0){
         str=new char[10];
         for(int i=0;x;++i){
@@ -23,4 +24,5 @@ void ehd::intToStr(int x,char* str) {
             x/=10;
         }
     }
+    return str;
 }

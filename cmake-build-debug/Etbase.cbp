@@ -80,10 +80,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/eight/Code/Etbase/library.cpp">
+		<Unit filename="/home/eight/Code/Etbase/Sockaddr.cpp">
 			<Option target="Etbase"/>
 		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/library.h">
+		<Unit filename="/home/eight/Code/Etbase/Sockaddr.h">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Socket.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Socket.h">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Test.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Test.h">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Util.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Util.h">
 			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/CMakeLists.txt">

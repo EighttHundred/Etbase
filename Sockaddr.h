@@ -2,28 +2,35 @@
 // Created by eight on 1/7/20.
 //
 
-#ifndef NET_SOCKADDR_H
-#define NET_SOCKADDR_H
+#ifndef ETBASE_SOCKADDR_H
+#define ETBASE_SOCKADDR_H
 
 
 #include <bits/socket.h>
 #include <netinet/in.h>
-namespace ehd{
+namespace Etbase{
     class Sockaddr {
     public:
-        int domain=AF_INET;
-        int type=SOCK_STREAM;
-        int protocal=0;
-        const sockaddr*const addr;
+        const int domain=AF_INET;
+        const int type=SOCK_STREAM;
+        const int protocal=0;
+        const char* port;
+        const char* ip;
+        const sockaddr* addr;
         socklen_t len= sizeof(sockaddr_in);
     public:
-        explicit Sockaddr(const sockaddr* addr_);
+        explicit Sockaddr(const sockaddr& addr_);
+        Sockaddr(const Sockaddr& sockaddr);
         Sockaddr(const char* ip,const char* port);
+        Sockaddr& operator=(const Sockaddr& sockaddr);
+        ~Sockaddr();
     private:
         sockaddr* getAddr(const char* ip,const char* port);
+        const char* getIp(const sockaddr& addr_);
+        char* getPort(const sockaddr& addr_);
     };
 
 }
 
 
-#endif //NET_SOCKADDR_H
+#endif //ETBASE_SOCKADDR_H

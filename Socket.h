@@ -2,30 +2,33 @@
 // Created by eight on 1/7/20.
 //
 
-#ifndef NET_SOCKET_H
-#define NET_SOCKET_H
+#ifndef ETBASE_SOCKET_H
+#define ETBASE_SOCKET_H
 
 #include <sys/socket.h>
 #include "Socket.h"
 #include "Sockaddr.h"
 
-namespace ehd{
+namespace Etbase{
     class Socket {
     public:
-        //order is important
-        const Sockaddr*const sock;
         const int fd;
     public:
-        Socket(const char* ip=nullptr,const char* port=nullptr);
-        Socket(int fd_,const Sockaddr *sock_);
+        Socket(int fd_);
         ~Socket();
-        Socket accept();
-        bool bind();
+        Socket accept(Sockaddr& sock);
+        bool bind(Sockaddr& sock);
         bool listen(int num=1024);
-        bool connect(const Sockaddr& sock_);
+        bool connect(const Sockaddr& sock);
+        int write(const char* data);
+        int read(char* buff);
+        bool setNonBlock();
+
+    private:
+        autoBind();
     };
 
 }
 
 
-#endif //NET_SOCKET_H
+#endif //ETBASE_SOCKET_H

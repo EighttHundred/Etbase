@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Etbase.dir/library.cpp.o"
+  "CMakeFiles/Etbase.dir/Sockaddr.cpp.o"
+  "CMakeFiles/Etbase.dir/Socket.cpp.o"
+  "CMakeFiles/Etbase.dir/Test.cpp.o"
+  "CMakeFiles/Etbase.dir/Util.cpp.o"
   "libEtbase.a"
   "libEtbase.pdb"
 )

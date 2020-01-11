@@ -3,4 +3,4 @@ project(Etbase)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_library(Etbase library.cpp library.h)
+add_library(Etbase Socket.cpp Socket.h Sockaddr.cpp Sockaddr.h Util.cpp Util.h Test.cpp Test.h)
