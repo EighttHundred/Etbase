@@ -20,7 +20,7 @@ char* Etbase::intToStr(int x) {
     if(x>=0){
         str=new char[10];
         for(int i=0;x;++i){
-            str[i]=(char)(x+'0');
+            str[i]=(char)(x%10+'0');
             x/=10;
         }
     }

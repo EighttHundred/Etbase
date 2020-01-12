@@ -8,6 +8,7 @@
 
 #include <bits/socket.h>
 #include <netinet/in.h>
+#include <memory>
 namespace Etbase{
     class Sockaddr {
     public:
@@ -16,18 +17,15 @@ namespace Etbase{
         const int protocal=0;
         const char* port;
         const char* ip;
-        const sockaddr* addr;
+        std::shared_ptr<sockaddr> addr;
         socklen_t len= sizeof(sockaddr_in);
     public:
         explicit Sockaddr(const sockaddr& addr_);
         Sockaddr(const Sockaddr& sockaddr);
         Sockaddr(const char* ip,const char* port);
+        explicit Sockaddr(const char* port);
         Sockaddr& operator=(const Sockaddr& sockaddr);
         ~Sockaddr();
-    private:
-        sockaddr* getAddr(const char* ip,const char* port);
-        const char* getIp(const sockaddr& addr_);
-        char* getPort(const sockaddr& addr_);
     };
 
 }

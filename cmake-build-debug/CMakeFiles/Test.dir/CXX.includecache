@@ -14,24 +14,6 @@ netinet/in.h
 memory
 -
 
-/home/eight/Code/Etbase/Socket.cpp
-arpa/inet.h
--
-Socket.h
-/home/eight/Code/Etbase/Socket.h
-unistd.h
--
-netinet/in.h
--
-cstring
--
-fcntl.h
--
-netdb.h
--
-iostream
--
-
 /home/eight/Code/Etbase/Socket.h
 sys/socket.h
 -
@@ -39,4 +21,10 @@ Socket.h
 /home/eight/Code/Etbase/Socket.h
 Sockaddr.h
 /home/eight/Code/Etbase/Sockaddr.h
+
+/home/eight/Code/Etbase/test/test.cpp
+iostream
+-
+../Socket.h
+/home/eight/Code/Etbase/Socket.h
 

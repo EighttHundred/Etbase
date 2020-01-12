@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/eight/Code/Etbase/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/eight/clion-2019.3.2/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/home/eight/clion-2019.3.2/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named Server
+
+# Build rule for target.
+Server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Server
+.PHONY : Server
+
+# fast build rule for target.
+Server/fast:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
+.PHONY : Server/fast
+
+#=============================================================================
+# Target rules for targets named Client
+
+# Build rule for target.
+Client: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Client
+.PHONY : Client
+
+# fast build rule for target.
+Client/fast:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
+.PHONY : Client/fast
+
+#=============================================================================
 # Target rules for targets named Etbase
 
 # Build rule for target.
@@ -122,6 +148,19 @@ Etbase: cmake_check_build_system
 Etbase/fast:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/build
 .PHONY : Etbase/fast
+
+#=============================================================================
+# Target rules for targets named Test
+
+# Build rule for target.
+Test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Test
+.PHONY : Test
+
+# fast build rule for target.
+Test/fast:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
+.PHONY : Test/fast
 
 Sockaddr.o: Sockaddr.cpp.o
 
@@ -177,33 +216,6 @@ Socket.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Socket.cpp.s
 .PHONY : Socket.cpp.s
 
-Test.o: Test.cpp.o
-
-.PHONY : Test.o
-
-# target to build an object file
-Test.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Test.cpp.o
-.PHONY : Test.cpp.o
-
-Test.i: Test.cpp.i
-
-.PHONY : Test.i
-
-# target to preprocess a source file
-Test.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Test.cpp.i
-.PHONY : Test.cpp.i
-
-Test.s: Test.cpp.s
-
-.PHONY : Test.s
-
-# target to generate assembly for a file
-Test.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Test.cpp.s
-.PHONY : Test.cpp.s
-
 Util.o: Util.cpp.o
 
 .PHONY : Util.o
@@ -231,27 +243,117 @@ Util.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Util.cpp.s
 .PHONY : Util.cpp.s
 
+test/client.o: test/client.cpp.o
+
+.PHONY : test/client.o
+
+# target to build an object file
+test/client.cpp.o:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/test/client.cpp.o
+.PHONY : test/client.cpp.o
+
+test/client.i: test/client.cpp.i
+
+.PHONY : test/client.i
+
+# target to preprocess a source file
+test/client.cpp.i:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/test/client.cpp.i
+.PHONY : test/client.cpp.i
+
+test/client.s: test/client.cpp.s
+
+.PHONY : test/client.s
+
+# target to generate assembly for a file
+test/client.cpp.s:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/test/client.cpp.s
+.PHONY : test/client.cpp.s
+
+test/server.o: test/server.cpp.o
+
+.PHONY : test/server.o
+
+# target to build an object file
+test/server.cpp.o:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/test/server.cpp.o
+.PHONY : test/server.cpp.o
+
+test/server.i: test/server.cpp.i
+
+.PHONY : test/server.i
+
+# target to preprocess a source file
+test/server.cpp.i:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/test/server.cpp.i
+.PHONY : test/server.cpp.i
+
+test/server.s: test/server.cpp.s
+
+.PHONY : test/server.s
+
+# target to generate assembly for a file
+test/server.cpp.s:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/test/server.cpp.s
+.PHONY : test/server.cpp.s
+
+test/test.o: test/test.cpp.o
+
+.PHONY : test/test.o
+
+# target to build an object file
+test/test.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/test.cpp.o
+.PHONY : test/test.cpp.o
+
+test/test.i: test/test.cpp.i
+
+.PHONY : test/test.i
+
+# target to preprocess a source file
+test/test.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/test.cpp.i
+.PHONY : test/test.cpp.i
+
+test/test.s: test/test.cpp.s
+
+.PHONY : test/test.s
+
+# target to generate assembly for a file
+test/test.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/test.cpp.s
+.PHONY : test/test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... edit_cache"
+	@echo "... Server"
+	@echo "... Client"
 	@echo "... rebuild_cache"
 	@echo "... Etbase"
-	@echo "... edit_cache"
+	@echo "... Test"
 	@echo "... Sockaddr.o"
 	@echo "... Sockaddr.i"
 	@echo "... Sockaddr.s"
 	@echo "... Socket.o"
 	@echo "... Socket.i"
 	@echo "... Socket.s"
-	@echo "... Test.o"
-	@echo "... Test.i"
-	@echo "... Test.s"
 	@echo "... Util.o"
 	@echo "... Util.i"
 	@echo "... Util.s"
+	@echo "... test/client.o"
+	@echo "... test/client.i"
+	@echo "... test/client.s"
+	@echo "... test/server.o"
+	@echo "... test/server.i"
+	@echo "... test/server.s"
+	@echo "... test/test.o"
+	@echo "... test/test.i"
+	@echo "... test/test.s"
 .PHONY : help
 
 

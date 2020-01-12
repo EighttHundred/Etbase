@@ -9,15 +9,21 @@
 #include <cstring>
 #include <fcntl.h>
 #include <netdb.h>
+#include <iostream>
+
+Etbase::Socket::Socket():
+    fd(socket(domain,type,protocal)){
+}
 
 Etbase::Socket::Socket(int fd_):
         fd(fd_){
 }
 
-Etbase::Socket Etbase::Socket::accept(Etbase::Sockaddr &addr) {
-    auto *addr_ = new sockaddr;
-    int fd_=::accept(fd,addr_, nullptr);
-    if(fd_!=-1) addr=Sockaddr(*addr_);
+Etbase::Socket Etbase::Socket::accept(Etbase::Sockaddr &sock) {
+    auto addr = new sockaddr;
+    int fd_=::accept(fd,addr, &sock.len);
+    if(fd_!=-1) sock=Sockaddr(*addr);
+    else std::cout<<strerror(errno)<<std::endl;
     return fd_;
 }
 
@@ -26,7 +32,6 @@ bool Etbase::Socket::listen(int num) {
 }
 
 bool Etbase::Socket::bind(Etbase::Sockaddr &sock) {
-//    return ::bind(fd,sock.addr,sock.len)>=0;
     int on=-1;
     addrinfo hints={},*res,*ressave;
     hints.ai_family=AF_UNSPEC;
@@ -37,7 +42,8 @@ bool Etbase::Socket::bind(Etbase::Sockaddr &sock) {
         do{
             if(setsockopt(fd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on))!=-1){
                 if(::bind(fd,(sockaddr*)res->ai_addr,res->ai_addrlen)==0){
-                    sock.addr=res->ai_addr;
+                    sockaddr_in* tmp=(sockaddr_in*)res->ai_addr;
+                    sock=Sockaddr(*res->ai_addr);
                     freeaddrinfo(ressave);
                     return true;
                 }
@@ -47,23 +53,33 @@ bool Etbase::Socket::bind(Etbase::Sockaddr &sock) {
         freeaddrinfo(ressave);
     }
     return false;
-
 }
 
 bool Etbase::Socket::connect(const Sockaddr& sock) {
-    return ::connect(fd,sock.addr,sock.len)==0;
+    return ::connect(fd,sock.addr.get(),sock.len)==0;
 }
 
 Etbase::Socket::~Socket() {
     close(fd);
 }
 
-int Etbase::Socket::write(const char *data) {
-    return ::write(fd,data,strlen(data));
+bool Etbase::Socket::write(const char *data) {
+    ssize_t left=strlen(data),len;
+    auto now=data;
+    while(left>0){
+        len=::write(fd,now,left);
+        if(len<=0){
+            if(errno==EINTR&&len<0) len=0;
+            else return false;
+        }
+        left-=len;
+        now+=len;
+    }
+    return true;
 }
 
-int Etbase::Socket::read(char *buff) {
-    return ::read(fd,buff, sizeof(buff));
+int Etbase::Socket::read(char *buff,int size) {
+    return ::read(fd,buff, size);
 }
 
 bool Etbase::Socket::setNonBlock() {
@@ -74,6 +90,12 @@ bool Etbase::Socket::setNonBlock() {
     }
     return false;
 }
+
+
+
+
+
+
 
 
 

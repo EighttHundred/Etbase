@@ -4,9 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/eight/Code/Etbase/Sockaddr.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Sockaddr.cpp.o"
-  "/home/eight/Code/Etbase/Socket.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Socket.cpp.o"
-  "/home/eight/Code/Etbase/Util.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Util.cpp.o"
+  "/home/eight/Code/Etbase/test/server.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Server.dir/test/server.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
@@ -16,6 +14,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
+  "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

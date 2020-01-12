@@ -96,25 +96,11 @@ CMakeFiles/Etbase.dir/Util.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Util.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Util.cpp -o CMakeFiles/Etbase.dir/Util.cpp.s
 
-CMakeFiles/Etbase.dir/Test.cpp.o: CMakeFiles/Etbase.dir/flags.make
-CMakeFiles/Etbase.dir/Test.cpp.o: ../Test.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Etbase.dir/Test.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/Test.cpp.o -c /home/eight/Code/Etbase/Test.cpp
-
-CMakeFiles/Etbase.dir/Test.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/Test.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/Test.cpp > CMakeFiles/Etbase.dir/Test.cpp.i
-
-CMakeFiles/Etbase.dir/Test.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Test.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Test.cpp -o CMakeFiles/Etbase.dir/Test.cpp.s
-
 # Object files for target Etbase
 Etbase_OBJECTS = \
 "CMakeFiles/Etbase.dir/Socket.cpp.o" \
 "CMakeFiles/Etbase.dir/Sockaddr.cpp.o" \
-"CMakeFiles/Etbase.dir/Util.cpp.o" \
-"CMakeFiles/Etbase.dir/Test.cpp.o"
+"CMakeFiles/Etbase.dir/Util.cpp.o"
 
 # External object files for target Etbase
 Etbase_EXTERNAL_OBJECTS =
@@ -122,10 +108,9 @@ Etbase_EXTERNAL_OBJECTS =
 libEtbase.a: CMakeFiles/Etbase.dir/Socket.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/Sockaddr.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/Util.cpp.o
-libEtbase.a: CMakeFiles/Etbase.dir/Test.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/build.make
 libEtbase.a: CMakeFiles/Etbase.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libEtbase.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libEtbase.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/Etbase.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Etbase.dir/link.txt --verbose=$(VERBOSE)
 
