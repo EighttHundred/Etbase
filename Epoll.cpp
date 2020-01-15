@@ -1,24 +1,25 @@
-#include "epoller.h"
+//
+// Created by eight on 1/15/20.
+//
 
-Etbase::Epoller::Epoller()
-{
-    int fd = epoll_create1(0);
-    if (fd == -1){
-        //LogWriter::writeError("epoll create failed");
-        return;
-    }
-    efd = fd;
-    events = (epoll_event *)calloc(MAXEVENTS, sizeof(epoll_event));
+#include <unistd.h>
+#include <cstdlib>
+#include "Epoll.h"
+
+void Etbase::Epoll::accpet() {
+
 }
 
-Etbase::Epoller::~Epoller()
-{
-    close(efd);
+Etbase::Epoll::Epoll():fd(epoll_create(0)) {
 }
 
-int Etbase::Epoller::dispatch(EventMap* emap)
-{
-    int n = epoll_wait(efd, events, MAXEVENTS, -1);
+Etbase::Epoll::~Epoll() {
+    close(fd);
+}
+
+
+int Etbase::Epoll::wait(EventMap *emap) {
+    int n = epoll_wait(fd, events, 64, -1);
     for (int i = 0; i < n; ++i){
         int fd = events[i].data.fd;
         if ((events[i].events & EPOLLERR) ||
@@ -32,8 +33,7 @@ int Etbase::Epoller::dispatch(EventMap* emap)
     }
 }
 
-int Etbase::Epoller::addEvent(int fd)
-{
+int Etbase::Epoll::add(int fd) {
     epoll_event event;
     event.data.fd = fd;
     event.events = EPOLLIN | EPOLLET;

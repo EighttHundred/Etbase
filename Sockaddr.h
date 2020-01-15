@@ -5,7 +5,6 @@
 #ifndef ETBASE_SOCKADDR_H
 #define ETBASE_SOCKADDR_H
 
-
 #include <bits/socket.h>
 #include <netinet/in.h>
 #include <memory>

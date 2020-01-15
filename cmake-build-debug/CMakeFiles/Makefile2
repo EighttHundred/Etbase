@@ -80,12 +80,12 @@ preinstall:
 CMakeFiles/Server.dir/all: CMakeFiles/Etbase.dir/all
 	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/depend
 	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=7,8 "Built target Server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=11,12 "Built target Server"
 .PHONY : CMakeFiles/Server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Server.dir/rule
@@ -112,7 +112,7 @@ CMakeFiles/Client.dir/all: CMakeFiles/Etbase.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Client.dir/rule
@@ -134,12 +134,12 @@ CMakeFiles/Client.dir/clean:
 CMakeFiles/Etbase.dir/all:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/depend
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=3,4,5,6 "Built target Etbase"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=3,4,5,6,7,8,9,10 "Built target Etbase"
 .PHONY : CMakeFiles/Etbase.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Etbase.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Etbase.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Etbase.dir/rule
@@ -161,12 +161,12 @@ CMakeFiles/Etbase.dir/clean:
 CMakeFiles/Test.dir/all: CMakeFiles/Etbase.dir/all
 	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/depend
 	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=9,10 "Built target Test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=13,14 "Built target Test"
 .PHONY : CMakeFiles/Test.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/eight/Code/Etbase/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Test.dir/rule
