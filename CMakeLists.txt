@@ -3,7 +3,7 @@ project(Etbase)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_library(Etbase Socket.cpp Socket.h Sockaddr.cpp Sockaddr.h Util.cpp Util.h Acceptor.h Etbase.h Reactor.cpp Reactor.h Dispatcher.h Epoll.cpp Epoll.h Handle.cpp Handle.h Handler.cpp Handler.h Types.h)
+add_library(Etbase Socket.cpp Socket.h Sockaddr.cpp Sockaddr.h Util.cpp Util.h Acceptor.h Etbase.h Reactor.cpp Reactor.h Epoll.cpp Types.h Event.cpp Event.h Epoll.h Dispatcher.cpp Dispatcher.h)
 #link_libraries(Etbase)
 add_executable(Test test/test.cpp)
 add_executable(Client test/client.cpp)

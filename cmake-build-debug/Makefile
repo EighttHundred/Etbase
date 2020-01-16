@@ -162,6 +162,33 @@ Test/fast:
 	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
 .PHONY : Test/fast
 
+Dispatcher.o: Dispatcher.cpp.o
+
+.PHONY : Dispatcher.o
+
+# target to build an object file
+Dispatcher.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Dispatcher.cpp.o
+.PHONY : Dispatcher.cpp.o
+
+Dispatcher.i: Dispatcher.cpp.i
+
+.PHONY : Dispatcher.i
+
+# target to preprocess a source file
+Dispatcher.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Dispatcher.cpp.i
+.PHONY : Dispatcher.cpp.i
+
+Dispatcher.s: Dispatcher.cpp.s
+
+.PHONY : Dispatcher.s
+
+# target to generate assembly for a file
+Dispatcher.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Dispatcher.cpp.s
+.PHONY : Dispatcher.cpp.s
+
 Epoll.o: Epoll.cpp.o
 
 .PHONY : Epoll.o
@@ -189,59 +216,32 @@ Epoll.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Epoll.cpp.s
 .PHONY : Epoll.cpp.s
 
-Handle.o: Handle.cpp.o
+Event.o: Event.cpp.o
 
-.PHONY : Handle.o
-
-# target to build an object file
-Handle.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Handle.cpp.o
-.PHONY : Handle.cpp.o
-
-Handle.i: Handle.cpp.i
-
-.PHONY : Handle.i
-
-# target to preprocess a source file
-Handle.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Handle.cpp.i
-.PHONY : Handle.cpp.i
-
-Handle.s: Handle.cpp.s
-
-.PHONY : Handle.s
-
-# target to generate assembly for a file
-Handle.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Handle.cpp.s
-.PHONY : Handle.cpp.s
-
-Handler.o: Handler.cpp.o
-
-.PHONY : Handler.o
+.PHONY : Event.o
 
 # target to build an object file
-Handler.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Handler.cpp.o
-.PHONY : Handler.cpp.o
+Event.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Event.cpp.o
+.PHONY : Event.cpp.o
 
-Handler.i: Handler.cpp.i
+Event.i: Event.cpp.i
 
-.PHONY : Handler.i
+.PHONY : Event.i
 
 # target to preprocess a source file
-Handler.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Handler.cpp.i
-.PHONY : Handler.cpp.i
+Event.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Event.cpp.i
+.PHONY : Event.cpp.i
 
-Handler.s: Handler.cpp.s
+Event.s: Event.cpp.s
 
-.PHONY : Handler.s
+.PHONY : Event.s
 
 # target to generate assembly for a file
-Handler.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Handler.cpp.s
-.PHONY : Handler.cpp.s
+Event.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Event.cpp.s
+.PHONY : Event.cpp.s
 
 Reactor.o: Reactor.cpp.o
 
@@ -444,15 +444,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... Etbase"
 	@echo "... Test"
+	@echo "... Dispatcher.o"
+	@echo "... Dispatcher.i"
+	@echo "... Dispatcher.s"
 	@echo "... Epoll.o"
 	@echo "... Epoll.i"
 	@echo "... Epoll.s"
-	@echo "... Handle.o"
-	@echo "... Handle.i"
-	@echo "... Handle.s"
-	@echo "... Handler.o"
-	@echo "... Handler.i"
-	@echo "... Handler.s"
+	@echo "... Event.o"
+	@echo "... Event.i"
+	@echo "... Event.s"
 	@echo "... Reactor.o"
 	@echo "... Reactor.i"
 	@echo "... Reactor.s"

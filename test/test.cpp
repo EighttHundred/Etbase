@@ -8,6 +8,8 @@ using namespace Etbase;
 
 
 int main(){
-    fd_set set;
-//    FD_SET()
+    enum Test{
+        a,b,c
+    };
+    std::cout<<a<<" "<<b<<" "<<c<<std::endl;
 }

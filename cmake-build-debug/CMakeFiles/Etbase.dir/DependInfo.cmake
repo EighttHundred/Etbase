@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/eight/Code/Etbase/Dispatcher.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Dispatcher.cpp.o"
   "/home/eight/Code/Etbase/Epoll.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Epoll.cpp.o"
-  "/home/eight/Code/Etbase/Handle.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Handle.cpp.o"
-  "/home/eight/Code/Etbase/Handler.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Handler.cpp.o"
+  "/home/eight/Code/Etbase/Event.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Event.cpp.o"
   "/home/eight/Code/Etbase/Reactor.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Reactor.cpp.o"
   "/home/eight/Code/Etbase/Sockaddr.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Sockaddr.cpp.o"
   "/home/eight/Code/Etbase/Socket.cpp" "/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles/Etbase.dir/Socket.cpp.o"

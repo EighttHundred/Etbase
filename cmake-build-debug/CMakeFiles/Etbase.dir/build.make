@@ -122,31 +122,31 @@ CMakeFiles/Etbase.dir/Epoll.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Epoll.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Epoll.cpp -o CMakeFiles/Etbase.dir/Epoll.cpp.s
 
-CMakeFiles/Etbase.dir/Handle.cpp.o: CMakeFiles/Etbase.dir/flags.make
-CMakeFiles/Etbase.dir/Handle.cpp.o: ../Handle.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Etbase.dir/Handle.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/Handle.cpp.o -c /home/eight/Code/Etbase/Handle.cpp
+CMakeFiles/Etbase.dir/Event.cpp.o: CMakeFiles/Etbase.dir/flags.make
+CMakeFiles/Etbase.dir/Event.cpp.o: ../Event.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Etbase.dir/Event.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/Event.cpp.o -c /home/eight/Code/Etbase/Event.cpp
 
-CMakeFiles/Etbase.dir/Handle.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/Handle.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/Handle.cpp > CMakeFiles/Etbase.dir/Handle.cpp.i
+CMakeFiles/Etbase.dir/Event.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/Event.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/Event.cpp > CMakeFiles/Etbase.dir/Event.cpp.i
 
-CMakeFiles/Etbase.dir/Handle.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Handle.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Handle.cpp -o CMakeFiles/Etbase.dir/Handle.cpp.s
+CMakeFiles/Etbase.dir/Event.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Event.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Event.cpp -o CMakeFiles/Etbase.dir/Event.cpp.s
 
-CMakeFiles/Etbase.dir/Handler.cpp.o: CMakeFiles/Etbase.dir/flags.make
-CMakeFiles/Etbase.dir/Handler.cpp.o: ../Handler.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Etbase.dir/Handler.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/Handler.cpp.o -c /home/eight/Code/Etbase/Handler.cpp
+CMakeFiles/Etbase.dir/Dispatcher.cpp.o: CMakeFiles/Etbase.dir/flags.make
+CMakeFiles/Etbase.dir/Dispatcher.cpp.o: ../Dispatcher.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Etbase.dir/Dispatcher.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/Dispatcher.cpp.o -c /home/eight/Code/Etbase/Dispatcher.cpp
 
-CMakeFiles/Etbase.dir/Handler.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/Handler.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/Handler.cpp > CMakeFiles/Etbase.dir/Handler.cpp.i
+CMakeFiles/Etbase.dir/Dispatcher.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/Dispatcher.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/Dispatcher.cpp > CMakeFiles/Etbase.dir/Dispatcher.cpp.i
 
-CMakeFiles/Etbase.dir/Handler.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Handler.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Handler.cpp -o CMakeFiles/Etbase.dir/Handler.cpp.s
+CMakeFiles/Etbase.dir/Dispatcher.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Dispatcher.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Dispatcher.cpp -o CMakeFiles/Etbase.dir/Dispatcher.cpp.s
 
 # Object files for target Etbase
 Etbase_OBJECTS = \
@@ -155,8 +155,8 @@ Etbase_OBJECTS = \
 "CMakeFiles/Etbase.dir/Util.cpp.o" \
 "CMakeFiles/Etbase.dir/Reactor.cpp.o" \
 "CMakeFiles/Etbase.dir/Epoll.cpp.o" \
-"CMakeFiles/Etbase.dir/Handle.cpp.o" \
-"CMakeFiles/Etbase.dir/Handler.cpp.o"
+"CMakeFiles/Etbase.dir/Event.cpp.o" \
+"CMakeFiles/Etbase.dir/Dispatcher.cpp.o"
 
 # External object files for target Etbase
 Etbase_EXTERNAL_OBJECTS =
@@ -166,8 +166,8 @@ libEtbase.a: CMakeFiles/Etbase.dir/Sockaddr.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/Util.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/Reactor.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/Epoll.cpp.o
-libEtbase.a: CMakeFiles/Etbase.dir/Handle.cpp.o
-libEtbase.a: CMakeFiles/Etbase.dir/Handler.cpp.o
+libEtbase.a: CMakeFiles/Etbase.dir/Event.cpp.o
+libEtbase.a: CMakeFiles/Etbase.dir/Dispatcher.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/build.make
 libEtbase.a: CMakeFiles/Etbase.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX static library libEtbase.a"

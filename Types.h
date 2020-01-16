@@ -7,18 +7,32 @@
 
 #include <functional>
 #include <queue>
-#include <vector>
+#include <map>
+
 namespace Etbase
 {
-    enum Priority{
-        LOW,MIDDLE,HIGH
+    enum Events{
+        IN,OUT,ERR
     };
-    typedef void(*funcp)(void*);
-    typedef std::function<void()> evhandler;
-    typedef std::pair<int,int> pair;
-    typedef std::priority_queue<pair,std::vector<pair>,std::greater<pair> > pri_queue;
+    enum Priority{
+        LOW,NORMAL,HIGH
+    };
 
+    class Event {
+    public:
+        int fd;
+        Events type;
+        Priority priority;
+    public:
+        explicit Event(int fd_);
+        Event(int fd_,Events type_,Priority priority_);
+        bool operator<(const Event& event)const;
+    };
 
+    typedef std::map<int,Priority> PriMap;
+    typedef std::function<void()> Handler;
+    typedef std::map<Event,Handler> HandlerMap;
+    typedef std::priority_queue<Event> EventQueue;
 
 }
 
