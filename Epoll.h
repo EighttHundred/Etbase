@@ -15,7 +15,7 @@ namespace Etbase{
         const static int MAXEVENT=64;
         epoll_event events[MAXEVENT]{};
     public:
-        Epoll(const EventQueue& evqueue_,const PriMap& primap_);
+        Epoll(const EventQueue& evqueue_,const EventMap& evmap_);
         ~Epoll();
         void wait(int timeout) override;
         bool add(const Event& event) override;

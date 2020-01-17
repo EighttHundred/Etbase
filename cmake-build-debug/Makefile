@@ -243,6 +243,87 @@ Event.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Event.cpp.s
 .PHONY : Event.cpp.s
 
+EventMap.o: EventMap.cpp.o
+
+.PHONY : EventMap.o
+
+# target to build an object file
+EventMap.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventMap.cpp.o
+.PHONY : EventMap.cpp.o
+
+EventMap.i: EventMap.cpp.i
+
+.PHONY : EventMap.i
+
+# target to preprocess a source file
+EventMap.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventMap.cpp.i
+.PHONY : EventMap.cpp.i
+
+EventMap.s: EventMap.cpp.s
+
+.PHONY : EventMap.s
+
+# target to generate assembly for a file
+EventMap.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventMap.cpp.s
+.PHONY : EventMap.cpp.s
+
+EventQueue.o: EventQueue.cpp.o
+
+.PHONY : EventQueue.o
+
+# target to build an object file
+EventQueue.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventQueue.cpp.o
+.PHONY : EventQueue.cpp.o
+
+EventQueue.i: EventQueue.cpp.i
+
+.PHONY : EventQueue.i
+
+# target to preprocess a source file
+EventQueue.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventQueue.cpp.i
+.PHONY : EventQueue.cpp.i
+
+EventQueue.s: EventQueue.cpp.s
+
+.PHONY : EventQueue.s
+
+# target to generate assembly for a file
+EventQueue.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventQueue.cpp.s
+.PHONY : EventQueue.cpp.s
+
+Mutex.o: Mutex.cpp.o
+
+.PHONY : Mutex.o
+
+# target to build an object file
+Mutex.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Mutex.cpp.o
+.PHONY : Mutex.cpp.o
+
+Mutex.i: Mutex.cpp.i
+
+.PHONY : Mutex.i
+
+# target to preprocess a source file
+Mutex.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Mutex.cpp.i
+.PHONY : Mutex.cpp.i
+
+Mutex.s: Mutex.cpp.s
+
+.PHONY : Mutex.s
+
+# target to generate assembly for a file
+Mutex.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Mutex.cpp.s
+.PHONY : Mutex.cpp.s
+
 Reactor.o: Reactor.cpp.o
 
 .PHONY : Reactor.o
@@ -453,6 +534,15 @@ help:
 	@echo "... Event.o"
 	@echo "... Event.i"
 	@echo "... Event.s"
+	@echo "... EventMap.o"
+	@echo "... EventMap.i"
+	@echo "... EventMap.s"
+	@echo "... EventQueue.o"
+	@echo "... EventQueue.i"
+	@echo "... EventQueue.s"
+	@echo "... Mutex.o"
+	@echo "... Mutex.i"
+	@echo "... Mutex.s"
 	@echo "... Reactor.o"
 	@echo "... Reactor.i"
 	@echo "... Reactor.s"

@@ -23,6 +23,7 @@ namespace Etbase{
         void loop();
         bool add(const Event& event,const Handler& handler);
     };
+
 }
 
 

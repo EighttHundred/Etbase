@@ -230,6 +230,24 @@
 		<Unit filename="/home/eight/Code/Etbase/Event.h">
 			<Option target="Etbase"/>
 		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/EventMap.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/EventMap.h">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/EventQueue.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/EventQueue.h">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Mutex.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/Mutex.h">
+			<Option target="Etbase"/>
+		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/Reactor.cpp">
 			<Option target="Etbase"/>
 		</Unit>

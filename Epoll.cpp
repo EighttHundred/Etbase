@@ -4,10 +4,10 @@
 
 #include <unistd.h>
 #include "Epoll.h"
-#include "Event.h"
+#include "Types.h"
 
-Etbase::Epoll::Epoll(const Etbase::EventQueue &evqueue_,const Etbase::PriMap& primap_) :
-    Acceptor(evqueue_,primap_),fd(epoll_create(0)) {
+Etbase::Epoll::Epoll(const Etbase::EventQueue &evqueue_,const Etbase::EventMap& evmap_) :
+    Acceptor(evqueue_,evmap_),fd(epoll_create(0)) {
 }
 
 Etbase::Epoll::~Epoll() {
