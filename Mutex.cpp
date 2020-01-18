@@ -19,7 +19,7 @@ void Etbase::Mutex::lock() {
 
 void Etbase::Mutex::unlock() {
     unassign();
-    pthread_mutex_unlock(&mutex)
+    pthread_mutex_unlock(&mutex);
 }
 
 pthread_t Etbase::Mutex::getHolder() {

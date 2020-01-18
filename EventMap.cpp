@@ -4,15 +4,15 @@
 
 #include "EventMap.h"
 
-void Etbase::EventMap::insert(int fd, const Etbase::Event &event) {
+void Etbase::EventMap::insert(const Etbase::Event &event) {
     //lock whole map
     Guard guard(mutex);
-    evmap[fd]=event;
+    evmap[event.fd]=event;
 }
 
-void Etbase::EventMap::modify(int fd, const Etbase::Event &event) {
+void Etbase::EventMap::modify(const Etbase::Event &event) {
     Guard guard(mutex);
-    evmap[fd]=event;
+    evmap[event.fd]=event;
 }
 
 bool Etbase::EventMap::remove(int fd) {
@@ -22,4 +22,11 @@ bool Etbase::EventMap::remove(int fd) {
         evmap.erase(iter);
         return true;
     }else return false;
+}
+
+Etbase::Event Etbase::EventMap::get(int fd) {
+    Guard guard(mutex);
+    auto iter=evmap.find(fd);
+    if(iter!=evmap.end()) return iter->second;
+    else return Event();
 }

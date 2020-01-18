@@ -12,14 +12,16 @@ namespace Etbase{
     class Epoll:Acceptor{
         int fd;
         bool et=false;
+        //infinite wait time
+        int timeout=-1;
         const static int MAXEVENT=64;
         epoll_event events[MAXEVENT]{};
     public:
         Epoll(const EventQueue& evqueue_,const EventMap& evmap_);
         ~Epoll();
-        void wait(int timeout) override;
+        void run() override;
         bool add(const Event& event) override;
-        bool remove(const Event& event) override;
+        bool remove(int fd_) override;
         bool modify(const Event& event) override;
     };
 }

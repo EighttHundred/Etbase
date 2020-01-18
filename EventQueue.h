@@ -12,6 +12,7 @@ namespace Etbase{
     class EventQueue {
         std::priority_queue<Event> evqueue;
         Mutex mutex;
+    public:
         void push(const Event& event);
         Event top();
         bool pop();

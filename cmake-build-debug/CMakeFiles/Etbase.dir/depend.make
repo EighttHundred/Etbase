@@ -8,14 +8,36 @@ CMakeFiles/Etbase.dir/Epoll.cpp.o: ../Acceptor.h
 CMakeFiles/Etbase.dir/Epoll.cpp.o: ../Epoll.cpp
 CMakeFiles/Etbase.dir/Epoll.cpp.o: ../Epoll.h
 CMakeFiles/Etbase.dir/Epoll.cpp.o: ../Event.h
+CMakeFiles/Etbase.dir/Epoll.cpp.o: ../EventMap.h
+CMakeFiles/Etbase.dir/Epoll.cpp.o: ../EventQueue.h
+CMakeFiles/Etbase.dir/Epoll.cpp.o: ../Mutex.h
 CMakeFiles/Etbase.dir/Epoll.cpp.o: ../Types.h
 
 CMakeFiles/Etbase.dir/Event.cpp.o: ../Event.cpp
 CMakeFiles/Etbase.dir/Event.cpp.o: ../Event.h
 CMakeFiles/Etbase.dir/Event.cpp.o: ../Types.h
 
+CMakeFiles/Etbase.dir/EventMap.cpp.o: ../Event.h
+CMakeFiles/Etbase.dir/EventMap.cpp.o: ../EventMap.cpp
+CMakeFiles/Etbase.dir/EventMap.cpp.o: ../EventMap.h
+CMakeFiles/Etbase.dir/EventMap.cpp.o: ../Mutex.h
+CMakeFiles/Etbase.dir/EventMap.cpp.o: ../Types.h
+
+CMakeFiles/Etbase.dir/EventQueue.cpp.o: ../Event.h
+CMakeFiles/Etbase.dir/EventQueue.cpp.o: ../EventQueue.cpp
+CMakeFiles/Etbase.dir/EventQueue.cpp.o: ../EventQueue.h
+CMakeFiles/Etbase.dir/EventQueue.cpp.o: ../Mutex.h
+CMakeFiles/Etbase.dir/EventQueue.cpp.o: ../Types.h
+
+CMakeFiles/Etbase.dir/Mutex.cpp.o: ../Mutex.cpp
+CMakeFiles/Etbase.dir/Mutex.cpp.o: ../Mutex.h
+
 CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Acceptor.h
 CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Epoll.h
+CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Event.h
+CMakeFiles/Etbase.dir/Reactor.cpp.o: ../EventMap.h
+CMakeFiles/Etbase.dir/Reactor.cpp.o: ../EventQueue.h
+CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Mutex.h
 CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Reactor.cpp
 CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Reactor.h
 CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Types.h

@@ -9,7 +9,7 @@
 namespace Etbase{
     class Event {
     public:
-        int fd;
+        int fd=-1;
         // now useless
         Events type;
         Priority priority;

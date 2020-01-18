@@ -13,15 +13,18 @@
 namespace Etbase{
 
     class Reactor {
-        PriMap priMap;
-        EventQueue evQueue;
-        HandlerMap handlerMap;
+        EventMap evmap;
+        EventQueue evqueue;
         std::shared_ptr<Epoll> acceptor;
     public:
         Reactor();
-        void loopOnce();
-        void loop();
-        bool add(const Event& event,const Handler& handler);
+        void run();
+        //loop forever
+        void loop(int times=-1);
+        bool regist(const Event& event);
+        bool remove(int fd);
+        bool modify(const Event& event);
+        bool active(int fd);
     };
 
 }

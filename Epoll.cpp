@@ -14,27 +14,17 @@ Etbase::Epoll::~Epoll() {
     close(fd);
 }
 
-void Etbase::Epoll::wait(int timeout) {
+void Etbase::Epoll::run() {
     int n = ::epoll_wait(fd, events, MAXEVENT, timeout);
     for (int i = 0; i < n; ++i){
-        int rcvfd = events[i].data.fd;
-        Event event(rcvfd);
-        Priority fd_pri=rcvfd==fd?HIGH:LOW;
-        auto ptr=primap->find(rcvfd);
-        if(ptr!=primap->end()) {
-            auto pri=ptr->second;
-            if(pri<fd_pri){
-                (*primap)[rcvfd]=fd_pri;
-                event.priority=fd_pri;
-            }else event.priority=pri;
-        }else{
-            (*primap)[rcvfd]=fd_pri;
-            event.priority=fd_pri;
+        int connfd = events[i].data.fd;
+        Event event=evmap->get(connfd);
+        if(event.fd!=-1){
+            if(events[i].events&EPOLLERR) event.type=ERR;
+            else if(events[i].events&EPOLLIN) event.type=IN;
+            else if(events[i].events&EPOLLOUT) event.type=OUT;
+            evqueue->push(event);
         }
-        if(events[i].events&EPOLLERR) event.type=ERR;
-        else if(events[i].events&EPOLLIN) event.type=IN;
-        else if(events[i].events&EPOLLOUT) event.type=OUT;
-        evqueue->push(event);
     }
 }
 
@@ -47,10 +37,10 @@ bool Etbase::Epoll::add(const Etbase::Event &event) {
     return epoll_ctl(fd,EPOLL_CTL_ADD,event.fd,&eevent)!=-1;
 }
 
-bool Etbase::Epoll::remove(const Etbase::Event &event) {
+bool Etbase::Epoll::remove(int fd_) {
     epoll_event eevent{};
-    eevent.data.fd = fd;
-    return epoll_ctl(fd,EPOLL_CTL_DEL,event.fd,&eevent)!=-1;
+    eevent.data.fd = fd_;
+    return epoll_ctl(fd,EPOLL_CTL_DEL,fd_,&eevent)!=-1;
 }
 
 bool Etbase::Epoll::modify(const Etbase::Event &event) {

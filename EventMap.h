@@ -14,9 +14,10 @@ namespace Etbase{
         std::map<int,Event> evmap;
         Mutex mutex;
     public:
-        void insert(int fd,const Event& event);
-        void modify(int fd,const Event& event);
+        void insert(const Event& event);
+        void modify(const Event& event);
         bool remove(int fd);
+        Event get(int fd);
     };
 
 }
