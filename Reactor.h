@@ -9,22 +9,26 @@
 #include "Acceptor.h"
 #include "Types.h"
 #include "Epoll.h"
-
+#include "ThreadPool.h"
 namespace Etbase{
 
     class Reactor {
+    public:
         EventMap evmap;
         EventQueue evqueue;
-        std::shared_ptr<Epoll> acceptor;
+        Epoll acceptor;
+        ThreadPool pool;
+        bool stop= false;
     public:
         Reactor();
+        ~Reactor();
         void run();
         //loop forever
         void loop(int times=-1);
         bool regist(const Event& event);
         bool remove(int fd);
-        bool modify(const Event& event);
-        bool active(int fd);
+        void modify(const Event& event);
+        void active(int fd);
     };
 
 }

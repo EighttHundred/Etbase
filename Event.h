@@ -7,12 +7,13 @@
 
 #include "Types.h"
 namespace Etbase{
+
     class Event {
+        typedef std::function<void(int)> Handler;
     public:
         int fd=-1;
-        // now useless
-        Events type;
-        Priority priority;
+        FdType type=CLIENT;
+        Priority priority=NORMAL;
         Handler handler;
         bool operator<(const Event& event)const;
     };

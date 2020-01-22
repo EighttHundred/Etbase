@@ -10,13 +10,11 @@
 
 namespace Etbase
 {
-    typedef std::function<void()> Handler;
-
-    enum Events{
-        IN,OUT,ERR
-    };
     enum Priority{
         LOW,NORMAL,HIGH
+    };
+    enum FdType{
+        SERVER,CLIENT
     };
 }
 

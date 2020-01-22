@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/Server.dir/test/server.cpp.o  -o Server libEtbase.a 
+/usr/bin/c++  -g   CMakeFiles/Server.dir/test/server.cpp.o  -o Server libEtbase.a -lpthread 

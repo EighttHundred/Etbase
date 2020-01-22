@@ -4,31 +4,40 @@
 
 #include "Reactor.h"
 
-Etbase::Reactor::Reactor() {
-    acceptor=std::make_shared<Epoll>(evqueue,evmap);
+Etbase::Reactor::Reactor():
+    pool(8,evqueue),acceptor(evqueue,evmap) {
 }
 
 bool Etbase::Reactor::regist(const Etbase::Event &event) {
     evmap.insert(event);
-    return acceptor->add(event);
+    return acceptor.add(event);
 }
 
-bool Etbase::Reactor::modify(const Etbase::Event &event) {
+void Etbase::Reactor::modify(const Etbase::Event &event) {
     evmap.modify(event);
-    return acceptor->modify(event);
 }
 
 bool Etbase::Reactor::remove(int fd) {
     evmap.remove(fd);
-    return acceptor->remove(fd);
+    return acceptor.remove(fd);
 }
 
 void Etbase::Reactor::run() {
-    acceptor->run();
-
+    acceptor.run();
 }
 
-//bool Etbase::Reactor::active(int fd) {
-//    return false;
-//}
+Etbase::Reactor::~Reactor() {
+    stop=true;
+}
+
+void Etbase::Reactor::active(int fd) {
+    evqueue.push(evmap.get(fd));
+}
+
+void Etbase::Reactor::loop(int times) {
+    if(times==-1)
+        while(!stop) run();
+    else
+        while(times--) run();
+}
 

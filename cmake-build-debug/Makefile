@@ -270,33 +270,6 @@ EventQueue.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/EventQueue.cpp.s
 .PHONY : EventQueue.cpp.s
 
-MultithreadDispatcher.o: MultithreadDispatcher.cpp.o
-
-.PHONY : MultithreadDispatcher.o
-
-# target to build an object file
-MultithreadDispatcher.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o
-.PHONY : MultithreadDispatcher.cpp.o
-
-MultithreadDispatcher.i: MultithreadDispatcher.cpp.i
-
-.PHONY : MultithreadDispatcher.i
-
-# target to preprocess a source file
-MultithreadDispatcher.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.i
-.PHONY : MultithreadDispatcher.cpp.i
-
-MultithreadDispatcher.s: MultithreadDispatcher.cpp.s
-
-.PHONY : MultithreadDispatcher.s
-
-# target to generate assembly for a file
-MultithreadDispatcher.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.s
-.PHONY : MultithreadDispatcher.cpp.s
-
 Mutex.o: Mutex.cpp.o
 
 .PHONY : Mutex.o
@@ -404,33 +377,6 @@ Socket.s: Socket.cpp.s
 Socket.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Socket.cpp.s
 .PHONY : Socket.cpp.s
-
-Thread.o: Thread.cpp.o
-
-.PHONY : Thread.o
-
-# target to build an object file
-Thread.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Thread.cpp.o
-.PHONY : Thread.cpp.o
-
-Thread.i: Thread.cpp.i
-
-.PHONY : Thread.i
-
-# target to preprocess a source file
-Thread.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Thread.cpp.i
-.PHONY : Thread.cpp.i
-
-Thread.s: Thread.cpp.s
-
-.PHONY : Thread.s
-
-# target to generate assembly for a file
-Thread.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Thread.cpp.s
-.PHONY : Thread.cpp.s
 
 ThreadPool.o: ThreadPool.cpp.o
 
@@ -567,32 +513,32 @@ test/test.cpp.s:
 	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/test.cpp.s
 .PHONY : test/test.cpp.s
 
-useless/Threadpool.o: useless/Threadpool.cpp.o
+useless/MultithreadDispatcher.o: useless/MultithreadDispatcher.cpp.o
 
-.PHONY : useless/Threadpool.o
+.PHONY : useless/MultithreadDispatcher.o
 
 # target to build an object file
-useless/Threadpool.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o
-.PHONY : useless/Threadpool.cpp.o
+useless/MultithreadDispatcher.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o
+.PHONY : useless/MultithreadDispatcher.cpp.o
 
-useless/Threadpool.i: useless/Threadpool.cpp.i
+useless/MultithreadDispatcher.i: useless/MultithreadDispatcher.cpp.i
 
-.PHONY : useless/Threadpool.i
+.PHONY : useless/MultithreadDispatcher.i
 
 # target to preprocess a source file
-useless/Threadpool.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/Threadpool.cpp.i
-.PHONY : useless/Threadpool.cpp.i
+useless/MultithreadDispatcher.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.i
+.PHONY : useless/MultithreadDispatcher.cpp.i
 
-useless/Threadpool.s: useless/Threadpool.cpp.s
+useless/MultithreadDispatcher.s: useless/MultithreadDispatcher.cpp.s
 
-.PHONY : useless/Threadpool.s
+.PHONY : useless/MultithreadDispatcher.s
 
 # target to generate assembly for a file
-useless/Threadpool.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/Threadpool.cpp.s
-.PHONY : useless/Threadpool.cpp.s
+useless/MultithreadDispatcher.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.s
+.PHONY : useless/MultithreadDispatcher.cpp.s
 
 # Help Target
 help:
@@ -618,9 +564,6 @@ help:
 	@echo "... EventQueue.o"
 	@echo "... EventQueue.i"
 	@echo "... EventQueue.s"
-	@echo "... MultithreadDispatcher.o"
-	@echo "... MultithreadDispatcher.i"
-	@echo "... MultithreadDispatcher.s"
 	@echo "... Mutex.o"
 	@echo "... Mutex.i"
 	@echo "... Mutex.s"
@@ -633,9 +576,6 @@ help:
 	@echo "... Socket.o"
 	@echo "... Socket.i"
 	@echo "... Socket.s"
-	@echo "... Thread.o"
-	@echo "... Thread.i"
-	@echo "... Thread.s"
 	@echo "... ThreadPool.o"
 	@echo "... ThreadPool.i"
 	@echo "... ThreadPool.s"
@@ -651,9 +591,9 @@ help:
 	@echo "... test/test.o"
 	@echo "... test/test.i"
 	@echo "... test/test.s"
-	@echo "... useless/Threadpool.o"
-	@echo "... useless/Threadpool.i"
-	@echo "... useless/Threadpool.s"
+	@echo "... useless/MultithreadDispatcher.o"
+	@echo "... useless/MultithreadDispatcher.i"
+	@echo "... useless/MultithreadDispatcher.s"
 .PHONY : help
 
 

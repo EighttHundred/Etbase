@@ -14,6 +14,7 @@ namespace Etbase{
     public:
         Mutex();
         ~Mutex();
+        pthread_mutex_t* get();
         void lock();
         void unlock();
         pthread_t getHolder();
@@ -22,12 +23,21 @@ namespace Etbase{
     };
 
     class Guard{
-        Mutex mutex;
+        Mutex& mutex;
     public:
-        explicit Guard(const Mutex& mutex_);
+        explicit Guard( Mutex& mutex_);
         ~Guard();
     };
 
+    class Condition{
+        Mutex& mutex;
+        pthread_cond_t cond;
+    public:
+        explicit Condition(Mutex& mutex_);
+        ~Condition();
+        bool wait();
+        bool signal();
+    };
 }
 
 

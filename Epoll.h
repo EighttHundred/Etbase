@@ -9,20 +9,22 @@
 #include "Acceptor.h"
 
 namespace Etbase{
-    class Epoll:Acceptor{
-        int fd;
-        bool et=false;
+    class Epoll:public Acceptor{
+        int epfd;
+        bool et=true;
         //infinite wait time
         int timeout=-1;
         const static int MAXEVENT=64;
         epoll_event events[MAXEVENT]{};
     public:
-        Epoll(const EventQueue& evqueue_,const EventMap& evmap_);
+        Epoll( EventQueue& evqueue_, EventMap& evmap_);
         ~Epoll();
         void run() override;
         bool add(const Event& event) override;
         bool remove(int fd_) override;
-        bool modify(const Event& event) override;
+        bool resetOneShot(int fd);
+        bool setNonBlock(int fd);
+
     };
 }
 #endif //ETBASE_EPOLL_H

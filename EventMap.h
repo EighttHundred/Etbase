@@ -17,6 +17,7 @@ namespace Etbase{
         void insert(const Event& event);
         void modify(const Event& event);
         bool remove(int fd);
+        size_t size();
         Event get(int fd);
     };
 

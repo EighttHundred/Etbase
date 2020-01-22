@@ -1,55 +1,66 @@
 //
 // Created by eight on 1/15/20.
 //
-
+#include <fcntl.h>
 #include <unistd.h>
+#include <iostream>
+#include <cassert>
 #include "Epoll.h"
 #include "Types.h"
 
-Etbase::Epoll::Epoll(const Etbase::EventQueue &evqueue_,const Etbase::EventMap& evmap_) :
-    Acceptor(evqueue_,evmap_),fd(epoll_create(0)) {
+Etbase::Epoll::Epoll( Etbase::EventQueue &evqueue_, Etbase::EventMap& evmap_) :
+    Acceptor(evqueue_,evmap_),epfd(epoll_create1(0)) {
 }
 
 Etbase::Epoll::~Epoll() {
-    close(fd);
+    close(epfd);
 }
 
 void Etbase::Epoll::run() {
-    int n = ::epoll_wait(fd, events, MAXEVENT, timeout);
+    int n = ::epoll_wait(epfd, events, MAXEVENT, timeout);
+    if(n==-1){
+        std::cout<<"epoll wait error "<<errno<<std::endl;
+        return;
+    }
     for (int i = 0; i < n; ++i){
         int connfd = events[i].data.fd;
-        Event event=evmap->get(connfd);
-        if(event.fd!=-1){
-            if(events[i].events&EPOLLERR) event.type=ERR;
-            else if(events[i].events&EPOLLIN) event.type=IN;
-            else if(events[i].events&EPOLLOUT) event.type=OUT;
-            evqueue->push(event);
-        }
+        Event event=evmap.get(connfd);
+        evqueue.push(event);
     }
 }
 
-bool Etbase::Epoll::add(const Etbase::Event &event) {
-    epoll_event eevent{};
-    eevent.data.fd = fd;
-    if(event.type==IN) eevent.events = EPOLLIN;
-    else if(event.type==OUT) eevent.events=EPOLLOUT;
-    if(et) eevent.events|=EPOLLET;
-    return epoll_ctl(fd,EPOLL_CTL_ADD,event.fd,&eevent)!=-1;
+bool Etbase::Epoll::add(const Event& event) {
+    epoll_event epollEvent;
+    epollEvent.data.fd = event.fd;
+    epollEvent.events = EPOLLIN;
+    if(et){
+        epollEvent.events|=EPOLLET|EPOLLONESHOT;
+        assert(setNonBlock(event.fd));
+    }
+    //is reentrant?
+    return epoll_ctl(epfd,EPOLL_CTL_ADD,event.fd,&epollEvent)!=-1;
 }
 
-bool Etbase::Epoll::remove(int fd_) {
-    epoll_event eevent{};
-    eevent.data.fd = fd_;
-    return epoll_ctl(fd,EPOLL_CTL_DEL,fd_,&eevent)!=-1;
-}
-
-bool Etbase::Epoll::modify(const Etbase::Event &event) {
+bool Etbase::Epoll::remove(int fd) {
     epoll_event eevent{};
     eevent.data.fd = fd;
-    if(event.type==IN) eevent.events = EPOLLIN;
-    else if(event.type==OUT) eevent.events=EPOLLOUT;
-    if(et) eevent.events|=EPOLLET;
-    return epoll_ctl(fd,EPOLL_CTL_ADD,event.fd,&eevent)!=-1;
+    return epoll_ctl(epfd,EPOLL_CTL_DEL,fd,&eevent)!=-1;
+}
+
+bool Etbase::Epoll::setNonBlock(int fd) {
+    int flags=fcntl(fd,F_GETFL,0);
+    if(flags!=-1){
+        flags |= O_NONBLOCK;
+        if(fcntl(fd,F_SETFL,flags)!=-1) return true;
+    }
+    return false;
+}
+
+bool Etbase::Epoll::resetOneShot(int fd) {
+    epoll_event event;
+    event.data.fd=fd;
+    event.events=EPOLLIN|EPOLLET|EPOLLONESHOT;
+    return epoll_ctl(epfd,EPOLL_CTL_MOD,fd,&event)==0;
 }
 
 

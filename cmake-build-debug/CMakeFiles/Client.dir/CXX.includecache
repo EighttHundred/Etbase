@@ -25,6 +25,10 @@ Sockaddr.h
 /home/eight/Code/Etbase/test/client.cpp
 iostream
 -
+cstring
+-
+unistd.h
+-
 ../Socket.h
 /home/eight/Code/Etbase/Socket.h
 

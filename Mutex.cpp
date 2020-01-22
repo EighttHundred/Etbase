@@ -3,7 +3,6 @@
 //
 
 #include "Mutex.h"
-
 Etbase::Mutex::Mutex():
     mutex(PTHREAD_MUTEX_INITIALIZER),holder(0){
 }
@@ -34,7 +33,11 @@ void Etbase::Mutex::unassign() {
     holder=0;
 }
 
-Etbase::Guard::Guard(const Etbase::Mutex &mutex_):
+pthread_mutex_t* Etbase::Mutex::get() {
+    return &mutex;
+}
+
+Etbase::Guard::Guard( Etbase::Mutex &mutex_):
     mutex(mutex_){
     mutex.lock();
 }
@@ -42,3 +45,20 @@ Etbase::Guard::Guard(const Etbase::Mutex &mutex_):
 Etbase::Guard::~Guard() {
     mutex.unlock();
 }
+
+Etbase::Condition::Condition(Etbase::Mutex &mutex_):
+    mutex(mutex_),cond(PTHREAD_COND_INITIALIZER){
+}
+
+Etbase::Condition::~Condition() {
+    pthread_cond_destroy(&cond);
+}
+
+bool Etbase::Condition::wait() {
+    return pthread_cond_wait(&cond,mutex.get())==0;
+}
+
+bool Etbase::Condition::signal() {
+    return pthread_cond_signal(&cond)==0;
+}
+

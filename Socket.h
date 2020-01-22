@@ -18,15 +18,14 @@ namespace Etbase{
         const int fd;
     public:
         Socket();
-        Socket(int fd_);
-        ~Socket();
+        explicit Socket(int fd_);
         Socket accept(Sockaddr& sock);
         bool bind(Sockaddr& sock);
         bool listen(int num=1024);
         bool connect(const Sockaddr& sock);
         bool write(const char* data);
         int read(char* buff,int size);
-        bool setNonBlock();
+        bool close();
     };
 
 }

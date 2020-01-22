@@ -30,3 +30,8 @@ Etbase::Event Etbase::EventMap::get(int fd) {
     if(iter!=evmap.end()) return iter->second;
     else return Event();
 }
+
+size_t Etbase::EventMap::size() {
+    Guard guard(mutex);
+    return evmap.size();
+}

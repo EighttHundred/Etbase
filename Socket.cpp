@@ -7,7 +7,6 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <cstring>
-#include <fcntl.h>
 #include <netdb.h>
 #include <iostream>
 
@@ -23,8 +22,8 @@ Etbase::Socket Etbase::Socket::accept(Etbase::Sockaddr &sock) {
     auto addr = new sockaddr;
     int fd_=::accept(fd,addr, &sock.len);
     if(fd_!=-1) sock=Sockaddr(*addr);
-    else std::cout<<strerror(errno)<<std::endl;
-    return fd_;
+    else delete addr;
+    return Socket(fd_);
 }
 
 bool Etbase::Socket::listen(int num) {
@@ -59,10 +58,6 @@ bool Etbase::Socket::connect(const Sockaddr& sock) {
     return ::connect(fd,sock.addr.get(),sock.len)==0;
 }
 
-Etbase::Socket::~Socket() {
-    close(fd);
-}
-
 bool Etbase::Socket::write(const char *data) {
     ssize_t left=strlen(data),len;
     auto now=data;
@@ -82,14 +77,10 @@ int Etbase::Socket::read(char *buff,int size) {
     return ::read(fd,buff, size);
 }
 
-bool Etbase::Socket::setNonBlock() {
-    int flags=fcntl(fd,F_GETFL,0);
-    if(flags!=-1){
-        flags |= O_NONBLOCK;
-        if(fcntl(fd,F_SETFL,flags)!=-1) return true;
-    }
-    return false;
+bool Etbase::Socket::close() {
+    return ::close(fd)==0;
 }
+
 
 
 

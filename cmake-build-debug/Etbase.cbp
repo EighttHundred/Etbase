@@ -209,9 +209,6 @@
 		<Unit filename="/home/eight/Code/Etbase/Acceptor.h">
 			<Option target="Etbase"/>
 		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/Dispatcher.h">
-			<Option target="Etbase"/>
-		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/Epoll.cpp">
 			<Option target="Etbase"/>
 		</Unit>
@@ -239,12 +236,6 @@
 		<Unit filename="/home/eight/Code/Etbase/EventQueue.h">
 			<Option target="Etbase"/>
 		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/MultithreadDispatcher.cpp">
-			<Option target="Etbase"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/MultithreadDispatcher.h">
-			<Option target="Etbase"/>
-		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/Mutex.cpp">
 			<Option target="Etbase"/>
 		</Unit>
@@ -267,12 +258,6 @@
 			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/Socket.h">
-			<Option target="Etbase"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/Thread.cpp">
-			<Option target="Etbase"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/Thread.h">
 			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/ThreadPool.cpp">
@@ -299,10 +284,13 @@
 		<Unit filename="/home/eight/Code/Etbase/test/test.cpp">
 			<Option target="Test"/>
 		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/useless/Threadpool.cpp">
+		<Unit filename="/home/eight/Code/Etbase/useless/Dispatcher.h">
 			<Option target="Etbase"/>
 		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/useless/Threadpool.h">
+		<Unit filename="/home/eight/Code/Etbase/useless/MultithreadDispatcher.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/useless/MultithreadDispatcher.h">
 			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/CMakeLists.txt">

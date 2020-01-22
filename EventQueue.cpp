@@ -4,20 +4,6 @@
 
 #include "EventQueue.h"
 
-bool Etbase::EventQueue::pop() {
-    Guard guard(mutex);
-    if(!evqueue.empty()){
-        evqueue.pop();
-        return true;
-    }else return false;
-}
-
-Etbase::Event Etbase::EventQueue::top() {
-    Guard guard(mutex);
-    if(!evqueue.empty()) return evqueue.top();
-    else return Event();
-}
-
 size_t Etbase::EventQueue::size() {
     Guard guard(mutex);
     return evqueue.size();
@@ -26,4 +12,17 @@ size_t Etbase::EventQueue::size() {
 void Etbase::EventQueue::push(const Etbase::Event &event) {
     Guard guard(mutex);
     evqueue.push(event);
+    if(empty){
+        empty=false;
+        cond.signal();
+    }
+}
+
+Etbase::Event Etbase::EventQueue::get() {
+    Guard guard(mutex);
+    while(empty) cond.wait();
+    Event event=evqueue.top();
+    evqueue.pop();
+    if(evqueue.empty()) empty=true;
+    return event;
 }

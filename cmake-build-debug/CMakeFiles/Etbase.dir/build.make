@@ -174,48 +174,22 @@ CMakeFiles/Etbase.dir/EventQueue.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/EventQueue.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/EventQueue.cpp -o CMakeFiles/Etbase.dir/EventQueue.cpp.s
 
-CMakeFiles/Etbase.dir/Thread.cpp.o: CMakeFiles/Etbase.dir/flags.make
-CMakeFiles/Etbase.dir/Thread.cpp.o: ../Thread.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Etbase.dir/Thread.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/Thread.cpp.o -c /home/eight/Code/Etbase/Thread.cpp
+CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o: CMakeFiles/Etbase.dir/flags.make
+CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o: ../useless/MultithreadDispatcher.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o -c /home/eight/Code/Etbase/useless/MultithreadDispatcher.cpp
 
-CMakeFiles/Etbase.dir/Thread.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/Thread.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/Thread.cpp > CMakeFiles/Etbase.dir/Thread.cpp.i
+CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/useless/MultithreadDispatcher.cpp > CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.i
 
-CMakeFiles/Etbase.dir/Thread.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/Thread.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/Thread.cpp -o CMakeFiles/Etbase.dir/Thread.cpp.s
-
-CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o: CMakeFiles/Etbase.dir/flags.make
-CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o: ../MultithreadDispatcher.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o -c /home/eight/Code/Etbase/MultithreadDispatcher.cpp
-
-CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/MultithreadDispatcher.cpp > CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.i
-
-CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/MultithreadDispatcher.cpp -o CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.s
-
-CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o: CMakeFiles/Etbase.dir/flags.make
-CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o: ../useless/Threadpool.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o -c /home/eight/Code/Etbase/useless/Threadpool.cpp
-
-CMakeFiles/Etbase.dir/useless/Threadpool.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/useless/Threadpool.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/useless/Threadpool.cpp > CMakeFiles/Etbase.dir/useless/Threadpool.cpp.i
-
-CMakeFiles/Etbase.dir/useless/Threadpool.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/useless/Threadpool.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/useless/Threadpool.cpp -o CMakeFiles/Etbase.dir/useless/Threadpool.cpp.s
+CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/useless/MultithreadDispatcher.cpp -o CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.s
 
 CMakeFiles/Etbase.dir/ThreadPool.cpp.o: CMakeFiles/Etbase.dir/flags.make
 CMakeFiles/Etbase.dir/ThreadPool.cpp.o: ../ThreadPool.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/Etbase.dir/ThreadPool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Etbase.dir/ThreadPool.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/ThreadPool.cpp.o -c /home/eight/Code/Etbase/ThreadPool.cpp
 
 CMakeFiles/Etbase.dir/ThreadPool.cpp.i: cmake_force
@@ -237,9 +211,7 @@ Etbase_OBJECTS = \
 "CMakeFiles/Etbase.dir/EventMap.cpp.o" \
 "CMakeFiles/Etbase.dir/Event.cpp.o" \
 "CMakeFiles/Etbase.dir/EventQueue.cpp.o" \
-"CMakeFiles/Etbase.dir/Thread.cpp.o" \
-"CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o" \
-"CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o" \
+"CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o" \
 "CMakeFiles/Etbase.dir/ThreadPool.cpp.o"
 
 # External object files for target Etbase
@@ -254,13 +226,11 @@ libEtbase.a: CMakeFiles/Etbase.dir/Mutex.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/EventMap.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/Event.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/EventQueue.cpp.o
-libEtbase.a: CMakeFiles/Etbase.dir/Thread.cpp.o
-libEtbase.a: CMakeFiles/Etbase.dir/MultithreadDispatcher.cpp.o
-libEtbase.a: CMakeFiles/Etbase.dir/useless/Threadpool.cpp.o
+libEtbase.a: CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/ThreadPool.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/build.make
 libEtbase.a: CMakeFiles/Etbase.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX static library libEtbase.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX static library libEtbase.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/Etbase.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Etbase.dir/link.txt --verbose=$(VERBOSE)
 

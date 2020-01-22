@@ -10,12 +10,13 @@
 #include "Mutex.h"
 namespace Etbase{
     class EventQueue {
+        bool empty=true;
         std::priority_queue<Event> evqueue;
         Mutex mutex;
+        Condition cond=Condition(mutex);
     public:
         void push(const Event& event);
-        Event top();
-        bool pop();
+        Event get();
         size_t size();
     };
 }
