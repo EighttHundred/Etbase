@@ -6,21 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/eight/Code/Etbase/Sockaddr.h
-bits/socket.h
+/home/eight/Code/Etbase/Socket.h
+sys/socket.h
 -
 netinet/in.h
 -
 memory
 -
-
-/home/eight/Code/Etbase/Socket.h
-sys/socket.h
--
-Socket.h
-/home/eight/Code/Etbase/Socket.h
-Sockaddr.h
-/home/eight/Code/Etbase/Sockaddr.h
 
 /home/eight/Code/Etbase/test/client.cpp
 iostream

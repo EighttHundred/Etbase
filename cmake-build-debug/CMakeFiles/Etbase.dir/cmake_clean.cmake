@@ -5,11 +5,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/Etbase.dir/EventQueue.cpp.o"
   "CMakeFiles/Etbase.dir/Mutex.cpp.o"
   "CMakeFiles/Etbase.dir/Reactor.cpp.o"
-  "CMakeFiles/Etbase.dir/Sockaddr.cpp.o"
   "CMakeFiles/Etbase.dir/Socket.cpp.o"
+  "CMakeFiles/Etbase.dir/String.cpp.o"
   "CMakeFiles/Etbase.dir/ThreadPool.cpp.o"
   "CMakeFiles/Etbase.dir/Util.cpp.o"
-  "CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o"
   "libEtbase.a"
   "libEtbase.pdb"
 )

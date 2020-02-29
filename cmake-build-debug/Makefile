@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/eight/clion-2019.3.2/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /home/eight/Downloads/clion-2019.3.4/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /home/eight/clion-2019.3.2/bin/cmake/linux/bin/cmake -E remove -f
+RM = /home/eight/Downloads/clion-2019.3.4/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/eight/Code/Etbase/cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/eight/clion-2019.3.2/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/home/eight/Downloads/clion-2019.3.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -70,7 +70,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/eight/clion-2019.3.2/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/eight/Downloads/clion-2019.3.4/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -324,33 +324,6 @@ Reactor.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Reactor.cpp.s
 .PHONY : Reactor.cpp.s
 
-Sockaddr.o: Sockaddr.cpp.o
-
-.PHONY : Sockaddr.o
-
-# target to build an object file
-Sockaddr.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Sockaddr.cpp.o
-.PHONY : Sockaddr.cpp.o
-
-Sockaddr.i: Sockaddr.cpp.i
-
-.PHONY : Sockaddr.i
-
-# target to preprocess a source file
-Sockaddr.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Sockaddr.cpp.i
-.PHONY : Sockaddr.cpp.i
-
-Sockaddr.s: Sockaddr.cpp.s
-
-.PHONY : Sockaddr.s
-
-# target to generate assembly for a file
-Sockaddr.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Sockaddr.cpp.s
-.PHONY : Sockaddr.cpp.s
-
 Socket.o: Socket.cpp.o
 
 .PHONY : Socket.o
@@ -377,6 +350,33 @@ Socket.s: Socket.cpp.s
 Socket.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/Socket.cpp.s
 .PHONY : Socket.cpp.s
+
+String.o: String.cpp.o
+
+.PHONY : String.o
+
+# target to build an object file
+String.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/String.cpp.o
+.PHONY : String.cpp.o
+
+String.i: String.cpp.i
+
+.PHONY : String.i
+
+# target to preprocess a source file
+String.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/String.cpp.i
+.PHONY : String.cpp.i
+
+String.s: String.cpp.s
+
+.PHONY : String.s
+
+# target to generate assembly for a file
+String.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/String.cpp.s
+.PHONY : String.cpp.s
 
 ThreadPool.o: ThreadPool.cpp.o
 
@@ -513,33 +513,6 @@ test/test.cpp.s:
 	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/test/test.cpp.s
 .PHONY : test/test.cpp.s
 
-useless/MultithreadDispatcher.o: useless/MultithreadDispatcher.cpp.o
-
-.PHONY : useless/MultithreadDispatcher.o
-
-# target to build an object file
-useless/MultithreadDispatcher.cpp.o:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.o
-.PHONY : useless/MultithreadDispatcher.cpp.o
-
-useless/MultithreadDispatcher.i: useless/MultithreadDispatcher.cpp.i
-
-.PHONY : useless/MultithreadDispatcher.i
-
-# target to preprocess a source file
-useless/MultithreadDispatcher.cpp.i:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.i
-.PHONY : useless/MultithreadDispatcher.cpp.i
-
-useless/MultithreadDispatcher.s: useless/MultithreadDispatcher.cpp.s
-
-.PHONY : useless/MultithreadDispatcher.s
-
-# target to generate assembly for a file
-useless/MultithreadDispatcher.cpp.s:
-	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/useless/MultithreadDispatcher.cpp.s
-.PHONY : useless/MultithreadDispatcher.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -570,12 +543,12 @@ help:
 	@echo "... Reactor.o"
 	@echo "... Reactor.i"
 	@echo "... Reactor.s"
-	@echo "... Sockaddr.o"
-	@echo "... Sockaddr.i"
-	@echo "... Sockaddr.s"
 	@echo "... Socket.o"
 	@echo "... Socket.i"
 	@echo "... Socket.s"
+	@echo "... String.o"
+	@echo "... String.i"
+	@echo "... String.s"
 	@echo "... ThreadPool.o"
 	@echo "... ThreadPool.i"
 	@echo "... ThreadPool.s"
@@ -591,9 +564,6 @@ help:
 	@echo "... test/test.o"
 	@echo "... test/test.i"
 	@echo "... test/test.s"
-	@echo "... useless/MultithreadDispatcher.o"
-	@echo "... useless/MultithreadDispatcher.i"
-	@echo "... useless/MultithreadDispatcher.s"
 .PHONY : help
 
 

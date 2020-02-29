@@ -6,12 +6,15 @@
 #define ETBASE_EVENT_H
 
 #include "Types.h"
+#include "Socket.h"
+
 namespace Etbase{
 
     class Event {
-        typedef std::function<void(int)> Handler;
+        typedef std::function<void(Socket)> Handler;
     public:
         int fd=-1;
+        Socket sock;
         FdType type=CLIENT;
         Priority priority=NORMAL;
         Handler handler;

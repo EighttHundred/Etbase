@@ -248,16 +248,16 @@
 		<Unit filename="/home/eight/Code/Etbase/Reactor.h">
 			<Option target="Etbase"/>
 		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/Sockaddr.cpp">
-			<Option target="Etbase"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/Sockaddr.h">
-			<Option target="Etbase"/>
-		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/Socket.cpp">
 			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/Socket.h">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/String.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/String.h">
 			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/ThreadPool.cpp">
@@ -283,15 +283,6 @@
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/test/test.cpp">
 			<Option target="Test"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/useless/Dispatcher.h">
-			<Option target="Etbase"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/useless/MultithreadDispatcher.cpp">
-			<Option target="Etbase"/>
-		</Unit>
-		<Unit filename="/home/eight/Code/Etbase/useless/MultithreadDispatcher.h">
-			<Option target="Etbase"/>
 		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

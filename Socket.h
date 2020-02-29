@@ -6,24 +6,28 @@
 #define ETBASE_SOCKET_H
 
 #include <sys/socket.h>
-#include "Socket.h"
-#include "Sockaddr.h"
+#include <netinet/in.h>
+#include <memory>
 
 namespace Etbase{
     class Socket {
-    public:
-        const int domain=AF_INET;
-        const int type=SOCK_STREAM;
-        const int protocal=0;
-        const int fd;
+        int domain=AF_INET;
+        int type=SOCK_STREAM;
+        int protocal=0;
+        int fd;
+        const char* ip;
+        const char* port;
+        sockaddr_in addr{};
+        int socklen=sizeof(sockaddr_in);
     public:
         Socket();
-        explicit Socket(int fd_);
-        Socket accept(Sockaddr& sock);
-        bool bind(Sockaddr& sock);
+        explicit Socket(int fd_,sockaddr_in& addr_);
+        int getFd();
+        Socket accept();
+        bool bind(const char* port_);
         bool listen(int num=1024);
-        bool connect(const Sockaddr& sock);
-        bool write(const char* data);
+        bool connect(const char* ip_,const char* port_);
+        bool write(const char* data,size_t len);
         int read(char* buff,int size);
         bool close();
     };
