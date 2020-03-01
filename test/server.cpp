@@ -9,13 +9,13 @@
 using namespace Etbase;
 
 int listenfd;
-char buff[100];
 using std::cout;
 using std::endl;
 
 static void processRead(Socket conn){
-    std::cout<<"read data:"<<conn.getBuffAddr()<<std::endl;
-    conn.write(conn.getBuffAddr(),conn.getRpos());
+    String& buff=TcpServer::getBuff(conn.getFd());
+    std::cout<<"read data:"<<buff<<std::endl;
+    conn.write(buff,buff.size());
 }
 int main(){
     Reactor reactor;

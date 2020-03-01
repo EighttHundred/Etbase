@@ -5,28 +5,24 @@
 #include <cstring>
 #include <unistd.h>
 #include "../Socket.h"
-
+//#include <string>
 using namespace Etbase;
 using std::cout;
 using std::endl;
+using std::cin;
 int main(){
     Socket cliSock;
-//    std::cout<<"fd: "<<cliSock.fd<<std::endl;
     if(!cliSock.connect("127.0.0.1","11111")) return 123;
     cout<<"connect success"<<endl;
-    char data[50];
-    char* buff=cliSock.getBuffAddr();
-    while(std::cin>>data){
-        int len=strlen(data);
-        std::cout<<cliSock.write(data,len)<<std::endl;
-        cliSock.read();
-//        std::cout<<buff<<std::endl;
-        int rlen=cliSock.getRpos();
-        std::cout<<"echo:\n";
-        for(int i=0;i<rlen;++i){
-            putchar(buff[i]);
-        }
-        putchar('\n');
+    String data;
+    String buff;
+    while(cin>>data){
+        cliSock.write(data,data.size());
+        cliSock.read(buff);
+        std::cout<<buff<<std::endl;
+//        std::cout<<"echo:\n";
+//        cout<<buff.begin();
+//        putchar('\n');
     }
     cliSock.close();
 }

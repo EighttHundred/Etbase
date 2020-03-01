@@ -9,6 +9,7 @@
 #include <netinet/in.h>
 #include <memory>
 #include "Types.h"
+#include "String.h"
 
 namespace Etbase{
     class Socket {
@@ -16,10 +17,6 @@ namespace Etbase{
         int type=SOCK_STREAM;
         int protocal=0;
         int fd;
-        char buff[2005];
-        int wpos=0;
-        int rpos=0;
-        int buffsize=2000;
         const char* ip;
         const char* port;
         sockaddr_in addr{};
@@ -33,14 +30,12 @@ namespace Etbase{
         bool bind(const char* port_);
         bool listen(int num=1024);
         bool connect(const char* ip_,const char* port_);
-        int write(const char* data,size_t len);
-        int read();
+        int write(const String& data,long len);
+        int read(String& data);
         bool close();
         EventType getConnType();
         void setConnType(EventType eventType);
-        char* getBuffAddr();
-        int getRpos();
-        int getWpos();
+
     };
 
 }

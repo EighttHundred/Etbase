@@ -6,12 +6,14 @@
 #define ETBASE_TCPSERVER_H
 
 #include <memory>
+#include <map>
 #include "Socket.h"
 #include "Reactor.h"
 namespace Etbase{
     class TcpServer {
     private:
         Socket listenSock;
+        static std::map<int,String> buffMap;
         static Reactor* reactorPtr;
         static Handler connHandler;
         static Handler readHandler;
@@ -25,6 +27,7 @@ namespace Etbase{
         static void setWrite(Handler handler);
         explicit TcpServer(const char* port);
         void assign(Reactor& reactor);
+        static String& getBuff(int fd);
     };
 
 }

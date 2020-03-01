@@ -6,6 +6,7 @@
 #include <utility>
 #include "TcpServer.h"
 
+std::map<int,Etbase::String> Etbase::TcpServer::buffMap;
 Etbase::Reactor* Etbase::TcpServer::reactorPtr= nullptr;
 Etbase::Handler Etbase::TcpServer::connHandler= nullptr;
 Etbase::Handler Etbase::TcpServer::readHandler= nullptr;
@@ -36,7 +37,8 @@ void Etbase::TcpServer::handleConn(Etbase::Socket listenSock) {
 }
 
 void Etbase::TcpServer::handleRead(Etbase::Socket conn) {
-    int ret=conn.read();
+    String& buff=getBuff(conn.getFd());
+    int ret=conn.read(buff);
     if(ret==0){
         std::cout<<"conn "<<conn.getFd()<<" closed\n";
         conn.close();
@@ -75,5 +77,9 @@ void Etbase::TcpServer::setConn(Etbase::Handler handler) {
 
 void Etbase::TcpServer::setWrite(Etbase::Handler handler) {
     writeHandler=std::move(handler);
+}
+
+Etbase::String &Etbase::TcpServer::getBuff(int fd) {
+    return buffMap[fd];
 }
 
