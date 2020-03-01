@@ -187,6 +187,19 @@ CMakeFiles/Etbase.dir/String.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/String.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/String.cpp -o CMakeFiles/Etbase.dir/String.cpp.s
 
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: CMakeFiles/Etbase.dir/flags.make
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../TcpServer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Etbase.dir/TcpServer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Etbase.dir/TcpServer.cpp.o -c /home/eight/Code/Etbase/TcpServer.cpp
+
+CMakeFiles/Etbase.dir/TcpServer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Etbase.dir/TcpServer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/eight/Code/Etbase/TcpServer.cpp > CMakeFiles/Etbase.dir/TcpServer.cpp.i
+
+CMakeFiles/Etbase.dir/TcpServer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Etbase.dir/TcpServer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/eight/Code/Etbase/TcpServer.cpp -o CMakeFiles/Etbase.dir/TcpServer.cpp.s
+
 # Object files for target Etbase
 Etbase_OBJECTS = \
 "CMakeFiles/Etbase.dir/Socket.cpp.o" \
@@ -198,7 +211,8 @@ Etbase_OBJECTS = \
 "CMakeFiles/Etbase.dir/Event.cpp.o" \
 "CMakeFiles/Etbase.dir/EventQueue.cpp.o" \
 "CMakeFiles/Etbase.dir/ThreadPool.cpp.o" \
-"CMakeFiles/Etbase.dir/String.cpp.o"
+"CMakeFiles/Etbase.dir/String.cpp.o" \
+"CMakeFiles/Etbase.dir/TcpServer.cpp.o"
 
 # External object files for target Etbase
 Etbase_EXTERNAL_OBJECTS =
@@ -213,9 +227,10 @@ libEtbase.a: CMakeFiles/Etbase.dir/Event.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/EventQueue.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/ThreadPool.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/String.cpp.o
+libEtbase.a: CMakeFiles/Etbase.dir/TcpServer.cpp.o
 libEtbase.a: CMakeFiles/Etbase.dir/build.make
 libEtbase.a: CMakeFiles/Etbase.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX static library libEtbase.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/eight/Code/Etbase/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX static library libEtbase.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/Etbase.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Etbase.dir/link.txt --verbose=$(VERBOSE)
 

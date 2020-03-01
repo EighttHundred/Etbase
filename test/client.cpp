@@ -15,14 +15,18 @@ int main(){
     if(!cliSock.connect("127.0.0.1","11111")) return 123;
     cout<<"connect success"<<endl;
     char data[50];
-    char buff[100];
+    char* buff=cliSock.getBuffAddr();
     while(std::cin>>data){
         int len=strlen(data);
-        memset(buff,0,sizeof(buff));
         std::cout<<cliSock.write(data,len)<<std::endl;
-        cliSock.read(buff,100);
-        std::cout<<buff<<std::endl;
-        memset(data,0,sizeof(data));
+        cliSock.read();
+//        std::cout<<buff<<std::endl;
+        int rlen=cliSock.getRpos();
+        std::cout<<"echo:\n";
+        for(int i=0;i<rlen;++i){
+            putchar(buff[i]);
+        }
+        putchar('\n');
     }
     cliSock.close();
 }

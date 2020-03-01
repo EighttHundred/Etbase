@@ -9,13 +9,12 @@
 #include "Socket.h"
 
 namespace Etbase{
-
+    typedef std::function<void(Socket)> Handler;
     class Event {
-        typedef std::function<void(Socket)> Handler;
     public:
         int fd=-1;
         Socket sock;
-        FdType type=CLIENT;
+        EventType eventType=IN;
         Priority priority=NORMAL;
         Handler handler;
         bool operator<(const Event& event)const;

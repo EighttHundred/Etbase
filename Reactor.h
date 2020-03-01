@@ -13,7 +13,6 @@
 namespace Etbase{
 
     class Reactor {
-    public:
         EventMap evmap;
         EventQueue evqueue;
         Epoll acceptor;
@@ -29,6 +28,8 @@ namespace Etbase{
         bool remove(int fd);
         void modify(const Event& event);
         void active(int fd);
+        void resetOneShot(int fd);
+        void useET(bool flag);
     };
 
 }

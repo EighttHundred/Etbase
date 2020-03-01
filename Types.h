@@ -16,6 +16,9 @@ namespace Etbase
     enum FdType{
         SERVER,CLIENT
     };
+    enum EventType{
+        IN,OUT
+    };
 }
 
 #endif //ETBASE_TYPES_H

@@ -24,7 +24,7 @@ namespace Etbase{
         bool remove(int fd_) override;
         bool resetOneShot(int fd);
         bool setNonBlock(int fd);
-
+        void useET(bool flag);
     };
 }
 #endif //ETBASE_EPOLL_H

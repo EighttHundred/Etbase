@@ -47,10 +47,24 @@ CMakeFiles/Etbase.dir/Reactor.cpp.o: ../Types.h
 
 CMakeFiles/Etbase.dir/Socket.cpp.o: ../Socket.cpp
 CMakeFiles/Etbase.dir/Socket.cpp.o: ../Socket.h
+CMakeFiles/Etbase.dir/Socket.cpp.o: ../Types.h
 CMakeFiles/Etbase.dir/Socket.cpp.o: ../Util.h
 
 CMakeFiles/Etbase.dir/String.cpp.o: ../String.cpp
 CMakeFiles/Etbase.dir/String.cpp.o: ../String.h
+
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Acceptor.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Epoll.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Event.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../EventMap.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../EventQueue.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Mutex.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Reactor.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Socket.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../TcpServer.cpp
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../TcpServer.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../ThreadPool.h
+CMakeFiles/Etbase.dir/TcpServer.cpp.o: ../Types.h
 
 CMakeFiles/Etbase.dir/ThreadPool.cpp.o: ../Event.h
 CMakeFiles/Etbase.dir/ThreadPool.cpp.o: ../EventQueue.h

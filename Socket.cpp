@@ -60,22 +60,20 @@ bool Etbase::Socket::bind(const char* port_) {
 }
 
 
-bool Etbase::Socket::write(const char *data,size_t len) {
-    size_t left=len,n,now=0;
-    while(left>0){
-        n=::write(fd,data+now,left);
-        if(n<=0){
-            if(errno==EINTR&&n<0) n=0;
-            else return false;
-        }
-        left-=n;
-        now+=n;
-    }
-    return true;
+int Etbase::Socket::write(const char *buff_,size_t len) {
+    int ret;
+    wpos=0;
+    while((ret=::write(fd,buff_+wpos,len-wpos))>0)
+        wpos+=ret;
+    return ret;
 }
 
-int Etbase::Socket::read(char *buff,int size) {
-    return ::read(fd,buff, size);
+int Etbase::Socket::read() {
+    int ret;
+    rpos=0;
+    while((ret=::read(fd,buff+rpos,buffsize-rpos))>0)
+        rpos+=ret;
+    return ret;
 }
 
 bool Etbase::Socket::close() {
@@ -95,6 +93,27 @@ bool Etbase::Socket::connect(const char *ip_, const char *port_) {
 int Etbase::Socket::getFd() {
     return fd;
 }
+
+Etbase::EventType Etbase::Socket::getConnType() {
+    return connType;
+}
+
+void Etbase::Socket::setConnType(Etbase::EventType eventType) {
+    connType=eventType;
+}
+
+char *Etbase::Socket::getBuffAddr() {
+    return buff;
+}
+
+int Etbase::Socket::getRpos() {
+    return rpos;
+}
+
+int Etbase::Socket::getWpos() {
+    return wpos;
+}
+
 
 
 

@@ -41,3 +41,11 @@ void Etbase::Reactor::loop(int times) {
         while(times--) run();
 }
 
+void Etbase::Reactor::resetOneShot(int fd) {
+    acceptor.resetOneShot(fd);
+}
+
+void Etbase::Reactor::useET(bool flag) {
+    acceptor.useET(flag);
+}
+

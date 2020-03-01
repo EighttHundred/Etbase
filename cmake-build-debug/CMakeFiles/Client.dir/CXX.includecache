@@ -13,6 +13,12 @@ netinet/in.h
 -
 memory
 -
+Types.h
+/home/eight/Code/Etbase/Types.h
+
+/home/eight/Code/Etbase/Types.h
+functional
+-
 
 /home/eight/Code/Etbase/test/client.cpp
 iostream

@@ -63,6 +63,16 @@ netinet/in.h
 -
 memory
 -
+Types.h
+/home/eight/Code/Etbase/Types.h
+
+/home/eight/Code/Etbase/TcpServer.h
+memory
+-
+Socket.h
+/home/eight/Code/Etbase/Socket.h
+Reactor.h
+/home/eight/Code/Etbase/Reactor.h
 
 /home/eight/Code/Etbase/ThreadPool.h
 EventQueue.h
@@ -79,6 +89,6 @@ cstring
 -
 ../Reactor.h
 /home/eight/Code/Etbase/Reactor.h
-../Socket.h
-/home/eight/Code/Etbase/Socket.h
+../TcpServer.h
+/home/eight/Code/Etbase/TcpServer.h
 

@@ -63,4 +63,8 @@ bool Etbase::Epoll::resetOneShot(int fd) {
     return epoll_ctl(epfd,EPOLL_CTL_MOD,fd,&event)==0;
 }
 
+void Etbase::Epoll::useET(bool flag) {
+    et=flag;
+}
+
 

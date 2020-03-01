@@ -378,6 +378,33 @@ String.cpp.s:
 	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/String.cpp.s
 .PHONY : String.cpp.s
 
+TcpServer.o: TcpServer.cpp.o
+
+.PHONY : TcpServer.o
+
+# target to build an object file
+TcpServer.cpp.o:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/TcpServer.cpp.o
+.PHONY : TcpServer.cpp.o
+
+TcpServer.i: TcpServer.cpp.i
+
+.PHONY : TcpServer.i
+
+# target to preprocess a source file
+TcpServer.cpp.i:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/TcpServer.cpp.i
+.PHONY : TcpServer.cpp.i
+
+TcpServer.s: TcpServer.cpp.s
+
+.PHONY : TcpServer.s
+
+# target to generate assembly for a file
+TcpServer.cpp.s:
+	$(MAKE) -f CMakeFiles/Etbase.dir/build.make CMakeFiles/Etbase.dir/TcpServer.cpp.s
+.PHONY : TcpServer.cpp.s
+
 ThreadPool.o: ThreadPool.cpp.o
 
 .PHONY : ThreadPool.o
@@ -549,6 +576,9 @@ help:
 	@echo "... String.o"
 	@echo "... String.i"
 	@echo "... String.s"
+	@echo "... TcpServer.o"
+	@echo "... TcpServer.i"
+	@echo "... TcpServer.s"
 	@echo "... ThreadPool.o"
 	@echo "... ThreadPool.i"
 	@echo "... ThreadPool.s"

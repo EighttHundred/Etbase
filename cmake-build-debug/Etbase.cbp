@@ -260,6 +260,12 @@
 		<Unit filename="/home/eight/Code/Etbase/String.h">
 			<Option target="Etbase"/>
 		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/TcpServer.cpp">
+			<Option target="Etbase"/>
+		</Unit>
+		<Unit filename="/home/eight/Code/Etbase/TcpServer.h">
+			<Option target="Etbase"/>
+		</Unit>
 		<Unit filename="/home/eight/Code/Etbase/ThreadPool.cpp">
 			<Option target="Etbase"/>
 		</Unit>
