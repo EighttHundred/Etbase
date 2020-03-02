@@ -29,6 +29,6 @@ Etbase::ThreadPool::~ThreadPool() {
 void Etbase::ThreadPool::run() {
     while(!stop){
         Event event=evqueue.get();
-        event.handler(event.sock);
+        event.doCallback();
     }
 }

@@ -9,15 +9,20 @@
 #include "Socket.h"
 
 namespace Etbase{
-    typedef std::function<void(Socket)> Handler;
+    typedef std::function<void(Socket&)> Handler;
+    typedef std::function<void()> Task;
     class Event {
     public:
         int fd=-1;
         Socket sock;
         EventType eventType=IN;
         Priority priority=NORMAL;
-        Handler handler;
+    private:
+        Task callback;
+    public:
         bool operator<(const Event& event)const;
+        void setCallback(Task task);
+        void doCallback();
     };
 }
 

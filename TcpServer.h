@@ -13,21 +13,21 @@ namespace Etbase{
     class TcpServer {
     private:
         Socket listenSock;
-        static std::map<int,String> buffMap;
-        static Reactor* reactorPtr;
-        static Handler connHandler;
-        static Handler readHandler;
-        static Handler writeHandler;
-        static void handleConn(Socket conn);
-        static void handleRead(Socket conn);
-        static void handleWrite(Socket conn);
+        std::map<int,String> buffMap;
+        Reactor* reactorPtr;
+        Handler connCallback=nullptr;
+        Handler readCallback=nullptr;
+        Handler writeCallback=nullptr;
+        void handleConn(Socket conn);
+        void handleRead(Socket conn);
+        void handleWrite(Socket conn);
     public:
-        static void setRead(Handler handler);
-        static void setConn(Handler handler);
-        static void setWrite(Handler handler);
+        void setReadCallback(Handler callback);
+        void setConnCallback(Handler callback);
+        void setWriteCallback(Handler callback);
         explicit TcpServer(const char* port);
         void assign(Reactor& reactor);
-        static String& getBuff(int fd);
+        String& getBuff(int fd);
     };
 
 }

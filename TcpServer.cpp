@@ -6,11 +6,6 @@
 #include <utility>
 #include "TcpServer.h"
 
-std::map<int,Etbase::String> Etbase::TcpServer::buffMap;
-Etbase::Reactor* Etbase::TcpServer::reactorPtr= nullptr;
-Etbase::Handler Etbase::TcpServer::connHandler= nullptr;
-Etbase::Handler Etbase::TcpServer::readHandler= nullptr;
-Etbase::Handler Etbase::TcpServer::writeHandler= nullptr;
 
 Etbase::TcpServer::TcpServer(const char *port){
     listenSock.bind(port);
@@ -30,10 +25,10 @@ void Etbase::TcpServer::handleConn(Etbase::Socket listenSock) {
     }
     event.sock=conn;
     event.fd=conn.getFd();
-    event.handler=handleRead;
+    event.setCallback(std::bind(&TcpServer::handleRead,this,event.sock));
     event.eventType=listenSock.getConnType();
     reactorPtr->regist(event);
-    if(connHandler!= nullptr) connHandler(conn);
+    if(connCallback!= nullptr) connCallback(conn);
 }
 
 void Etbase::TcpServer::handleRead(Etbase::Socket conn) {
@@ -51,11 +46,11 @@ void Etbase::TcpServer::handleRead(Etbase::Socket conn) {
             conn.close();
         }
     }
-    if(readHandler!= nullptr) readHandler(conn);
+    if(readCallback!= nullptr) readCallback(conn);
 }
 
 void Etbase::TcpServer::handleWrite(Etbase::Socket conn) {
-    if(writeHandler!= nullptr) writeHandler(conn);
+    if(writeCallback!= nullptr) writeCallback(conn);
 }
 
 void Etbase::TcpServer::assign(Etbase::Reactor& reactor) {
@@ -63,23 +58,24 @@ void Etbase::TcpServer::assign(Etbase::Reactor& reactor) {
     Event event;
     event.fd=listenSock.getFd();
     event.sock=listenSock;
-    event.handler=handleConn;
+    event.setCallback(std::bind(&TcpServer::handleConn,this,event.sock));
     reactorPtr->regist(event);
 }
 
-void Etbase::TcpServer::setRead(Etbase::Handler handler) {
-    readHandler=std::move(handler);
+void Etbase::TcpServer::setReadCallback(Etbase::Handler callback) {
+    readCallback=std::move(callback);
 }
 
-void Etbase::TcpServer::setConn(Etbase::Handler handler) {
-    connHandler=std::move(handler);
+void Etbase::TcpServer::setConnCallback(Etbase::Handler callback) {
+    connCallback=std::move(callback);
 }
 
-void Etbase::TcpServer::setWrite(Etbase::Handler handler) {
-    writeHandler=std::move(handler);
+void Etbase::TcpServer::setWriteCallback(Etbase::Handler callback) {
+    writeCallback=std::move(callback);
 }
 
 Etbase::String &Etbase::TcpServer::getBuff(int fd) {
     return buffMap[fd];
 }
+
 

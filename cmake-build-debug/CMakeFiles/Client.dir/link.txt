@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/Client.dir/test/client.cpp.o  -o Client libEtbase.a -lpthread 

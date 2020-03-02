@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/Test.dir/test/test.cpp.o  -o Test libEtbase.a -lpthread 
