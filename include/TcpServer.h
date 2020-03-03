@@ -12,9 +12,12 @@
 namespace Etbase{
     class TcpServer {
     private:
+        u_int32_t connType=EPOLLIN;
         Socket listenSock;
+        EventConf connConf;
         std::map<int,String> buffMap;
         Reactor* reactorPtr;
+        Epoll* epollPtr;
         Handler connCallback=nullptr;
         Handler readCallback=nullptr;
         Handler writeCallback=nullptr;
@@ -22,6 +25,7 @@ namespace Etbase{
         void handleRead(Socket conn);
         void handleWrite(Socket conn);
     public:
+        ~TcpServer();
         void setReadCallback(Handler callback);
         void setConnCallback(Handler callback);
         void setWriteCallback(Handler callback);

@@ -11,20 +11,19 @@
 namespace Etbase{
     class Epoll:public Acceptor{
         int epfd;
-        bool et=true;
         //infinite wait time
         int timeout=-1;
         const static int MAXEVENT=64;
         epoll_event events[MAXEVENT]{};
+        epoll_event eventParser(const Event& event);
+        epoll_event confParser(const EventConf& conf);
     public:
         Epoll( EventQueue& evqueue_, EventMap& evmap_);
         ~Epoll();
         void run() override;
         bool add(const Event& event) override;
-        bool remove(int fd_) override;
-        bool resetOneShot(int fd);
-        bool setNonBlock(int fd);
-        void useET(bool flag);
+        bool update(int fd,const EventConf& conf);
+        bool remove(int fd) override ;
     };
 }
 #endif //ETBASE_EPOLL_H

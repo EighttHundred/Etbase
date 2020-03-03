@@ -21,10 +21,9 @@ namespace Etbase{
         const char* port;
         sockaddr_in addr{};
         int socklen=sizeof(sockaddr_in);
-        EventType connType=IN;
     public:
         Socket();
-        explicit Socket(int fd_,sockaddr_in& addr_);
+        Socket(int fd_,sockaddr_in& addr_);
         int getFd();
         Socket accept();
         bool bind(const char* port_);
@@ -33,9 +32,7 @@ namespace Etbase{
         int write(const String& data,long len);
         int read(String& data);
         bool close();
-        EventType getConnType();
-        void setConnType(EventType eventType);
-
+        bool setNonBlock(bool val=true);
     };
 
 }

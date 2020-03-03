@@ -2,7 +2,7 @@
 // Created by eight on 1/15/20.
 //
 
-#include "Reactor.h"
+#include "../include/Reactor.h"
 
 Etbase::Reactor::Reactor():
     pool(8,evqueue),acceptor(evqueue,evmap) {
@@ -41,11 +41,8 @@ void Etbase::Reactor::loop(int times) {
         while(times--) run();
 }
 
-void Etbase::Reactor::resetOneShot(int fd) {
-    acceptor.resetOneShot(fd);
+Etbase::Epoll *Etbase::Reactor::getPoller() {
+    return &acceptor;
 }
 
-void Etbase::Reactor::useET(bool flag) {
-    acceptor.useET(flag);
-}
 

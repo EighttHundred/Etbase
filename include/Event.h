@@ -5,17 +5,26 @@
 #ifndef ETBASE_EVENT_H
 #define ETBASE_EVENT_H
 
+#include <sys/epoll.h>
 #include "Types.h"
 #include "Socket.h"
 
+//also involve epoll events
 namespace Etbase{
     typedef std::function<void(Socket&)> Handler;
     typedef std::function<void()> Task;
+
+    struct EventConf{
+        bool oneshot=false;
+        bool et=true;
+        u_int32_t eventType=EPOLLIN;
+    };
+
     class Event {
     public:
         int fd=-1;
         Socket sock;
-        EventType eventType=IN;
+        EventConf conf;
         Priority priority=NORMAL;
     private:
         Task callback;
@@ -24,6 +33,7 @@ namespace Etbase{
         void setCallback(Task task);
         void doCallback();
     };
+    typedef Event* eventPtr;
 }
 
 

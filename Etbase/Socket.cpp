@@ -7,9 +7,10 @@
 #include <netinet/in.h>
 #include <cstring>
 #include <netdb.h>
+#include <fcntl.h>
 #include <iostream>
-#include "Socket.h"
-#include "Util.h"
+#include "../include/Socket.h"
+#include "../include/Util.h"
 
 Etbase::Socket::Socket(){
     fd=socket(domain,type,protocal);
@@ -92,12 +93,11 @@ int Etbase::Socket::getFd() {
     return fd;
 }
 
-Etbase::EventType Etbase::Socket::getConnType() {
-    return connType;
-}
-
-void Etbase::Socket::setConnType(Etbase::EventType eventType) {
-    connType=eventType;
+bool Etbase::Socket::setNonBlock(bool val) {
+    int flags=fcntl(fd,F_GETFL,0);
+    if(val) flags|=O_NONBLOCK;
+    else if(flags&O_NONBLOCK) flags^=O_NONBLOCK;
+    return fcntl(fd,F_SETFL,flags)!=-1;
 }
 
 

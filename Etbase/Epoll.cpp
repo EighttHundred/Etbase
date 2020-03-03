@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include <iostream>
 #include <cassert>
-#include "Epoll.h"
-#include "Types.h"
+#include "../include/Epoll.h"
+#include "../include/Types.h"
 
 Etbase::Epoll::Epoll( Etbase::EventQueue &evqueue_, Etbase::EventMap& evmap_) :
     Acceptor(evqueue_,evmap_),epfd(epoll_create1(0)) {
@@ -30,15 +30,8 @@ void Etbase::Epoll::run() {
 }
 
 bool Etbase::Epoll::add(const Event& event) {
-    epoll_event epollEvent;
-    epollEvent.data.fd = event.fd;
-    epollEvent.events = EPOLLIN;
-    if(et){
-        epollEvent.events|=EPOLLET|EPOLLONESHOT;
-        assert(setNonBlock(event.fd));
-    }
-    //is reentrant?
-    return epoll_ctl(epfd,EPOLL_CTL_ADD,event.fd,&epollEvent)!=-1;
+    epoll_event epollEvent=eventParser(event);
+    return epoll_ctl(epfd,EPOLL_CTL_ADD,event.fd,&epollEvent)!=-1;    //is reentrant?
 }
 
 bool Etbase::Epoll::remove(int fd) {
@@ -47,24 +40,26 @@ bool Etbase::Epoll::remove(int fd) {
     return epoll_ctl(epfd,EPOLL_CTL_DEL,fd,&eevent)!=-1;
 }
 
-bool Etbase::Epoll::setNonBlock(int fd) {
-    int flags=fcntl(fd,F_GETFL,0);
-    if(flags!=-1){
-        flags |= O_NONBLOCK;
-        if(fcntl(fd,F_SETFL,flags)!=-1) return true;
+namespace Etbase{
+
+    epoll_event Epoll::eventParser(const Event& event) {
+        auto res=confParser(event.conf);
+        res.data.fd=event.fd;
+        return res;
     }
-    return false;
+
+    bool Epoll::update(int fd, const EventConf &conf) {
+        auto epollEvent=confParser(conf);
+        return epoll_ctl(epfd,EPOLL_CTL_MOD,fd,&epollEvent)!=-1;
+    }
+
+    epoll_event Epoll::confParser(const EventConf &conf) {
+        epoll_event res{};
+        res.events=conf.eventType;
+        if(conf.et) res.events|=EPOLLET;
+        if(conf.oneshot) res.events|=EPOLLONESHOT;
+        return res;
+    }
+
+
 }
-
-bool Etbase::Epoll::resetOneShot(int fd) {
-    epoll_event event;
-    event.data.fd=fd;
-    event.events=EPOLLIN|EPOLLET|EPOLLONESHOT;
-    return epoll_ctl(epfd,EPOLL_CTL_MOD,fd,&event)==0;
-}
-
-void Etbase::Epoll::useET(bool flag) {
-    et=flag;
-}
-
-

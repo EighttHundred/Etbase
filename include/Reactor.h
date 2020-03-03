@@ -28,8 +28,7 @@ namespace Etbase{
         bool remove(int fd);
         void modify(const Event& event);
         void active(int fd);
-        void resetOneShot(int fd);
-        void useET(bool flag);
+        Epoll* getPoller();
     };
 
 }

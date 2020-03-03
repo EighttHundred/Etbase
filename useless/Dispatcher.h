@@ -6,8 +6,8 @@
 #define ETBASE_DISPATCHER_H
 
 #include <memory>
-#include "../EventMap.h"
-#include "../EventQueue.h"
+#include "../include/EventMap.h"
+#include "../include/EventQueue.h"
 namespace Etbase{
 
     class Dispatcher {

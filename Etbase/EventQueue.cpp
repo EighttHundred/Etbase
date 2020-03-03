@@ -2,7 +2,7 @@
 // Created by eight on 1/17/20.
 //
 
-#include "EventQueue.h"
+#include "../include/EventQueue.h"
 
 size_t Etbase::EventQueue::size() {
     Guard guard(mutex);

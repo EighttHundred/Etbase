@@ -3,8 +3,8 @@
 //
 
 #include <string.h>
-#include "String.h"
-#include "Util.h"
+#include "../include/String.h"
+#include "../include/Util.h"
 char *Etbase::String::begin()const {
     return head;
 }

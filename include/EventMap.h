@@ -6,6 +6,7 @@
 #define ETBASE_EVENTMAP_H
 
 #include <map>
+#include <memory>
 #include "Mutex.h"
 #include "Event.h"
 namespace Etbase{
