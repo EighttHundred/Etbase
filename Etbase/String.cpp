@@ -3,6 +3,10 @@
 //
 
 #include <string.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <netinet/in.h>
 #include "../include/String.h"
 #include "../include/Util.h"
 char *Etbase::String::begin()const {
@@ -63,6 +67,7 @@ Etbase::String &Etbase::String::operator+=(const Etbase::String &data) {
 
 void Etbase::String::clear() {
     tail=head;
+    whead=head;
 }
 
 void Etbase::String::append(long len) {
@@ -97,14 +102,14 @@ namespace Etbase{
 
     String& String::operator=(const char *data) {
         init();
-        tail=head;
+        whead=tail=head;
         push_back(data,strlen(data));
         return *this;
     }
 
     String &String::operator=(const String &data) {
         init();
-        tail=head;
+        whead=tail=head;
         if(&data!=this)
             push_back(data.begin(),data.size());
         return *this;
@@ -113,9 +118,52 @@ namespace Etbase{
     void String::init() {
         if(head== nullptr){
             head=new char[100]();
-            tail=head;
+            whead=tail=head;
             bottom=head+100;
         }
+    }
+
+    char *String::writeBegin() const {
+        return whead;
+    }
+
+    long String::writeSize() const {
+        return tail-whead;
+    }
+
+    int String::read(int fd) {
+        int ret;
+        singleRead=0;
+        while((ret=::read(fd,tail,spare())>0)){
+            append(ret);
+            singleRead+=ret;
+        }
+        return ret;
+    }
+
+    int String::write(int fd) {
+        int ret;
+        singleWrite=0;
+        while((ret=::write(fd,whead,writeSize()))>0){
+            writeAppend(ret);
+            singleWrite+=ret;
+        }
+        return ret;
+    }
+
+    void String::writeAppend(long len) {
+        whead+=len;
+        if(whead==tail){
+            whead=tail=head;
+        }
+    }
+
+    int String::getReadSize() {
+        return singleRead;
+    }
+
+    int String::getWriteSize() {
+        return singleWrite;
     }
 
 }

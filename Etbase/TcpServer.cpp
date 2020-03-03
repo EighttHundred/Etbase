@@ -5,7 +5,7 @@
 #include <iostream>
 #include <utility>
 #include "../include/TcpServer.h"
-
+#include <unistd.h>
 
 Etbase::TcpServer::TcpServer(const char *port){
     connConf.oneshot=true;
@@ -47,7 +47,9 @@ void Etbase::TcpServer::handleRead(Etbase::Socket conn) {
             if(readCallback!= nullptr)
                 readCallback(conn);
             std::cout<<"read later\n";
+            connConf.eventType=EPOLLET|EPOLLONESHOT|EPOLLIN;
             epollPtr->update(conn.getFd(),connConf);
+            return;
         }else{
             std::cout<<"error..close\n";
             reactorPtr->remove(conn.getFd());
@@ -71,15 +73,15 @@ void Etbase::TcpServer::assign(Etbase::Reactor& reactor) {
 }
 
 void Etbase::TcpServer::setReadCallback(Etbase::Handler callback) {
-    readCallback=std::move(callback);
+    readCallback=callback;
 }
 
 void Etbase::TcpServer::setConnCallback(Etbase::Handler callback) {
-    connCallback=std::move(callback);
+    connCallback=callback;
 }
 
 void Etbase::TcpServer::setWriteCallback(Etbase::Handler callback) {
-    writeCallback=std::move(callback);
+    writeCallback=callback;
 }
 
 Etbase::String &Etbase::TcpServer::getBuff(int fd) {

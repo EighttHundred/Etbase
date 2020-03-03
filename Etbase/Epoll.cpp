@@ -30,7 +30,7 @@ void Etbase::Epoll::run() {
 }
 
 bool Etbase::Epoll::add(const Event& event) {
-    epoll_event epollEvent=eventParser(event);
+    epoll_event epollEvent=eventParser(event.fd,event.conf);
     return epoll_ctl(epfd,EPOLL_CTL_ADD,event.fd,&epollEvent)!=-1;    //is reentrant?
 }
 
@@ -42,19 +42,14 @@ bool Etbase::Epoll::remove(int fd) {
 
 namespace Etbase{
 
-    epoll_event Epoll::eventParser(const Event& event) {
-        auto res=confParser(event.conf);
-        res.data.fd=event.fd;
-        return res;
-    }
-
     bool Epoll::update(int fd, const EventConf &conf) {
-        auto epollEvent=confParser(conf);
+        auto epollEvent=eventParser(fd,conf);
         return epoll_ctl(epfd,EPOLL_CTL_MOD,fd,&epollEvent)!=-1;
     }
 
-    epoll_event Epoll::confParser(const EventConf &conf) {
+    epoll_event Epoll::eventParser(int fd, const EventConf &conf) {
         epoll_event res{};
+        res.data.fd=fd;
         res.events=conf.eventType;
         if(conf.et) res.events|=EPOLLET;
         if(conf.oneshot) res.events|=EPOLLONESHOT;

@@ -15,8 +15,7 @@ namespace Etbase{
         int timeout=-1;
         const static int MAXEVENT=64;
         epoll_event events[MAXEVENT]{};
-        epoll_event eventParser(const Event& event);
-        epoll_event confParser(const EventConf& conf);
+        epoll_event eventParser(int fd,const EventConf& conf);
     public:
         Epoll( EventQueue& evqueue_, EventMap& evmap_);
         ~Epoll();

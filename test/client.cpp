@@ -20,9 +20,9 @@ int main(){
         String buff;
         cliSock.setNonBlock();
         while(cin>>data){
-            cliSock.write(data,data.size());
-            cout<<"read: "<<cliSock.read(buff)<<endl;
-            std::cout<<buff<<std::endl;
+            cliSock.write(data);
+//            cout<<"read: "<<cliSock.read(buff)<<endl;
+//            std::cout<<buff<<std::endl;
 //        std::cout<<"echo:\n";
 //        cout<<buff.begin();
 //        putchar('\n');
