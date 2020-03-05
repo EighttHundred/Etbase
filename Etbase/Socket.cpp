@@ -66,16 +66,7 @@ int Etbase::Socket::write(String& data) {
 }
 
 int Etbase::Socket::read(String& data) {
-    int ret;
-    char s[220];
-//    singleRead=0;
-    while((ret=::read(fd,s,111)>0)){
-//        append(ret);
-//        singleRead+=ret;
-std::cout<<"ret:"<<ret<<std::endl;
-    }
-    return ret;
-//    return data.read(fd);
+    return data.read(fd);
 }
 
 bool Etbase::Socket::close() {

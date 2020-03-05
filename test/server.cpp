@@ -15,7 +15,11 @@ int main(){
     server.setReadCallback([&server](Socket conn){
         String& buff=server.getBuff(conn.getFd());
         std::cout<<"read data:"<<buff<<" "<<buff.size()<<std::endl;
-        cout<<"write "<<conn.write(buff)<<endl;
+        int ret=conn.write(buff);
+        if(ret<0){
+            server.
+        }
+        cout<<"write "<<buff.getWriteSize()<<endl;
     });
     server.assign(reactor);
     reactor.loop();

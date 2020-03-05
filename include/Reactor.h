@@ -22,12 +22,9 @@ namespace Etbase{
         Reactor();
         ~Reactor();
         void run();
-        //loop forever
-        void loop(int times=-1);
+        void loop(int times=-1); //-1:loop forever
         bool regist(const Event& event);
         bool remove(int fd);
-        void modify(const Event& event);
-        void active(int fd);
         Epoll* getPoller();
     };
 

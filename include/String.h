@@ -18,6 +18,7 @@ namespace Etbase{
         char* whead=nullptr;
         void reallocate(long size);
         void init();
+        long restToWrite() const;
     public:
         String();
         String(const char* data);
@@ -26,7 +27,6 @@ namespace Etbase{
         char* writeBegin() const;
         char* end()const;
         long size()const;
-        long writeSize() const;
         char operator[](int pos);
         void push_back(const char* data,long size);
         String&operator=(const String& data);

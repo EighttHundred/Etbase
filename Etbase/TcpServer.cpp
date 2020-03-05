@@ -6,16 +6,17 @@
 #include <utility>
 #include "../include/TcpServer.h"
 #include <unistd.h>
+using namespace Etbase;
 
-Etbase::TcpServer::TcpServer(const char *port){
+TcpServer::TcpServer(const char *port){
     connConf.oneshot=true;
     connConf.et=true;
-    connConf.eventType=EPOLLIN;
+    connConf.in=true;
     listenSock.bind(port);
     std::cout<<"listen:  "<<listenSock.listen()<<std::endl;
 }
 
-void Etbase::TcpServer::handleConn(Etbase::Socket listenSock_) {
+void TcpServer::handleConn(Socket listenSock_) {
     Event event;
     Socket conn=listenSock_.accept();
     if(conn.getFd()==-1){
@@ -35,7 +36,7 @@ void Etbase::TcpServer::handleConn(Etbase::Socket listenSock_) {
     if(connCallback!= nullptr) connCallback(conn);
 }
 
-void Etbase::TcpServer::handleRead(Etbase::Socket conn) {
+void TcpServer::handleRead(Socket conn) {
     String& buff=getBuff(conn.getFd());
     int ret=conn.read(buff);
     if(ret==0){
@@ -47,22 +48,22 @@ void Etbase::TcpServer::handleRead(Etbase::Socket conn) {
             if(readCallback!= nullptr)
                 readCallback(conn);
             std::cout<<"read later\n";
-            connConf.eventType=EPOLLET|EPOLLONESHOT|EPOLLIN;
-            epollPtr->update(conn.getFd(),connConf);
+            EventConf conf=connConf;
+            epollPtr->update(conn.getFd(),conf);
             return;
         }else{
-            std::cout<<"error..close\n";
+            std::cout<<"close ernno:"<<errno<<std::endl;
             reactorPtr->remove(conn.getFd());
             conn.close();
         }
     }
 }
 
-void Etbase::TcpServer::handleWrite(Etbase::Socket conn) {
+void TcpServer::handleWrite(Socket conn) {
     if(writeCallback!= nullptr) writeCallback(conn);
 }
 
-void Etbase::TcpServer::assign(Etbase::Reactor& reactor) {
+void TcpServer::assign(Reactor& reactor) {
     reactorPtr=&reactor;
     epollPtr=reactor.getPoller();
     Event event;
@@ -72,29 +73,26 @@ void Etbase::TcpServer::assign(Etbase::Reactor& reactor) {
     reactorPtr->regist(event);
 }
 
-void Etbase::TcpServer::setReadCallback(Etbase::Handler callback) {
+void TcpServer::setReadCallback(Handler callback) {
     readCallback=callback;
 }
 
-void Etbase::TcpServer::setConnCallback(Etbase::Handler callback) {
+void TcpServer::setConnCallback(Handler callback) {
     connCallback=callback;
 }
 
-void Etbase::TcpServer::setWriteCallback(Etbase::Handler callback) {
+void TcpServer::setWriteCallback(Handler callback) {
     writeCallback=callback;
 }
 
-Etbase::String &Etbase::TcpServer::getBuff(int fd) {
+String &TcpServer::getBuff(int fd) {
     return buffMap[fd];
 }
 
-Etbase::TcpServer::~TcpServer() {
+TcpServer::~TcpServer() {
+    reactorPtr->remove(listenSock.getFd());
     listenSock.close();
 }
 
-namespace Etbase{
-
-
-}
 
 

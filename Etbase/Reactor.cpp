@@ -3,46 +3,38 @@
 //
 
 #include "../include/Reactor.h"
+using namespace Etbase;
 
-Etbase::Reactor::Reactor():
+Reactor::Reactor():
     pool(8,evqueue),acceptor(evqueue,evmap) {
 }
 
-bool Etbase::Reactor::regist(const Etbase::Event &event) {
+bool Reactor::regist(const Event &event) {
     evmap.insert(event);
     return acceptor.add(event);
 }
 
-void Etbase::Reactor::modify(const Etbase::Event &event) {
-    evmap.modify(event);
-}
-
-bool Etbase::Reactor::remove(int fd) {
-    evmap.remove(fd);
-    return acceptor.remove(fd);
-}
-
-void Etbase::Reactor::run() {
+void Reactor::run() {
     acceptor.run();
 }
 
-Etbase::Reactor::~Reactor() {
+Reactor::~Reactor() {
     stop=true;
 }
 
-void Etbase::Reactor::active(int fd) {
-    evqueue.push(evmap.get(fd));
-}
-
-void Etbase::Reactor::loop(int times) {
+void Reactor::loop(int times) {
     if(times==-1)
         while(!stop) run();
     else
         while(times--) run();
 }
 
-Etbase::Epoll *Etbase::Reactor::getPoller() {
+Epoll *Reactor::getPoller() {
     return &acceptor;
+}
+
+bool Reactor::remove(int fd) {
+    return acceptor.remove(fd);
 }
 
 

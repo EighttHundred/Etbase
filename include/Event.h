@@ -17,7 +17,8 @@ namespace Etbase{
     struct EventConf{
         bool oneshot=false;
         bool et=true;
-        u_int32_t eventType=EPOLLIN;
+        bool in=true;
+        bool pri=false;
     };
 
     class Event {

@@ -24,7 +24,7 @@ void Etbase::Epoll::run() {
     }
     for (int i = 0; i < n; ++i){
         int connfd = events[i].data.fd;
-        Event event=evmap.get(connfd);
+        Event event=evmap.get(connfd,events[i].events&EPOLLIN);
         evqueue.push(event);
     }
 }
@@ -50,9 +50,11 @@ namespace Etbase{
     epoll_event Epoll::eventParser(int fd, const EventConf &conf) {
         epoll_event res{};
         res.data.fd=fd;
-        res.events=conf.eventType;
+        if(conf.in) res.events|=EPOLLIN;
+        else res.events|=EPOLLOUT;
         if(conf.et) res.events|=EPOLLET;
         if(conf.oneshot) res.events|=EPOLLONESHOT;
+        if(conf.pri) res.events|=EPOLLPRI;
         return res;
     }
 

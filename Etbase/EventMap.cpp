@@ -3,35 +3,31 @@
 //
 
 #include "../include/EventMap.h"
+using namespace Etbase;
 
 void Etbase::EventMap::insert(const Etbase::Event &event) {
     //lock whole map
     Guard guard(mutex);
-    evmap[event.fd]=event;
+    evmap[event.conf.et][event.fd]=event;
 }
 
 void Etbase::EventMap::modify(const Etbase::Event &event) {
     Guard guard(mutex);
-    evmap[event.fd]=event;
+    evmap[event.conf.in][event.fd]=event;
 }
 
-bool Etbase::EventMap::remove(int fd) {
+Event EventMap::get(int fd, bool flag) {
     Guard guard(mutex);
-    auto iter=evmap.find(fd);
-    if(iter!=evmap.end()){
-        evmap.erase(iter);
-        return true;
-    }else return false;
-}
-
-Etbase::Event Etbase::EventMap::get(int fd) {
-    Guard guard(mutex);
-    auto iter=evmap.find(fd);
-    if(iter!=evmap.end()) return iter->second;
+    auto iter=evmap[flag].find(fd);
+    if(iter!=evmap[flag].end()) return iter->second;
     else return Event();
 }
 
-size_t Etbase::EventMap::size() {
+bool EventMap::remove(int fd, bool flag) {
     Guard guard(mutex);
-    return evmap.size();
+    auto iter=evmap[flag].find(fd);
+    if(iter!=evmap[flag].end()){
+        evmap[flag].erase(iter);
+        return true;
+    }else return false;
 }

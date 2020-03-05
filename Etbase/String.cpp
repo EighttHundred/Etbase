@@ -9,33 +9,35 @@
 #include <netinet/in.h>
 #include "../include/String.h"
 #include "../include/Util.h"
-char *Etbase::String::begin()const {
+using namespace Etbase;
+
+char *String::begin()const {
     return head;
 }
 
-char *Etbase::String::end()const {
+char *String::end()const {
     return tail;
 }
 
-long Etbase::String::size() const{
+long String::size() const{
     return tail-head;
 }
 
-Etbase::String::String() {
+String::String() {
     init();
 }
 
-char Etbase::String::operator[](int pos) {
+char String::operator[](int pos) {
     return head[pos];
 }
 
-Etbase::String &Etbase::String::operator+=(const char *data) {
+String &String::operator+=(const char *data) {
     long size=strlen(data);
     push_back(data,size);
     return *this;
 }
 
-void Etbase::String::push_back(const char *data, long size) {
+void String::push_back(const char *data, long size) {
     if(bottom-tail<size) reallocate(tail-head+size);
     memcpy(tail,data,size);
     tail+=size;
@@ -46,7 +48,7 @@ T max(T A,T B){
     return A>B?A:B;
 }
 
-void Etbase::String::reallocate(long size) {
+void String::reallocate(long size) {
     auto oldhead=head;
     long newsize=max(size,(bottom-head)*2)+10;
     head=new char[newsize]();
@@ -56,30 +58,30 @@ void Etbase::String::reallocate(long size) {
     delete [] oldhead;
 }
 
-Etbase::String::~String() {
+String::~String() {
     delete []head;
 }
 
-Etbase::String &Etbase::String::operator+=(const Etbase::String &data) {
+String &String::operator+=(const String &data) {
     push_back(data.begin(),data.size());
     return *this;
 }
 
-void Etbase::String::clear() {
+void String::clear() {
     tail=head;
     whead=head;
 }
 
-void Etbase::String::append(long len) {
+void String::append(long len) {
     tail+=len;
     if(bottom<tail+10) reallocate(0);
 }
 
-long Etbase::String::spare() {
+long String::spare() {
     return bottom-tail;
 }
 
-Etbase::String::String(const char *data) {
+String::String(const char *data) {
     init();
     push_back(data,strlen(data));
 }
@@ -127,14 +129,14 @@ namespace Etbase{
         return whead;
     }
 
-    long String::writeSize() const {
+    long String::restToWrite() const {
         return tail-whead;
     }
 
     int String::read(int fd) {
         int ret;
         singleRead=0;
-        while((ret=::read(fd,tail,spare())>0)){
+        while((ret=::read(fd,tail,spare()))>0){
             append(ret);
             singleRead+=ret;
         }
@@ -144,7 +146,7 @@ namespace Etbase{
     int String::write(int fd) {
         int ret;
         singleWrite=0;
-        while((ret=::write(fd,whead,writeSize()))>0){
+        while((ret=::write(fd,whead,restToWrite()))>0){
             writeAppend(ret);
             singleWrite+=ret;
         }
