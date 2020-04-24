@@ -31,7 +31,7 @@ namespace Etbase{
         explicit TcpServer(const char* port);
         void assign(Reactor& reactor);
         String& getBuff(int fd);
-        void registWrite(
+//        void registWrite(
     };
 
 }

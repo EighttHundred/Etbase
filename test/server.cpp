@@ -16,9 +16,9 @@ int main(){
         String& buff=server.getBuff(conn.getFd());
         std::cout<<"read data:"<<buff<<" "<<buff.size()<<std::endl;
         int ret=conn.write(buff);
-        if(ret<0){
-            server.
-        }
+//        if(ret<0){
+//            server.
+//        }
         cout<<"write "<<buff.getWriteSize()<<endl;
     });
     server.assign(reactor);
