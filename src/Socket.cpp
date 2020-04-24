@@ -74,12 +74,13 @@ bool Etbase::Socket::close() {
 }
 
 bool Etbase::Socket::connect(const char *ip_, const char *port_) {
-    ip=ip_;
-    port=port_;
-    if(ip!=nullptr)
-        inet_pton(domain,ip_,&addr.sin_addr);
-    addr.sin_family=domain;
+    if(ip_== nullptr||port_== nullptr) return false;
+    auto ip_net=gethostbyname(ip_)->h_addr_list[0];
+    if(ip_net== nullptr) return false;
+    ip=inet_ntoa(*(struct in_addr*)ip_net);
+    if(inet_pton(domain,ip,&addr.sin_addr)<=0) return false;
     addr.sin_port=htons(strToInt(port_));
+    addr.sin_family=domain;
     return ::connect(fd,(sockaddr*)&addr,socklen)==0;
 }
 

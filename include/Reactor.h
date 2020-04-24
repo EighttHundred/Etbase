@@ -17,14 +17,21 @@ namespace Etbase{
         EventQueue evqueue;
         Epoll acceptor;
         ThreadPool pool;
-        bool stop= false;
+        bool stop= true;
+        Timer* timer= nullptr;
+        int userType; //0:none 1:sender 2:server 3:both
     public:
         Reactor();
         ~Reactor();
+        void start();
         void run();
-        void loop(int times=-1); //-1:loop forever
+        void loop(); //-1:loop forever
         bool regist(const Event& event);
         bool remove(int fd);
+        void setTimeout(int timeout);
+        void init(int timeout,int userType_);
+        void initTimer(Timer* timer_);
+        void setUserType(int type);
         Epoll* getPoller();
     };
 

@@ -7,12 +7,12 @@
 
 #include <sys/epoll.h>
 #include "Acceptor.h"
-
+#include "Timer.h"
 namespace Etbase{
     class Epoll:public Acceptor{
         int epfd;
-        //infinite wait time
-        int timeout=-1;
+        //-1:infinite wait time
+        int timeout=100;
         const static int MAXEVENT=64;
         epoll_event events[MAXEVENT]{};
         epoll_event eventParser(int fd,const EventConf& conf);
@@ -23,6 +23,7 @@ namespace Etbase{
         bool add(const Event& event) override;
         bool update(int fd,const EventConf& conf);
         bool remove(int fd) override ;
+        void setTimeout(int timeout_);
     };
 }
 #endif //ETBASE_EPOLL_H

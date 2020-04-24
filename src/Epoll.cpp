@@ -58,5 +58,7 @@ namespace Etbase{
         return res;
     }
 
-
+    void Epoll::setTimeout(int timeout_) {
+        timeout=timeout_;
+    }
 }

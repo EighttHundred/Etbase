@@ -94,5 +94,10 @@ TcpServer::~TcpServer() {
     listenSock.close();
 }
 
+void TcpServer::run(int times) {
+    reactorPtr->loop();
+}
+
+
 
 
