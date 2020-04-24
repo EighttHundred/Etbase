@@ -29,7 +29,7 @@ namespace Etbase{
         bool regist(const Event& event);
         bool remove(int fd);
         void setTimeout(int timeout);
-        void init(int timeout,int userType_);
+        void init(int timeout);
         void initTimer(Timer* timer_);
         void setUserType(int type);
         Epoll* getPoller();

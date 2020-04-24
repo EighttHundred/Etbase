@@ -25,7 +25,7 @@ Reactor::~Reactor() {
 void Reactor::loop() {
     if(timer){
         if(timer->check()){
-//            acceptor.add();
+            timer->runTask();
         }else if(timer->getTimes()==0&&(userType&2)==0){
             stop=true;
         }
@@ -49,9 +49,8 @@ void Reactor::initTimer(Timer *timer_) {
     timer=timer_;
 }
 
-void Reactor::init(int timeout, int userType_) {
+void Reactor::init(int timeout) {
     setTimeout(timeout);
-    setUserType(userType);
 }
 
 void Reactor::setUserType(int type) {

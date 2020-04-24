@@ -3,6 +3,7 @@
 //
 
 #include "../include/Timer.h"
+#include "../include/Event.h"
 #include <ctime>
 
 bool Etbase::Timer::check() {
@@ -35,5 +36,13 @@ void Etbase::Timer::setDelay(int delay_) {
 
 int Etbase::Timer::getTimes() {
     return times;
+}
+
+void Etbase::Timer::assign(Task task_) {
+    task=std::move(task_);
+}
+
+void Etbase::Timer::runTask() {
+    task();
 }
 

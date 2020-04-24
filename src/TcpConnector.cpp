@@ -38,8 +38,7 @@ void TcpConnector::handleRead(Socket conn) {
             if(readCallback!= nullptr)
                 readCallback(conn);
             std::cout<<"read later\n";
-            EventConf conf=connConf;
-            epollPtr->update(conn.getFd(),conf);
+            epollPtr->update(conn.getFd(),readConf);
             return;
         }else{
             std::cout<<"close ernno:"<<errno<<std::endl;
@@ -54,11 +53,11 @@ void TcpConnector::handleSend(Socket sendSock_) {
 }
 
 TcpConnector::~TcpConnector() {
-    if(isSender){
+    if(userType&1){
         reactorPtr->remove(sendSock.getFd());
         sendSock.close();
     }
-    if(isServer){
+    if(userType&2){
         reactorPtr->remove(listenSock.getFd());
         listenSock.close();
     }
@@ -85,10 +84,6 @@ void TcpConnector::run() {
 }
 
 void TcpConnector::initServer(const char *port) {
-    isServer=true;
-    connConf.oneshot=true;
-    connConf.et=true;
-    connConf.in=true;
     if(!listenSock.bind(port)){
         std::cout<<"listen failed"<<std::endl;
         return;
@@ -98,20 +93,12 @@ void TcpConnector::initServer(const char *port) {
     event.fd=listenSock.getFd();
     event.sock=listenSock;
     event.setCallback(std::bind(&TcpConnector::handleConn,this,event.sock));
+    userType|=2;
+    reactorPtr->setUserType(userType);
     reactorPtr->regist(event);
 }
 
-void TcpConnector::assign(Reactor &reactor) {
-    reactorPtr=&reactor;
-    epollPtr=reactor.getPoller();
-    int userType=0;
-    if(isSender) userType+1;
-    if(isServer) userType+2;
-    reactorPtr->init(100,userType);
-}
-
 void TcpConnector::initSender(const char *ip, const char *port, int times, int timeout,int delay) {
-    isSender=true;
     if(!sendSock.connect(ip,port)){
         std::cout<<"connect failed"<<std::endl;
         return;
@@ -126,7 +113,28 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
     event.sock=sendSock;
     event.conf=sendConf;
     event.setCallback(std::bind(&TcpConnector::handleRead,this,event.sock));
+    userType|=1;
+    reactorPtr->setUserType(userType);
     reactorPtr->regist(event);
+}
+
+TcpConnector::TcpConnector(Reactor &reactor) {
+    connConf.oneshot=true;
+    connConf.et=true;
+    connConf.in=true;
+    readConf.in=true;
+    readConf.oneshot=true;
+    readConf.et=true;
+    sendConf.in=false;
+    sendConf.et=true;
+    sendConf.oneshot=true;
+    reactorPtr=&reactor;
+    epollPtr=reactor.getPoller();
+    reactorPtr->init(100);
+}
+
+void TcpConnector::handleTimer(int fd) {
+    epollPtr->update(fd,sendConf);
 }
 
 

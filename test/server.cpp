@@ -11,7 +11,7 @@ using std::cout;
 using std::endl;
 int main(){
     Reactor reactor;
-    TcpConnector server;
+    TcpConnector server(reactor);
     server.initServer("11111");
     server.setReadCallback([&server](Socket conn){
         String& buff=server.getBuff(conn.getFd());
@@ -22,6 +22,5 @@ int main(){
 //        }
         cout<<"write "<<buff.getWriteSize()<<endl;
     });
-    server.assign(reactor);
     server.run();
 }

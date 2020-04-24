@@ -8,7 +8,7 @@ add_library(Etbase src/Socket.cpp include/Socket.h src/Util.cpp include/Util.h
         include/Types.h include/Epoll.h src/Mutex.cpp include/Mutex.h src/EventMap.cpp
         include/EventMap.h src/Event.cpp include/Event.h src/EventQueue.cpp include/EventQueue.h
         src/ThreadPool.cpp include/ThreadPool.h src/String.cpp include/String.h
-        src/TcpServer.cpp include/TcpServer.h src/TcpClient.cpp include/TcpClient.h src/HttpClient.cpp include/HttpClient.h src/Timer.cpp include/Timer.h src/TcpConnector.cpp include/TcpConnector.h)
+        src/HttpClient.cpp include/HttpClient.h src/Timer.cpp include/Timer.h src/TcpConnector.cpp include/TcpConnector.h)
 #link_libraries(Etbase)
 add_executable(Test test/test.cpp)
 add_executable(Client test/client.cpp)
