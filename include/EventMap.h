@@ -21,6 +21,15 @@ namespace Etbase{
         Event get(int fd,bool flag);
     };
 
+    class BufferMap{
+        std::map<int,String> buffMap;
+        Mutex mutex;
+    public:
+        void insert(int fd,const String& buffer);
+        String getBuffer(int fd);
+        bool removeBuffer(int fd);
+    };
+
 }
 
 #endif //ETBASE_EVENTMAP_H

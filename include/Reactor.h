@@ -12,15 +12,18 @@
 #include "Epoll.h"
 #include "ThreadPool.h"
 namespace Etbase{
+    struct ReactorConf{
+        bool canStop=true;
 
+    };
     class Reactor {
         EventMap evmap;
         EventQueue evqueue;
         Epoll acceptor;
         ThreadPool pool;
+        ReactorConf reactorConf;
         bool stop= true;
         std::vector<Timer> timerList;
-        int userType; //0:none 1:sender 2:server 3:both
         void addMap(const Event& event);
         bool addAcceptor(const Event& event);
     public:
@@ -33,9 +36,9 @@ namespace Etbase{
         bool addEvent(const Event& event);
         bool remove(int fd);
         void setTimeout(int timeout);
-        void init(int timeout);
         void addTimer(const Timer& timer);
-        void setUserType(int type);
+        ReactorConf getConf();
+        void setConf(const ReactorConf& conf);
         Epoll* getPoller();
     };
 

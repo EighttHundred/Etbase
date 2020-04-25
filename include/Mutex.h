@@ -37,6 +37,7 @@ namespace Etbase{
         ~Condition();
         bool wait();
         bool signal();
+        void broadcast();
     };
 }
 

@@ -6,7 +6,7 @@
 using namespace Etbase;
 
 Reactor::Reactor():
-    pool(8,evqueue),acceptor(evqueue,evmap) {
+    pool(evqueue),acceptor(evqueue,evmap) {
 }
 
 void Reactor::run() {
@@ -49,19 +49,13 @@ void Reactor::setTimeout(int timeout) {
     acceptor.setTimeout(timeout);
 }
 
-void Reactor::init(int timeout) {
-    setTimeout(timeout);
-}
-
-void Reactor::setUserType(int type) {
-    userType=type;
-}
 
 void Reactor::start() {
     stop=false;
     for(auto timer:timerList){
         timer.begin();
     }
+    pool.start();
     loop();
 }
 
@@ -79,10 +73,18 @@ void Reactor::addTimer(const Timer &timer) {
 }
 
 bool Reactor::checkActive() {
-    return !(timerList.empty() && (userType & 2) == 0);
+    return !(timerList.empty() && reactorConf.canStop);
 }
 
 bool Reactor::addEvent(const Event &event) {
     addMap(event);
     return addAcceptor(event);
+}
+
+ReactorConf Reactor::getConf() {
+    return reactorConf;
+}
+
+void Reactor::setConf(const ReactorConf &conf) {
+    reactorConf=conf;
 }

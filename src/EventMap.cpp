@@ -31,3 +31,20 @@ bool EventMap::remove(int fd, bool flag) {
         return true;
     }else return false;
 }
+
+void BufferMap::insert(int fd, const String& buffer) {
+    Guard guard(mutex);
+    buffMap[fd]=buffer;
+}
+
+String BufferMap::getBuffer(int fd) {
+    Guard guard(mutex);
+    return buffMap[fd];
+}
+
+bool BufferMap::removeBuffer(int fd) {
+    Guard guard(mutex);
+    buffMap.erase(fd);
+}
+
+

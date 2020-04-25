@@ -5,16 +5,6 @@
 #include "../include/ThreadPool.h"
 
 
-Etbase::ThreadPool::ThreadPool(int num_,  Etbase::EventQueue &evqueue_):
-    evqueue(evqueue_){
-    Guard guard(mutex);
-    num=num_;
-    threads=new pthread_t[num];
-    for(int i=0;i<num;++i){
-        pthread_create(threads+i,nullptr,worker,this);
-        pthread_detach(threads[i]);
-    }
-}
 
 void *Etbase::ThreadPool::worker(void *arg) {
     auto pool=(ThreadPool*)arg;
@@ -23,19 +13,48 @@ void *Etbase::ThreadPool::worker(void *arg) {
 }
 
 Etbase::ThreadPool::~ThreadPool() {
-    Guard guard(mutex);
-    delete[] threads;
-    stop=true;
+    stopPool();
+    if(threads){
+//        for(int i=0;i<threadNum;++i){
+//            pthread_join(threads[i], nullptr);
+//        }
+        delete[] threads;
+    }
 }
 
 void Etbase::ThreadPool::run() {
     while(true){
-        mutex.lock();
-        if(stop) break;
-        mutex.unlock();
+        if(checkStop()) break;
         Event event=evqueue.get();
         if(event.fd>0)
             event.doCallback();
     }
+//    pthread_exit(nullptr);
+}
+
+bool Etbase::ThreadPool::checkStop() {
+    Guard guard(mutex);
+    return stop;
+}
+
+void Etbase::ThreadPool::stopPool() {
+    Guard guard(mutex);
+    stop=true;
+}
+
+void Etbase::ThreadPool::setThreadNum(int num) {
+    threadNum=num;
+}
+
+void Etbase::ThreadPool::start() {
+    threads=new pthread_t[threadNum];
+    for(int i=0;i<threadNum;++i){
+        pthread_create(threads+i,nullptr,worker,this);
+        pthread_detach(threads[i]);
+    }
+}
+
+Etbase::ThreadPool::ThreadPool(Etbase::EventQueue &evqueue_)
+    :evqueue(evqueue_){
 }
 

@@ -10,15 +10,19 @@ namespace Etbase{
     class ThreadPool {
     public:
         //equals to number cpu cores
-        int num=3;
+        int threadNum=3;
         bool stop=false;
         pthread_t* threads;
         EventQueue& evqueue;
         Mutex mutex;
     public:
-        ThreadPool(int num_, EventQueue& evqueue_);
+        ThreadPool(EventQueue& evqueue_);
         ~ThreadPool();
+        void start();
+        void setThreadNum(int num);
     private:
+        bool checkStop();
+        void stopPool();
         static void* worker(void* arg);
         void run();
     };

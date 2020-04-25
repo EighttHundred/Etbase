@@ -7,7 +7,7 @@
 #include <ctime>
 
 bool Etbase::Timer::check() {
-    int curTime=clock();
+    int curTime=::clock();
     if(times==0||lastTime>curTime){
         return false;
     }else{
@@ -26,7 +26,7 @@ void Etbase::Timer::setTimeout(int timeout_) {
 }
 
 void Etbase::Timer::begin() {
-    lastTime=clock()+delay;
+    lastTime=(int)::clock()+delay;
 }
 
 void Etbase::Timer::setDelay(int delay_) {
@@ -38,12 +38,15 @@ int Etbase::Timer::getTimes() {
 }
 
 void Etbase::Timer::runTask() {
-    if(triggered==false) triggered=true;
     task();
 }
 
 bool Etbase::Timer::isTriggered() {
-    return triggered;
+    if(!triggered){
+        triggered=true;
+        return false;
+    }
+    return true;
 }
 
 bool Etbase::Timer::checkAlive() {

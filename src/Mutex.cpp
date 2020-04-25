@@ -52,7 +52,6 @@ Etbase::Condition::Condition(Etbase::Mutex &mutex_):
 
 #include <iostream>
 Etbase::Condition::~Condition() {
-    pthread_cond_broadcast(&cond);
     pthread_cond_destroy(&cond);
 }
 
@@ -62,5 +61,9 @@ bool Etbase::Condition::wait() {
 
 bool Etbase::Condition::signal() {
     return pthread_cond_signal(&cond)==0;
+}
+
+void Etbase::Condition::broadcast() {
+    pthread_cond_broadcast(&cond);
 }
 

@@ -4,6 +4,8 @@
 
 #include "../include/TcpConnector.h"
 
+#include <utility>
+
 using namespace Etbase;
 
 void TcpConnector::handleConn() {
@@ -27,7 +29,7 @@ void TcpConnector::handleConn() {
 }
 
 void TcpConnector::handleRead(Socket conn) {
-    String& buff=getBuff(conn.getFd());
+    String buff=getBuff(conn.getFd());
     int ret=conn.read(buff);
     if(ret==0){
         std::cout<<"conn "<<conn.getFd()<<" closed\n";
@@ -49,8 +51,7 @@ void TcpConnector::handleRead(Socket conn) {
 }
 
 void TcpConnector::handleSend(Socket sock) {
-//    String& buff=getBuff(sendSock.getFd());
-    String buffer="abcdefg";
+    String buffer= getBuff(sendSock.getFd());
     int ret=sock.write(buffer);
     if(ret>0){
         return;
@@ -90,19 +91,19 @@ TcpConnector::~TcpConnector() {
 }
 
 void TcpConnector::setReadCallback(Handler callback) {
-    readCallback=callback;
+    readCallback=std::move(callback);
 }
 
 void TcpConnector::setConnCallback(Handler callback) {
-    connCallback=callback;
+    connCallback=std::move(callback);
 }
 
 void TcpConnector::setSendCallback(Handler callback) {
-    sendCallback=callback;
+    sendCallback=std::move(callback);
 }
 
-String &TcpConnector::getBuff(int fd) {
-    return buffMap[fd];
+String TcpConnector::getBuff(int fd) {
+    return bufferMap.getBuffer(fd);
 }
 
 void TcpConnector::start() {
@@ -119,9 +120,10 @@ void TcpConnector::initServer(const char *port) {
     event.fd=listenSock.getFd();
     event.sock=listenSock;
     event.setCallback(std::bind(&TcpConnector::handleConn,this));
-    userType|=2;
-    reactorPtr->setUserType(userType);
     reactorPtr->addEvent(event);
+    auto conf=reactorPtr->getConf();
+    conf.canStop=false;
+    reactorPtr->setConf(conf);
 }
 
 void TcpConnector::initSender(const char *ip, const char *port, int times, int timeout,int delay) {
@@ -135,8 +137,6 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
     timer.setTimeout(timeout);
     timer.setTask(std::bind(&TcpConnector::handleTimer,this,timer));
     reactorPtr->addTimer(timer);
-    userType|=1;
-    reactorPtr->setUserType(userType);
 }
 
 TcpConnector::TcpConnector(Reactor &reactor) {
@@ -151,7 +151,7 @@ TcpConnector::TcpConnector(Reactor &reactor) {
     sendConf.oneshot=true;
     reactorPtr=&reactor;
     epollPtr=reactor.getPoller();
-    reactorPtr->init(100);
+    reactorPtr->setTimeout(1000);
 }
 
 void TcpConnector::handleTimer(Timer& timer_) {
@@ -169,8 +169,8 @@ void TcpConnector::handleTimer(Timer& timer_) {
     }
 }
 
-void TcpConnector::setSendData(String &data) {
-    buffMap[sendSock.getFd()]=data;
+void TcpConnector::setSendData(const String& data) {
+    bufferMap.insert(sendSock.getFd(),data);
 }
 
 

@@ -13,7 +13,7 @@ int main(){
     TcpConnector server(reactor);
     server.initServer("11111");
     server.setReadCallback([&server](Socket conn){
-        String& buff=server.getBuff(conn.getFd());
+        String buff=server.getBuff(conn.getFd());
         cout<<"read data:"<<buff<<endl;
 //        int ret=conn.write(buff);
 //        if(ret<0){

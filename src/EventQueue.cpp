@@ -20,7 +20,7 @@ void Etbase::EventQueue::push(const Etbase::Event &event) {
 
 Etbase::Event Etbase::EventQueue::get() {
     Guard guard(mutex);
-    while(empty) cond.wait();
+    cond.wait();
     Event event;
     if(evqueue.empty()) return event;
     event=evqueue.top();
@@ -30,5 +30,5 @@ Etbase::Event Etbase::EventQueue::get() {
 }
 
 Etbase::EventQueue::~EventQueue() {
-
+    cond.broadcast();
 }
