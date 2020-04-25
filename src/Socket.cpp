@@ -75,6 +75,7 @@ bool Etbase::Socket::close() {
 
 bool Etbase::Socket::connect(const char *ip_, const char *port_) {
     if(ip_== nullptr||port_== nullptr) return false;
+    port=port_;
     auto ip_net=gethostbyname(ip_)->h_addr_list[0];
     if(ip_net== nullptr) return false;
     ip=inet_ntoa(*(struct in_addr*)ip_net);

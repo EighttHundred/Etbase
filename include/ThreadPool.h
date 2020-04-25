@@ -10,10 +10,11 @@ namespace Etbase{
     class ThreadPool {
     public:
         //equals to number cpu cores
-        int num=8;
+        int num=3;
         bool stop=false;
         pthread_t* threads;
         EventQueue& evqueue;
+        Mutex mutex;
     public:
         ThreadPool(int num_, EventQueue& evqueue_);
         ~ThreadPool();

@@ -7,6 +7,7 @@
 
 Etbase::ThreadPool::ThreadPool(int num_,  Etbase::EventQueue &evqueue_):
     evqueue(evqueue_){
+    Guard guard(mutex);
     num=num_;
     threads=new pthread_t[num];
     for(int i=0;i<num;++i){
@@ -22,13 +23,19 @@ void *Etbase::ThreadPool::worker(void *arg) {
 }
 
 Etbase::ThreadPool::~ThreadPool() {
+    Guard guard(mutex);
     delete[] threads;
     stop=true;
 }
 
 void Etbase::ThreadPool::run() {
-    while(!stop){
+    while(true){
+        mutex.lock();
+        if(stop) break;
+        mutex.unlock();
         Event event=evqueue.get();
-        event.doCallback();
+        if(event.fd>0)
+            event.doCallback();
     }
 }
+

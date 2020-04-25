@@ -15,6 +15,7 @@ namespace Etbase{
         Mutex mutex;
         Condition cond=Condition(mutex);
     public:
+        ~EventQueue();
         void push(const Event& event);
         Event get();
         size_t size();

@@ -21,8 +21,14 @@ void Etbase::EventQueue::push(const Etbase::Event &event) {
 Etbase::Event Etbase::EventQueue::get() {
     Guard guard(mutex);
     while(empty) cond.wait();
-    Event event=evqueue.top();
+    Event event;
+    if(evqueue.empty()) return event;
+    event=evqueue.top();
     evqueue.pop();
     if(evqueue.empty()) empty=true;
     return event;
+}
+
+Etbase::EventQueue::~EventQueue() {
+
 }

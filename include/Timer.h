@@ -14,16 +14,19 @@ namespace Etbase{
         int lastTime=-1;
         int timeout=1000;
         int times;
+        bool triggered=false;
         Task task;
-    public:
         int getTimes();
+    public:
+        bool checkAlive();
         void setTimes(int times_);
         void setTimeout(int timeout_);
         void setDelay(int delay_);
         bool check();
         void begin();
         void runTask();
-        void assign(Task task_);
+        bool isTriggered();
+        void setTask(Task task_);
     };
 
 }

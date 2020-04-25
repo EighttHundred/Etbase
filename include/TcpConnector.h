@@ -17,7 +17,6 @@ namespace Etbase{
         Socket sendSock;
         EventConf sendConf;
         EventConf readConf;
-        Timer timer;
         std::map<int,String> buffMap;
         Epoll* epollPtr;
         Reactor* reactorPtr;
@@ -25,19 +24,20 @@ namespace Etbase{
         Handler connCallback=nullptr; //for listen socket
         Handler readCallback=nullptr; //for connect socket
         Handler sendCallback=nullptr; //for connect socket
-        void handleConn(Socket listenSock_);
+        void handleConn();
         void handleRead(Socket conn);
-        void handleSend(Socket sendSock_);
-        void handleTimer(int fd);
+        void handleSend(Socket sock);
+        void handleTimer(Timer& timer_);
     public:
         ~TcpConnector();
         void setReadCallback(Handler callback);
         void setConnCallback(Handler callback);
         void setSendCallback(Handler callback);
         String& getBuff(int fd);
-        void run();
+        void start();
         void initServer(const char* port);
         void initSender(const char* ip,const char* port,int times=1,int timeout=100,int delay=0);
+        void setSendData(String& data);
         TcpConnector(Reactor& reactor);
     };
 }

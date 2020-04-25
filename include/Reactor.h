@@ -6,6 +6,7 @@
 #define ETBASE_REACTOR_H
 
 #include <memory>
+#include <vector>
 #include "Acceptor.h"
 #include "Types.h"
 #include "Epoll.h"
@@ -18,19 +19,22 @@ namespace Etbase{
         Epoll acceptor;
         ThreadPool pool;
         bool stop= true;
-        Timer* timer= nullptr;
+        std::vector<Timer> timerList;
         int userType; //0:none 1:sender 2:server 3:both
+        void addMap(const Event& event);
+        bool addAcceptor(const Event& event);
     public:
         Reactor();
         ~Reactor();
         void start();
         void run();
         void loop(); //-1:loop forever
-        bool regist(const Event& event);
+        bool checkActive();
+        bool addEvent(const Event& event);
         bool remove(int fd);
         void setTimeout(int timeout);
         void init(int timeout);
-        void initTimer(Timer* timer_);
+        void addTimer(const Timer& timer);
         void setUserType(int type);
         Epoll* getPoller();
     };

@@ -12,7 +12,7 @@
 namespace Etbase{
 
     class EventMap {
-        std::map<int,Event> evmap[2];
+        std::map<int,Event> evmap[2];//0:epollout 1:epollin
         Mutex mutex;
     public:
         void insert(const Event& event);

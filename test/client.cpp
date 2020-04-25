@@ -4,15 +4,16 @@
 #include <iostream>
 #include <cstring>
 #include <unistd.h>
-#include "../include/Socket.h"
+#include <vector>
 #include "../include/Reactor.h"
-//#include <string>
-#include "../include/Socket.h"
 #include "../include/TcpConnector.h"
 using namespace Etbase;
-using std::cout;
-using std::endl;
-using std::cin;
+using namespace std;
 int main(){
-
+//    Reactor reactor;
+//    TcpConnector client(reactor);
+//    String data="hello";
+//    client.initSender("127.0.0.1","11111",1);
+//    client.setSendData(data);
+//    client.start();
 }

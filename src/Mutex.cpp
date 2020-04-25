@@ -50,7 +50,9 @@ Etbase::Condition::Condition(Etbase::Mutex &mutex_):
     mutex(mutex_),cond(PTHREAD_COND_INITIALIZER){
 }
 
+#include <iostream>
 Etbase::Condition::~Condition() {
+    pthread_cond_broadcast(&cond);
     pthread_cond_destroy(&cond);
 }
 

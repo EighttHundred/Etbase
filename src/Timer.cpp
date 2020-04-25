@@ -8,11 +8,11 @@
 
 bool Etbase::Timer::check() {
     int curTime=clock();
-    if(times==0||lastTime+timeout>curTime){
+    if(times==0||lastTime>curTime){
         return false;
     }else{
         --times;
-        lastTime=curTime;
+        lastTime=curTime+timeout;
         return true;
     }
 }
@@ -26,8 +26,7 @@ void Etbase::Timer::setTimeout(int timeout_) {
 }
 
 void Etbase::Timer::begin() {
-    lastTime=clock();
-    lastTime+=delay;
+    lastTime=clock()+delay;
 }
 
 void Etbase::Timer::setDelay(int delay_) {
@@ -38,11 +37,20 @@ int Etbase::Timer::getTimes() {
     return times;
 }
 
-void Etbase::Timer::assign(Task task_) {
-    task=std::move(task_);
+void Etbase::Timer::runTask() {
+    if(triggered==false) triggered=true;
+    task();
 }
 
-void Etbase::Timer::runTask() {
-    task();
+bool Etbase::Timer::isTriggered() {
+    return triggered;
+}
+
+bool Etbase::Timer::checkAlive() {
+    return getTimes()!=0;
+}
+
+void Etbase::Timer::setTask(Etbase::Task task_) {
+    task=std::move(task_);
 }
 

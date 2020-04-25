@@ -8,7 +8,7 @@ using namespace Etbase;
 void Etbase::EventMap::insert(const Etbase::Event &event) {
     //lock whole map
     Guard guard(mutex);
-    evmap[event.conf.et][event.fd]=event;
+    evmap[event.conf.in][event.fd]=event;
 }
 
 void Etbase::EventMap::modify(const Etbase::Event &event) {

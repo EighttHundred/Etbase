@@ -9,11 +9,6 @@ Reactor::Reactor():
     pool(8,evqueue),acceptor(evqueue,evmap) {
 }
 
-bool Reactor::regist(const Event &event) {
-    evmap.insert(event);
-    return acceptor.add(event);
-}
-
 void Reactor::run() {
     acceptor.run();
 }
@@ -23,14 +18,23 @@ Reactor::~Reactor() {
 }
 
 void Reactor::loop() {
-    if(timer){
-        if(timer->check()){
-            timer->runTask();
-        }else if(timer->getTimes()==0&&(userType&2)==0){
+    while(!stop){
+        std::vector<std::vector<Timer>::iterator> removeList;
+        for(auto timer=timerList.begin();timer!=timerList.end();++timer){
+            if(timer->check()){
+                timer->runTask();
+            }else if(!timer->checkAlive()){
+                removeList.push_back(timer);
+            }
+        }
+        for(auto ip=removeList.end();removeList.end()!=removeList.begin()&&(ip--)!=removeList.begin();){
+            timerList.erase(*ip);
+        }
+        run();
+        if(!checkActive()){
             stop=true;
         }
     }
-    while(!stop) run();
 }
 
 Epoll *Reactor::getPoller() {
@@ -45,10 +49,6 @@ void Reactor::setTimeout(int timeout) {
     acceptor.setTimeout(timeout);
 }
 
-void Reactor::initTimer(Timer *timer_) {
-    timer=timer_;
-}
-
 void Reactor::init(int timeout) {
     setTimeout(timeout);
 }
@@ -59,7 +59,30 @@ void Reactor::setUserType(int type) {
 
 void Reactor::start() {
     stop=false;
-    if(timer) timer->begin();
+    for(auto timer:timerList){
+        timer.begin();
+    }
     loop();
 }
 
+void Reactor::addMap(const Event &event) {
+    evmap.insert(event);
+
+}
+
+bool Reactor::addAcceptor(const Event &event) {
+    return acceptor.add(event);
+}
+
+void Reactor::addTimer(const Timer &timer) {
+    timerList.push_back(timer);
+}
+
+bool Reactor::checkActive() {
+    return !(timerList.empty() && (userType & 2) == 0);
+}
+
+bool Reactor::addEvent(const Event &event) {
+    addMap(event);
+    return addAcceptor(event);
+}
