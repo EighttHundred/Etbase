@@ -3,9 +3,8 @@
 //
 #include <iostream>
 #include <cstring>
-
-#include "../include/Reactor.h"
-#include "../include/TcpConnector.h"
+#include "../../include/Reactor.h"
+#include "../../include/TcpConnector.h"
 using namespace Etbase;
 using namespace std;
 int main(){
@@ -15,11 +14,6 @@ int main(){
     server.setReadCallback([&server](Socket conn){
         String buff=server.getBuff(conn.getFd());
         cout<<"read data:"<<buff<<endl;
-//        int ret=conn.write(buff);
-//        if(ret<0){
-//            server.
-//        }
-//        cout<<"write "<<buff.getWriteSize()<<endl;
     });
     server.start();
 }
