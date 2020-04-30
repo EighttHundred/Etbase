@@ -3,8 +3,8 @@
 //
 #include <iostream>
 #include <cstring>
-#include "../../include/Reactor.h"
-#include "../../include/TcpConnector.h"
+#include "../include/Reactor.h"
+#include "../include/TcpConnector.h"
 using namespace Etbase;
 using namespace std;
 int main(){
