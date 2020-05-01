@@ -16,5 +16,5 @@ genlib:
 	sh $(TOOL_DIR)/gen_lib.sh
 run:run_unit_test
 
-run_unit_test:
+run_unit_test:Etbase
 	$(MAKE) -C unit_test

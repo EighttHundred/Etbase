@@ -20,7 +20,7 @@ namespace Etbase{
         bool in=true;
         bool pri=false;
     };
-
+    EventConf getConfigedConf(bool oneshot,bool et,bool in,bool pri);
     class Event {
     public:
         int fd=-1;
@@ -30,6 +30,9 @@ namespace Etbase{
     private:
         Task callback;
     public:
+        Event();
+        Event(Socket sock_,EventConf conf_,Task callback_);
+        Event& operator=(const Event& event);
         bool operator<(const Event& event)const;
         void setCallback(Task task);
         void doCallback();

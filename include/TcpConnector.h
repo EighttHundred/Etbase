@@ -13,20 +13,20 @@ namespace Etbase{
     class TcpConnector {
     private:
         Socket listenSock;
-        EventConf connConf;
         Socket sendSock;
-        EventConf sendConf;
-        EventConf readConf;
         Epoll* epollPtr;
         Reactor* reactorPtr;
         BufferMap bufferMap;
         Handler connCallback=nullptr; //for listen socket
         Handler readCallback=nullptr; //for connect socket
-        Handler sendCallback=nullptr; //for connect socket
+        Handler sendCallback=nullptr; 
+        EventConf getReadConf();
+        EventConf getWriteConf();
         void handleConn();
         void handleRead(Socket conn);
         void handleSend(Socket sock);
         void handleTimer(Timer& timer_);
+        void setCallback(int fd,bool in,Handler callback);
     public:
         ~TcpConnector();
         void setReadCallback(Handler callback);

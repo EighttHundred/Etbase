@@ -8,8 +8,16 @@
 
 using namespace Etbase;
 
+EventConf TcpConnector::getReadConf(){
+    return getConfigedConf(true,true,true,false);
+}
+
+EventConf TcpConnector::getWriteConf(){
+    return getConfigedConf(true,true,false,false);
+}
+
+
 void TcpConnector::handleConn() {
-    Event event;
     Socket conn=listenSock.accept();
     if(conn.getFd()==-1){
         std::cout<<"accept error"<<std::endl;
@@ -20,10 +28,7 @@ void TcpConnector::handleConn() {
         std::cout<<"fd:"<<conn.getFd()<<std::endl;
     }
     conn.setNonBlock(true);
-    event.conf=connConf;
-    event.sock=conn;
-    event.fd=conn.getFd();
-    event.setCallback(std::bind(&TcpConnector::handleRead,this,event.sock));
+    Event event(conn,getReadConf(),std::bind(&TcpConnector::handleRead,this,conn));
     reactorPtr->addEvent(event);
     if(connCallback!= nullptr) connCallback(conn);
 }
@@ -40,7 +45,7 @@ void TcpConnector::handleRead(Socket conn) {
             if(readCallback!= nullptr)
                 readCallback(conn);
             std::cout<<"read later\n";
-            epollPtr->update(conn.getFd(),readConf);
+            epollPtr->update(conn.getFd(),getReadConf());
             return;
         }else{
             std::cout<<"close ernno:"<<errno<<std::endl;
@@ -116,10 +121,7 @@ void TcpConnector::initServer(const char *port) {
         return;
     }
     std::cout<<"listen:  "<<listenSock.listen()<<std::endl;
-    Event event;
-    event.fd=listenSock.getFd();
-    event.sock=listenSock;
-    event.setCallback(std::bind(&TcpConnector::handleConn,this));
+    Event event(listenSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,listenSock));
     reactorPtr->addEvent(event);
     auto conf=reactorPtr->getConf();
     conf.canStop=false;
@@ -140,15 +142,6 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
 }
 
 TcpConnector::TcpConnector(Reactor &reactor) {
-    connConf.oneshot=true;
-    connConf.et=true;
-    connConf.in=true;
-    readConf.in=true;
-    readConf.oneshot=true;
-    readConf.et=true;
-    sendConf.in=false;
-    sendConf.et=true;
-    sendConf.oneshot=true;
     reactorPtr=&reactor;
     epollPtr=reactor.getPoller();
     reactorPtr->setTimeout(1000);
@@ -157,15 +150,11 @@ TcpConnector::TcpConnector(Reactor &reactor) {
 void TcpConnector::handleTimer(Timer& timer_) {
     if(!timer_.isTriggered()){
         //for delay task
-        Event event;
-        event.fd=sendSock.getFd();
-        event.sock=sendSock;
-        event.conf=sendConf;
-        String buf=getBuff(event.fd);
+        Event event(sendSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,sendSock));
         event.setCallback(std::bind(&TcpConnector::handleSend,this,sendSock));
         reactorPtr->addEvent(event);
     }else{
-        epollPtr->update(sendSock.getFd(),sendConf);
+        epollPtr->update(sendSock.getFd(),getWriteConf());
     }
 }
 
@@ -174,3 +163,6 @@ void TcpConnector::setSendData(const String& data) {
 }
 
 
+void TcpConnector::setCallback(int fd,bool in,Handler callback){
+    
+}
