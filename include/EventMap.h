@@ -19,6 +19,14 @@ namespace Etbase{
         std::shared_ptr<Event> get(int fd,bool in);
     };
 
+    class BufferMap{
+
+    };
+
+    class HandlerMap{
+
+    };
+
 }
 
 #endif //ETBASE_EVENTMAP_H

@@ -61,7 +61,7 @@ bool Etbase::Socket::bind(const char* port_) {
 }
 
 
-int Etbase::Socket::write(const Buffer& data) {
+int Etbase::Socket::write(const Buffer& data) const{
     int ret;
     int now=0;
     while((ret=::write(fd,data.begin()+now,data.size()-now))>0){

@@ -22,6 +22,7 @@ namespace Etbase{
         Epoll acceptor;
         ThreadPool pool;
         ReactorConf reactorConf;
+        BufferMap bufferMap;
         bool stop= true;
         std::vector<Timer> timerList;
     public:
