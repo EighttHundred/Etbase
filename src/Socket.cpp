@@ -61,12 +61,21 @@ bool Etbase::Socket::bind(const char* port_) {
 }
 
 
-int Etbase::Socket::write(String& data) {
-    return data.write(fd);
+int Etbase::Socket::write(const Buffer& data) {
+    int ret;
+    int now=0;
+    while((ret=::write(fd,data.begin()+now,data.size()-now))>0){
+        now+=ret;
+    }
+    return ret;
 }
 
-int Etbase::Socket::read(String& data) {
-    return data.read(fd);
+int Etbase::Socket::read(Buffer buff) {
+    int ret;
+    while((ret=::read(fd,buff.end(),buff.spare()))>0){
+        buff.append(ret);
+    }
+    return ret;
 }
 
 bool Etbase::Socket::close() {

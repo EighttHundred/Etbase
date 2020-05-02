@@ -14,29 +14,24 @@ namespace Etbase{
     private:
         Socket listenSock;
         Socket sendSock;
-        Epoll* epollPtr;
         Reactor* reactorPtr;
-        BufferMap bufferMap;
         Handler connCallback=nullptr; //for listen socket
         Handler readCallback=nullptr; //for connect socket
-        Handler sendCallback=nullptr; 
         EventConf getReadConf();
         EventConf getWriteConf();
         void handleConn();
-        void handleRead(Socket conn);
-        void handleSend(Socket sock);
+        void handleRead(Socket &conn,Buffer &buffer);
+        void handleSend(Socket &sock,Buffer &data);
         void handleTimer(Timer& timer_);
         void setCallback(int fd,bool in,Handler callback);
     public:
         ~TcpConnector();
         void setReadCallback(Handler callback);
         void setConnCallback(Handler callback);
-        void setSendCallback(Handler callback);
-        String getBuff(int fd);
         void start();
         void initServer(const char* port);
         void initSender(const char* ip,const char* port,int times=1,int timeout=100,int delay=0);
-        void setSendData(const String& data);
+        void setSendData(const Buffer& data);
         TcpConnector(Reactor& reactor);
     };
 }

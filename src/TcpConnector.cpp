@@ -34,7 +34,7 @@ void TcpConnector::handleConn() {
 }
 
 void TcpConnector::handleRead(Socket conn) {
-    String buff=getBuff(conn.getFd());
+    Buffer buff=getBuff(conn.getFd());
     int ret=conn.read(buff);
     if(ret==0){
         std::cout<<"conn "<<conn.getFd()<<" closed\n";
@@ -45,7 +45,7 @@ void TcpConnector::handleRead(Socket conn) {
             if(readCallback!= nullptr)
                 readCallback(conn);
             std::cout<<"read later\n";
-            epollPtr->update(conn.getFd(),getReadConf());
+            reactorPtr->updateEvent(conn.getFd(),getReadConf());
             return;
         }else{
             std::cout<<"close ernno:"<<errno<<std::endl;
@@ -55,9 +55,10 @@ void TcpConnector::handleRead(Socket conn) {
     }
 }
 
-void TcpConnector::handleSend(Socket sock) {
-    String buffer= getBuff(sendSock.getFd());
+void TcpConnector::handleSend(Socket& sock,Buffer& data) {
+    Buffer buffer= getBuff(sendSock.getFd());
     int ret=sock.write(buffer);
+    buffer.clear();
     if(ret>0){
         return;
         //        std::cout<<"conn "<<conn.getFd()<<" closed\n";
@@ -107,10 +108,6 @@ void TcpConnector::setSendCallback(Handler callback) {
     sendCallback=std::move(callback);
 }
 
-String TcpConnector::getBuff(int fd) {
-    return bufferMap.getBuffer(fd);
-}
-
 void TcpConnector::start() {
     reactorPtr->start();
 }
@@ -143,7 +140,6 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
 
 TcpConnector::TcpConnector(Reactor &reactor) {
     reactorPtr=&reactor;
-    epollPtr=reactor.getPoller();
     reactorPtr->setTimeout(1000);
 }
 
@@ -151,15 +147,18 @@ void TcpConnector::handleTimer(Timer& timer_) {
     if(!timer_.isTriggered()){
         //for delay task
         Event event(sendSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,sendSock));
-        event.setCallback(std::bind(&TcpConnector::handleSend,this,sendSock));
+        event.setTask(std::bind(&TcpConnector::handleSend,this,sendSock));
         reactorPtr->addEvent(event);
     }else{
-        epollPtr->update(sendSock.getFd(),getWriteConf());
+        reactorPtr->updateEvent(sendSock.getFd(),getWriteConf());
     }
 }
 
-void TcpConnector::setSendData(const String& data) {
-    bufferMap.insert(sendSock.getFd(),data);
+void TcpConnector::setSendData(const Buffer& data) {
+    auto evptr=reactorPtr->getEvent(sendSock.getFd(),0);
+    if(evptr!=nullptr){
+        evptr->setBuffer(data);
+    }
 }
 
 

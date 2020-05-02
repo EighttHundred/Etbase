@@ -10,7 +10,7 @@ export CC_LIB_FLAG=-L $(LIB_DIR) -lEtbase -lpthread
 export TOOL_DIR=$(PWD)/scripts
 Etbase:
 	$(MAKE) -C src
-test:
+test:Etbase
 	$(MAKE) -C test
 genlib:
 	sh $(TOOL_DIR)/gen_lib.sh

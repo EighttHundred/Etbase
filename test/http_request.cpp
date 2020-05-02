@@ -6,7 +6,7 @@ using namespace std;
 int main(){
     Reactor reactor;
     TcpConnector requestor(reactor);
-    String data="hello";
+    Buffer data="hello";
     requestor.initSender("baidu.com","80",2);
     requestor.setSendData(data);
     

@@ -5,46 +5,17 @@
 #include "../include/EventMap.h"
 using namespace Etbase;
 
-void Etbase::EventMap::insert(const Etbase::Event &event) {
+void EventMap::insert(const Event &event) {
     //lock whole map
-    Guard guard(mutex);
-    evmap[event.conf.in][event.fd]=event;
+    // Guard guard(mutex);
+    evmap[event.conf.in][event.fd]=std::make_shared<Event>(event);
 }
 
-void Etbase::EventMap::modify(const Etbase::Event &event) {
-    Guard guard(mutex);
-    evmap[event.conf.in][event.fd]=event;
-}
-
-Event EventMap::get(int fd, bool flag) {
-    Guard guard(mutex);
+std::shared_ptr<Event> EventMap::get(int fd, bool flag) {
+    // Guard guard(mutex);
     auto iter=evmap[flag].find(fd);
     if(iter!=evmap[flag].end()) return iter->second;
-    else return Event();
-}
-
-bool EventMap::remove(int fd, bool flag) {
-    Guard guard(mutex);
-    auto iter=evmap[flag].find(fd);
-    if(iter!=evmap[flag].end()){
-        evmap[flag].erase(iter);
-        return true;
-    }else return false;
-}
-
-void BufferMap::insert(int fd, const String& buffer) {
-    Guard guard(mutex);
-    buffMap[fd]=buffer;
-}
-
-String BufferMap::getBuffer(int fd) {
-    Guard guard(mutex);
-    return buffMap[fd];
-}
-
-bool BufferMap::removeBuffer(int fd) {
-    Guard guard(mutex);
-    buffMap.erase(fd);
+    else return nullptr;
 }
 
 

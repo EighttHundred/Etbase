@@ -11,11 +11,11 @@ bool Event::operator<(const Event &event) const {
     return this->priority<event.priority;
 }
 
-void Event::setCallback(Task task) {
+void Event::setTask(Task task) {
     callback=std::move(task);
 }
 
-void Event::doCallback() {
+void Event::runTask() {
     callback();
 }
 Event& Event::operator=(const Event& event){
@@ -23,6 +23,14 @@ Event& Event::operator=(const Event& event){
     this->conf=event.conf;
     this->sock=event.sock;
     this->callback=event.callback;
+}
+
+Buffer& Event::getBuffer(){
+    return buffer;
+}
+
+void Event::setBuffer(const Buffer &buffer){
+    this->buffer=buffer;
 }
 
 Event::Event(){
@@ -36,7 +44,7 @@ Event::Event(Socket sock_,EventConf conf_,Task callback_){
     callback=callback_;
 }
 
-EventConf getConfigedConf(bool oneshot,bool et,bool in,bool pri){
+EventConf Etbase::getConfigedConf(bool oneshot,bool et,bool in,bool pri){
     EventConf conf;
     conf.oneshot=oneshot;
     conf.et=et;

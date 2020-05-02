@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <memory>
 #include "Types.h"
-#include "String.h"
+#include "Buffer.h"
 
 namespace Etbase{
     class Socket {
@@ -29,8 +29,8 @@ namespace Etbase{
         bool bind(const char* port_);
         bool listen(int num=1024);
         bool connect(const char* ip_,const char* port_);
-        int write(String& data);
-        int read(String& data);
+        int write(const Buffer& data);
+        int read(Buffer buff);
         bool close();
         bool setNonBlock(bool val=true);
     };

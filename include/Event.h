@@ -8,7 +8,8 @@
 #include <sys/epoll.h>
 #include "Types.h"
 #include "Socket.h"
-
+#include "Buffer.h"
+#include "Mutex.h"
 //also involve epoll events
 namespace Etbase{
     typedef std::function<void(Socket&)> Handler;
@@ -29,13 +30,17 @@ namespace Etbase{
         Priority priority=NORMAL;
     private:
         Task callback;
+        Buffer buffer;
+        Mutex mutex;
     public:
         Event();
         Event(Socket sock_,EventConf conf_,Task callback_);
         Event& operator=(const Event& event);
         bool operator<(const Event& event)const;
-        void setCallback(Task task);
-        void doCallback();
+        void setTask(Task task);
+        void setBuffer(const Buffer &buffer);
+        Buffer& getBuffer();
+        void runTask();
     };
     typedef Event* eventPtr;
 }
