@@ -4,19 +4,22 @@
 #include "Epoll.h"
 namespace Etbase{
     class TcpProcessor{
-        EventConf readConf;
-        EventConf writeConf;
-        EventConf acceptConf;
         EventMap &eventMap;
         Epoll &acceptor;
         HandlerMap handlerMap;
+        EventConf &readConf;
+        EventConf &writeConf;
+        EventConf &acceptConf;
         void addHandler(int fd,bool in,Handler handler);
     public:
+        TcpProcessor(Epoll &acceptor,EventMap &eventMap,EventConf &readConf,
+            EventConf &writeConf,EventConf &acceptConf);
+        void updateEvent(int fd,EventConf conf);
+        void addListenEvent(const Socket &socket);
+        void addReadEvent(const Socket &socket);
+        void addWriteEvent(const Socket &socket);
         void addReadHandler(int fd,Handler handler);
         void addWriteHandler(int fd,Handler handler);
-        void setReadConf(const EventConf &conf);
-        void setWriteConf(const EventConf &conf);
-        void setAcceptConf(const EventConf &conf);
         void doAccept(EventPtr eventPtr);
         void doRead(EventPtr eventPtr);
         void doRead_Z(EventPtr eventPtr);

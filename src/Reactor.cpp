@@ -5,6 +5,14 @@
 #include "../include/Reactor.h"
 using namespace Etbase;
 
+Epoll& Reactor::getAcceptor(){
+    return acceptor;
+}
+
+EventMap& Reactor::getEventMap(){
+    return evmap;
+}
+
 Reactor::Reactor():
     pool(evqueue),acceptor(evqueue,evmap) {
 }

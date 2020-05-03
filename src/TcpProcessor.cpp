@@ -1,16 +1,38 @@
 #include "../include/TcpProcessor.h"
 using namespace Etbase;
 
-void TcpProcessor::setReadConf(const EventConf &conf){
-    readConf=conf;
+TcpProcessor::TcpProcessor(Epoll &acceptor,
+        EventMap &eventMap,
+        EventConf &readConf,
+        EventConf &writeConf,
+        EventConf &acceptConf):
+    acceptor(acceptor),eventMap(eventMap),readConf(readConf),
+    writeConf(writeConf),acceptConf(acceptConf){
 }
 
-void TcpProcessor::setWriteConf(const EventConf &conf){
-    writeConf=conf;
+void TcpProcessor::updateEvent(int fd,EventConf conf){
+    acceptor.update(fd,conf);
 }
 
-void TcpProcessor::setAcceptConf(const EventConf &conf){
-    acceptConf=conf;
+void TcpProcessor::addListenEvent(const Socket &socket){
+    auto listenEventPtr=std::make_shared<Event>(socket,acceptConf);
+    listenEventPtr->setTask(std::bind(&TcpProcessor::doAccept,this,listenEventPtr));
+    eventMap.insert(listenEventPtr);
+    acceptor.add(listenEventPtr);
+}
+
+void TcpProcessor::addReadEvent(const Socket &socket){
+    auto readEventPtr=std::make_shared<Event>(socket,readConf);
+    readEventPtr->setTask(std::bind(&TcpProcessor::doRead,this,readEventPtr));
+    eventMap.insert(readEventPtr);
+    acceptor.add(readEventPtr);
+}
+
+void TcpProcessor::addWriteEvent(const Socket &socket){
+    auto writeEventPtr=std::make_shared<Event>(socket,writeConf);
+    writeEventPtr->setTask(std::bind(&TcpProcessor::doWrite,this,writeEventPtr));
+    eventMap.insert(writeEventPtr);
+    acceptor.add(writeEventPtr);
 }
 
 void TcpProcessor::addHandler(int fd,bool in,Handler handler){
@@ -37,10 +59,7 @@ void TcpProcessor::doAccept(EventPtr eventPtr){
         std::cout<<"fd:"<<conn.getFd()<<std::endl;
     }
     conn.setNonBlock(true);
-    auto connEventPtr=std::make_shared<Event>(conn,readConf);
-    connEventPtr->setTask(std::bind(&TcpProcessor::doAccept,this,connEventPtr));
-    eventMap.insert(connEventPtr);
-    acceptor.add(connEventPtr);
+    addReadEvent(conn);
 }
 
 void TcpProcessor::doRead(EventPtr eventPtr){
@@ -116,9 +135,11 @@ void TcpProcessor::doRead_L_EAGAIN(EventPtr eventPtr){
     auto task=handlerMap.get(eventPtr->fd,true);
     if(task){
         task(eventPtr);
+    }else if(task=handlerMap.get(-1,true)){
+        task(eventPtr);
     }
     std::cout<<"read later\n";
-    acceptor.update(eventPtr->getSocket().getFd(),readConf);
+    updateEvent(eventPtr->getSocket().getFd(),eventPtr->conf);
 }
 
 void TcpProcessor::doRead_L(EventPtr eventPtr){

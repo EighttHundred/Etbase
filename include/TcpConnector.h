@@ -13,21 +13,28 @@
 namespace Etbase{
     class TcpConnector {
     private:
-        TcpProcessor processor;
         Socket listenSock;
         Socket sendSock;
-        Reactor* reactorPtr;
+        EventConf readConf;
+        EventConf writeConf;
+        EventConf acceptConf;
+        Reactor &reactor;
+        TcpProcessor processor;
         void handleTimer(Timer& timer_);
     public:
         ~TcpConnector();
+        void setReadConf(const EventConf &conf);
+        void setWriteConf(const EventConf &conf);
+        void setAcceptConf(const EventConf &conf);
         void setConnReadTask(Handler handler);
         void setSenderReadTask(Handler handler);
         void setSenderWriteTask(Handler handler);
+        void updateSenderWriteEvent();
         void start();
         void initServer(const char* port);
         void initSender(const char* ip,const char* port,int times=1,int timeout=100,int delay=0);
         void setSendData(const Buffer& data);
-        TcpConnector(Reactor& reactor);
+        TcpConnector(Reactor& reactor_);
     };
 }
 

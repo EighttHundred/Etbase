@@ -33,6 +33,8 @@ namespace Etbase{
         bool checkActive();
         // bool updateEvent(int fd,const EventConf &conf);
         // bool addEvent(const Event& event);
+        Epoll& getAcceptor();
+        EventMap& getEventMap();
         void addTimer(const Timer& timer);
         EventPtr getEvent(int fd,bool in);
         ReactorConf getConf();

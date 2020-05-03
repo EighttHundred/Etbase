@@ -11,20 +11,36 @@ using namespace Etbase;
 TcpConnector::~TcpConnector() {
 }
 
-void TcpConnector::setConnReadTask(Handler handler){
+void TcpConnector::setReadConf(const EventConf &conf){
+    readConf=conf;
+}
 
+void TcpConnector::setWriteConf(const EventConf &conf){
+    writeConf=conf;
+}
+
+void TcpConnector::setAcceptConf(const EventConf &conf){
+    acceptConf=conf;
+}
+
+void TcpConnector::updateSenderWriteEvent(){
+    processor.updateEvent(sendSock.getFd(),writeConf);
+}
+
+void TcpConnector::setConnReadTask(Handler handler){
+    processor.addReadHandler(-1,handler);
 }
 
 void TcpConnector::setSenderReadTask(Handler handler){
-    
+    processor.addReadHandler(sendSock.getFd(),handler);
 }
 
 void TcpConnector::setSenderWriteTask(Handler handler){
-    
+    processor.addWriteHandler(sendSock.getFd(),handler);
 }
 
 void TcpConnector::start() {
-    reactorPtr->start();
+    reactor.start();
 }
 
 void TcpConnector::initServer(const char *port) {
@@ -33,12 +49,10 @@ void TcpConnector::initServer(const char *port) {
         return;
     }
     std::cout<<"listen:  "<<listenSock.listen()<<std::endl;
-    
-    // Event event(listenSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,listenSock));
-    // reactorPtr->addEvent(event);
-    // auto conf=reactorPtr->getConf();
-    // conf.canStop=false;
-    // reactorPtr->setConf(conf);
+    processor.addListenEvent(listenSock);
+    auto conf=reactor.getConf();
+    conf.canStop=false;
+    reactor.setConf(conf);
 }
 
 void TcpConnector::initSender(const char *ip, const char *port, int times, int timeout,int delay) {
@@ -51,27 +65,26 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
     timer.setTimes(times);
     timer.setTimeout(timeout);
     timer.setTask(std::bind(&TcpConnector::handleTimer,this,timer));
-    reactorPtr->addTimer(timer);
+    reactor.addTimer(timer);
 }
 
-TcpConnector::TcpConnector(Reactor &reactor) {
-    reactorPtr=&reactor;
-    // reactorPtr->setTimeout(1000);
+TcpConnector::TcpConnector(Reactor &reactor_):reactor(reactor_),
+    processor(reactor_.getAcceptor(),reactor_.getEventMap(),
+    readConf,writeConf,acceptConf){
+    // reactor.setTimeout(1000);
 }
 
 void TcpConnector::handleTimer(Timer& timer_) {
     if(!timer_.isTriggered()){
         //for delay task
-        Event event(sendSock,getReadConf());
-        event.setTask(std::bind(&TcpConnector::handleRead,this,sendSock));
-        reactorPtr->addEvent(event);
+        processor.addWriteEvent(sendSock);
     }else{
-        reactorPtr->updateEvent(sendSock.getFd(),getWriteConf());
+        processor.updateEvent(sendSock.getFd(),writeConf);
     }
 }
 
 void TcpConnector::setSendData(const Buffer& data) {
-    auto evptr=reactorPtr->getEvent(sendSock.getFd(),0);
+    auto evptr=reactor.getEvent(sendSock.getFd(),0);
     if(evptr!=nullptr){
         evptr->setBuffer(data);
     }
