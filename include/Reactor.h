@@ -22,7 +22,6 @@ namespace Etbase{
         Epoll acceptor;
         ThreadPool pool;
         ReactorConf reactorConf;
-        BufferMap bufferMap;
         bool stop= true;
         std::vector<Timer> timerList;
     public:
@@ -32,12 +31,10 @@ namespace Etbase{
         void run();
         void loop(); //-1:loop forever
         bool checkActive();
-        bool updateEvent(int fd,const EventConf &conf);
-        bool addEvent(const Event& event);
-        bool remove(int fd);
-        void setTimeout(int timeout);
+        // bool updateEvent(int fd,const EventConf &conf);
+        // bool addEvent(const Event& event);
         void addTimer(const Timer& timer);
-        std::shared_ptr<Event> getEvent(int fd,bool in);
+        EventPtr getEvent(int fd,bool in);
         ReactorConf getConf();
         void setConf(const ReactorConf& conf);
     };

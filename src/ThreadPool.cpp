@@ -25,9 +25,8 @@ Etbase::ThreadPool::~ThreadPool() {
 void Etbase::ThreadPool::run() {
     while(true){
         if(checkStop()) break;
-        Event event=evqueue.get();
-        if(event.fd>0)
-            event.runTask();
+        auto eventPtr=evqueue.get();
+        if(eventPtr) eventPtr->runTask();
     }
 //    pthread_exit(nullptr);
 }

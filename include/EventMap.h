@@ -12,21 +12,21 @@
 namespace Etbase{
 
     class EventMap {
-        std::map<int,std::shared_ptr<Event>> evmap[2];//0:epollout 1:epollin
+        std::map<int,EventPtr> evmap[2];//0:epollout 1:epollin
         // Mutex mutex;
     public:
-        void insert(const Event& event);
-        std::shared_ptr<Event> get(int fd,bool in);
+        void insert(EventPtr eventPtr);
+        EventPtr get(int fd,bool in);
     };
 
-    class BufferMap{
-
-    };
 
     class HandlerMap{
-
+        //not complete
+        std::map<int,Handler> handlerMap[2];
+    public:
+        void insert(int fd,bool in,Handler handler);
+        Handler get(int fd,bool in);
     };
-
 }
 
 #endif //ETBASE_EVENTMAP_H

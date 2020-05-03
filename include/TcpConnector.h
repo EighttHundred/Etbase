@@ -9,25 +9,20 @@
 #include "Socket.h"
 #include "Reactor.h"
 #include "Timer.h"
+#include "TcpProcessor.h"
 namespace Etbase{
     class TcpConnector {
     private:
+        TcpProcessor processor;
         Socket listenSock;
         Socket sendSock;
         Reactor* reactorPtr;
-        Handler connCallback=nullptr; //for listen socket
-        Handler readCallback=nullptr; //for connect socket
-        EventConf getReadConf();
-        EventConf getWriteConf();
-        void handleConn();
-        void handleRead(Socket &conn,Buffer &buffer);
-        void handleSend(Socket &sock,Buffer &data);
         void handleTimer(Timer& timer_);
-        void setCallback(int fd,bool in,Handler callback);
     public:
         ~TcpConnector();
-        void setReadCallback(Handler callback);
-        void setConnCallback(Handler callback);
+        void setConnReadTask(Handler handler);
+        void setSenderReadTask(Handler handler);
+        void setSenderWriteTask(Handler handler);
         void start();
         void initServer(const char* port);
         void initSender(const char* ip,const char* port,int times=1,int timeout=100,int delay=0);

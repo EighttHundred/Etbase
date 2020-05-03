@@ -16,7 +16,9 @@ void Event::setTask(Task task) {
 }
 
 void Event::runTask() {
-    callback();
+    if(callback){
+        callback();
+    }
 }
 Event& Event::operator=(const Event& event){
     this->fd=event.fd;
@@ -29,19 +31,18 @@ Buffer& Event::getBuffer(){
     return buffer;
 }
 
+Socket& Event::getSocket(){
+    return sock;
+}
+
 void Event::setBuffer(const Buffer &buffer){
     this->buffer=buffer;
 }
 
-Event::Event(){
-    fd=-1;
-}
-
-Event::Event(Socket sock_,EventConf conf_,Task callback_){
+Event::Event(Socket sock_,EventConf conf_){
     fd=sock_.getFd();
     sock=sock_;
     conf=conf_;
-    callback=callback_;
 }
 
 EventConf Etbase::getConfigedConf(bool oneshot,bool et,bool in,bool pri){

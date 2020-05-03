@@ -24,7 +24,7 @@ Etbase::Socket::Socket(int fd_,sockaddr_in& addr_){
     port=intToStr(ntohs(((sockaddr_in*)&addr_)->sin_port));
 }
 
-Etbase::Socket Etbase::Socket::accept() {
+Etbase::Socket Etbase::Socket::accept() const{
     struct sockaddr_in addr_{};
     int fd_=::accept(fd,(sockaddr*)&addr_,(socklen_t*)&socklen);
     return Socket(fd_,addr_);
@@ -70,7 +70,7 @@ int Etbase::Socket::write(const Buffer& data) const{
     return ret;
 }
 
-int Etbase::Socket::read(Buffer buff) {
+int Etbase::Socket::read(Buffer buff) const{
     int ret;
     while((ret=::read(fd,buff.end(),buff.spare()))>0){
         buff.append(ret);
@@ -78,7 +78,7 @@ int Etbase::Socket::read(Buffer buff) {
     return ret;
 }
 
-bool Etbase::Socket::close() {
+bool Etbase::Socket::close() const{
     return ::close(fd)==0;
 }
 
@@ -94,7 +94,7 @@ bool Etbase::Socket::connect(const char *ip_, const char *port_) {
     return ::connect(fd,(sockaddr*)&addr,socklen)==0;
 }
 
-int Etbase::Socket::getFd() {
+int Etbase::Socket::getFd() const{
     return fd;
 }
 

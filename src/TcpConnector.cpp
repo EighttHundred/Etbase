@@ -3,109 +3,24 @@
 //
 
 #include "../include/TcpConnector.h"
-
 #include <utility>
 
 using namespace Etbase;
 
-EventConf TcpConnector::getReadConf(){
-    return getConfigedConf(true,true,true,false);
-}
-
-EventConf TcpConnector::getWriteConf(){
-    return getConfigedConf(true,true,false,false);
-}
-
-
-void TcpConnector::handleConn() {
-    Socket conn=listenSock.accept();
-    if(conn.getFd()==-1){
-        std::cout<<"accept error"<<std::endl;
-        std::cout<<"errno: "<<errno<<std::endl;
-        return;
-    }else{
-        std::cout<<"accept success\n";
-        std::cout<<"fd:"<<conn.getFd()<<std::endl;
-    }
-    conn.setNonBlock(true);
-    Event event(conn,getReadConf(),std::bind(&TcpConnector::handleRead,this,conn));
-    reactorPtr->addEvent(event);
-    if(connCallback!= nullptr) connCallback(conn);
-}
-
-void TcpConnector::handleRead(Socket conn) {
-    Buffer buff=getBuff(conn.getFd());
-    int ret=conn.read(buff);
-    if(ret==0){
-        std::cout<<"conn "<<conn.getFd()<<" closed\n";
-        reactorPtr->remove(conn.getFd());
-        conn.close();
-    }else if(ret<0){
-        if(errno==EAGAIN||errno==EWOULDBLOCK){
-            if(readCallback!= nullptr)
-                readCallback(conn);
-            std::cout<<"read later\n";
-            reactorPtr->updateEvent(conn.getFd(),getReadConf());
-            return;
-        }else{
-            std::cout<<"close ernno:"<<errno<<std::endl;
-            reactorPtr->remove(conn.getFd());
-            conn.close();
-        }
-    }
-}
-
-void TcpConnector::handleSend(Socket& sock,Buffer& data) {
-    Buffer buffer= getBuff(sendSock.getFd());
-    int ret=sock.write(buffer);
-    buffer.clear();
-    if(ret>0){
-        return;
-        //        std::cout<<"conn "<<conn.getFd()<<" closed\n";
-//        reactorPtr->remove(conn.getFd());
-//        conn.close();
-    }else if(ret<0){
-        if(errno==EAGAIN||errno==EWOULDBLOCK) {
-            std::cout << "write later\n";
-//            epollPtr->update(conn.getFd(),readConf);
-            return;
-        }else if(errno==EINTR) {
-//            std::cout<<""
-        }else if(errno==EPIPE) {
-
-        }else{
-            std::cout<<"close ernno:"<<errno<<std::endl;
-            reactorPtr->remove(sendSock.getFd());
-            sendSock.close();
-        }
-    }else{
-//        std::cout<<buff<<std::endl;
-        if(sendCallback!= nullptr) sendCallback(sendSock);
-    }
-}
 
 TcpConnector::~TcpConnector() {
-    //not close if child thread is still working
-//    if(userType&1){
-//        reactorPtr->remove(sendSock.getFd());
-//        sendSock.close();
-//    }
-//    if(userType&2){
-//        reactorPtr->remove(listenSock.getFd());
-//        listenSock.close();
-//    }
 }
 
-void TcpConnector::setReadCallback(Handler callback) {
-    readCallback=std::move(callback);
+void TcpConnector::setConnReadTask(Handler handler){
+
 }
 
-void TcpConnector::setConnCallback(Handler callback) {
-    connCallback=std::move(callback);
+void TcpConnector::setSenderReadTask(Handler handler){
+    
 }
 
-void TcpConnector::setSendCallback(Handler callback) {
-    sendCallback=std::move(callback);
+void TcpConnector::setSenderWriteTask(Handler handler){
+    
 }
 
 void TcpConnector::start() {
@@ -118,11 +33,12 @@ void TcpConnector::initServer(const char *port) {
         return;
     }
     std::cout<<"listen:  "<<listenSock.listen()<<std::endl;
-    Event event(listenSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,listenSock));
-    reactorPtr->addEvent(event);
-    auto conf=reactorPtr->getConf();
-    conf.canStop=false;
-    reactorPtr->setConf(conf);
+    
+    // Event event(listenSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,listenSock));
+    // reactorPtr->addEvent(event);
+    // auto conf=reactorPtr->getConf();
+    // conf.canStop=false;
+    // reactorPtr->setConf(conf);
 }
 
 void TcpConnector::initSender(const char *ip, const char *port, int times, int timeout,int delay) {
@@ -140,14 +56,14 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
 
 TcpConnector::TcpConnector(Reactor &reactor) {
     reactorPtr=&reactor;
-    reactorPtr->setTimeout(1000);
+    // reactorPtr->setTimeout(1000);
 }
 
 void TcpConnector::handleTimer(Timer& timer_) {
     if(!timer_.isTriggered()){
         //for delay task
-        Event event(sendSock,getReadConf(),std::bind(&TcpConnector::handleRead,this,sendSock));
-        event.setTask(std::bind(&TcpConnector::handleSend,this,sendSock));
+        Event event(sendSock,getReadConf());
+        event.setTask(std::bind(&TcpConnector::handleRead,this,sendSock));
         reactorPtr->addEvent(event);
     }else{
         reactorPtr->updateEvent(sendSock.getFd(),getWriteConf());
@@ -162,6 +78,3 @@ void TcpConnector::setSendData(const Buffer& data) {
 }
 
 
-void TcpConnector::setCallback(int fd,bool in,Handler callback){
-    
-}

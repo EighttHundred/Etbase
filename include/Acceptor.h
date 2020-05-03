@@ -15,7 +15,7 @@ namespace Etbase{
             evmap(evmap_){
         }
         virtual void run()=0;
-        virtual bool add(const Event& event)=0;
+        virtual bool add(EventPtr eventPtr)=0;
         virtual bool remove(int fd_)=0;
 
     public:

@@ -3,30 +3,30 @@
 //
 
 #include "../include/EventQueue.h"
-
-size_t Etbase::EventQueue::size() {
+using namespace Etbase;
+size_t EventQueue::size() {
     Guard guard(mutex);
     return evqueue.size();
 }
 
-void Etbase::EventQueue::push(const Etbase::Event &event) {
+void EventQueue::push(EventPtr eventPtr) {
     Guard guard(mutex);
-    evqueue.push(event);
+    evqueue.push(eventPtr);
     if(empty){
         empty=false;
         cond.signal();
     }
 }
 
-Etbase::Event Etbase::EventQueue::get() {
+EventPtr EventQueue::get() {
     Guard guard(mutex);
     cond.wait();
-    Event event;
-    if(evqueue.empty()) return event;
-    event=evqueue.top();
+    if(evqueue.empty())
+        return nullptr;
+    auto eventPtr=evqueue.top();
     evqueue.pop();
     if(evqueue.empty()) empty=true;
-    return event;
+    return eventPtr;
 }
 
 Etbase::EventQueue::~EventQueue() {

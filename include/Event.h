@@ -12,9 +12,7 @@
 #include "Mutex.h"
 //also involve epoll events
 namespace Etbase{
-    typedef std::function<void(Socket&)> Handler;
     typedef std::function<void()> Task;
-
     struct EventConf{
         bool oneshot=false;
         bool et=true;
@@ -29,20 +27,21 @@ namespace Etbase{
         EventConf conf;
         Priority priority=NORMAL;
     private:
-        Task callback;
+        Task callback=nullptr;
         Buffer buffer;
         Mutex mutex;
     public:
-        Event();
-        Event(Socket sock_,EventConf conf_,Task callback_);
+        Event(Socket sock_,EventConf conf_);
         Event& operator=(const Event& event);
         bool operator<(const Event& event)const;
         void setTask(Task task);
         void setBuffer(const Buffer &buffer);
+        Socket& getSocket();
         Buffer& getBuffer();
         void runTask();
     };
-    typedef Event* eventPtr;
+    typedef std::shared_ptr<Event> EventPtr;
+    typedef std::function<void(EventPtr)> Handler;
 }
 
 

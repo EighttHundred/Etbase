@@ -20,7 +20,7 @@ namespace Etbase{
         Epoll( EventQueue& evqueue_, EventMap& evmap_);
         ~Epoll();
         void run() override;
-        bool add(const Event& event) override;
+        bool add(EventPtr eventPtr) override;
         bool update(int fd,const EventConf& conf);
         bool remove(int fd) override ;
         void setTimeout(int timeout_);

@@ -37,13 +37,13 @@ void Reactor::loop() {
     }
 }
 
-bool Reactor::remove(int fd) {
-    return acceptor.remove(fd);
-}
+// bool Reactor::remove(int fd) {
+//     return acceptor.remove(fd);
+// }
 
-void Reactor::setTimeout(int timeout) {
-    acceptor.setTimeout(timeout);
-}
+// void Reactor::setTimeout(int timeout) {
+//     acceptor.setTimeout(timeout);
+// }
 
 void Reactor::start() {
     stop=false;
@@ -62,10 +62,10 @@ bool Reactor::checkActive() {
     return !(timerList.empty() && reactorConf.canStop);
 }
 
-bool Reactor::addEvent(const Event &event) {
-    evmap.insert(event);
-    return acceptor.add(event);
-}
+// bool Reactor::addEvent(const Event &event) {
+//     evmap.insert(event);
+//     return acceptor.add(event);
+// }
 
 ReactorConf Reactor::getConf() {
     return reactorConf;
@@ -75,10 +75,10 @@ void Reactor::setConf(const ReactorConf &conf) {
     reactorConf=conf;
 }
 
-bool Reactor::updateEvent(int fd,const EventConf& conf){
-    acceptor.update(fd,conf);
-}
+// bool Reactor::updateEvent(int fd,const EventConf& conf){
+//     acceptor.update(fd,conf);
+// }
 
-std::shared_ptr<Event> Reactor::getEvent(int fd,bool in){
+EventPtr Reactor::getEvent(int fd,bool in){
     return evmap.get(fd,in);
 }

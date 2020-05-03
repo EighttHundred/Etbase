@@ -24,14 +24,14 @@ namespace Etbase{
     public:
         Socket();
         Socket(int fd_,sockaddr_in& addr_);
-        int getFd();
-        Socket accept();
+        int getFd() const;
+        Socket accept() const;
         bool bind(const char* port_);
         bool listen(int num=1024);
         bool connect(const char* ip_,const char* port_);
         int write(const Buffer& data) const;
-        int read(Buffer buff);
-        bool close();
+        int read(Buffer buff) const;
+        bool close() const;
         bool setNonBlock(bool val=true);
     };
 

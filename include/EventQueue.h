@@ -11,13 +11,13 @@
 namespace Etbase{
     class EventQueue {
         bool empty=true;
-        std::priority_queue<Event> evqueue;
+        std::priority_queue<EventPtr> evqueue;
         Mutex mutex;
         Condition cond=Condition(mutex);
     public:
         ~EventQueue();
-        void push(const Event& event);
-        Event get();
+        void push(EventPtr eventPtr);
+        EventPtr get();
         size_t size();
     };
 }
