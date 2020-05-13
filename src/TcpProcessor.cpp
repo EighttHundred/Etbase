@@ -147,3 +147,11 @@ void TcpProcessor::doRead_L(EventPtr eventPtr){
     acceptor.remove(eventPtr->getSocket().getFd());
     eventPtr->getSocket().close();
 }
+
+void TcpProcessor::doRead_G(EventPtr eventPtr){
+
+}
+
+void TcpProcessor::doWrite_G(EventPtr eventPtr){
+
+}

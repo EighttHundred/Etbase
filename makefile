@@ -12,8 +12,10 @@ Etbase:
 	$(MAKE) -C src
 test:Etbase
 	$(MAKE) -C test
-genlib:
-	sh $(TOOL_DIR)/gen_lib.sh
+install:
+	sh $(TOOL_DIR)/install.sh
+uninstall:
+	
 run:run_unit_test
 
 run_unit_test:Etbase

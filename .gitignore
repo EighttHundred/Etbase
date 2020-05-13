@@ -4,3 +4,4 @@ old/
 useless/
 .vscode/
 Etbase/
+src/*.o

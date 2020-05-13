@@ -3,11 +3,9 @@ AR_FLAG=-crv
 LIB_FILE=$(LIB_DIR)/libEtbase.a
 SRC_FILE=$(wildcard *.cpp)
 OBJ_DIR:=$(PRO)/obj
-Etbase:gen_obj
-	$(AR) $(AR_FLAG) $(LIB_FILE) $(wildcard $(OBJ_DIR)/*.o)
-gen_obj:
-	for file in $(SRC_FILE);do \
-		$(CC) $(CC_FLAG) -c \
-		-o $(OBJ_DIR)/`echo $$file|sed 's/.cpp/.o/g'` \
-		$$file; \
-	done
+OBJ_FILE:=$(subst .cpp,.o,$(SRC_FILE))
+Etbase:$(LIB_FILE)
+$(LIB_FILE):$(OBJ_FILE)
+	$(AR) $(AR_FLAG) $(LIB_FILE) $^
+.cpp.o:
+	$(CC) $(CC_FLAG) -c -o $@ $<
