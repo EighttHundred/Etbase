@@ -6,6 +6,7 @@
 #define ETBASE_EVENT_H
 
 #include <sys/epoll.h>
+#include <map>
 #include "Types.h"
 #include "Socket.h"
 #include "Buffer.h"
@@ -27,21 +28,24 @@ namespace Etbase{
         EventConf conf;
         Priority priority=NORMAL;
     private:
-        Task callback=nullptr;
-        Buffer buffer;
+        // Task callback=nullptr;
+        // Buffer buffer;
         Mutex mutex;
     public:
         Event(Socket sock_,EventConf conf_);
         Event& operator=(const Event& event);
         bool operator<(const Event& event)const;
-        void setTask(Task task);
-        void setBuffer(const Buffer &buffer);
+        // void setTask(Task task);
+        // void setBuffer(const Buffer &buffer);
         Socket& getSocket();
-        Buffer& getBuffer();
-        void runTask();
+        // Buffer& getBuffer();
+        // void runTask();
     };
     typedef std::shared_ptr<Event> EventPtr;
-    typedef std::function<void(EventPtr)> Handler;
+    typedef std::function<void(EventPtr,BufferPtr)> Handler;
+    typedef std::map<int,EventPtr> EventMap;
+    typedef std::map<int,Handler> HandlerMap;
+    typedef std::map<int,Task> TaskMap;
 }
 
 

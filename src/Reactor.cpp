@@ -83,10 +83,13 @@ void Reactor::setConf(const ReactorConf &conf) {
     reactorConf=conf;
 }
 
+BufferMap& Reactor::getBufferMap(){
+    return bufferMap;
+}
 // bool Reactor::updateEvent(int fd,const EventConf& conf){
 //     acceptor.update(fd,conf);
 // }
 
 EventPtr Reactor::getEvent(int fd,bool in){
-    return evmap.get(fd,in);
+    return evmap[fd];
 }

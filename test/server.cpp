@@ -11,9 +11,8 @@ int main(){
     Reactor reactor;
     TcpConnector server(reactor);
     server.initServer("11111");
-    server.setReadCallback([&server](Socket conn){
-        Buffer buff=server.getBuff(conn.getFd());
-        cout<<"read data:"<<buff<<endl;
+    server.setConnHandler([&server](EventPtr conn,BufferPtr buffer){
+        cout<<"read data:"<<buffer<<endl;
     });
     server.start();
 }

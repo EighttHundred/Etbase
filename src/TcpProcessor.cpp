@@ -3,11 +3,15 @@ using namespace Etbase;
 
 TcpProcessor::TcpProcessor(Epoll &acceptor,
         EventMap &eventMap,
+        BufferMap &bufferMap,
+        HandlerMap &taskMap,
         EventConf &readConf,
         EventConf &writeConf,
         EventConf &acceptConf):
     acceptor(acceptor),eventMap(eventMap),readConf(readConf),
-    writeConf(writeConf),acceptConf(acceptConf){
+    writeConf(writeConf),acceptConf(acceptConf),
+    bufferMap(bufferMap),taskMap(taskMap){
+    writeConf.in=false;
 }
 
 void TcpProcessor::updateEvent(int fd,EventConf conf){
@@ -15,36 +19,32 @@ void TcpProcessor::updateEvent(int fd,EventConf conf){
 }
 
 void TcpProcessor::addListenEvent(const Socket &socket){
+    int fd=socket.getFd();
     auto listenEventPtr=std::make_shared<Event>(socket,acceptConf);
-    listenEventPtr->setTask(std::bind(&TcpProcessor::doAccept,this,listenEventPtr));
-    eventMap.insert(listenEventPtr);
+    taskMap[fd]=std::bind(&TcpProcessor::doAccept,this,listenEventPtr);
+    eventMap[fd]=listenEventPtr;
     acceptor.add(listenEventPtr);
 }
 
 void TcpProcessor::addReadEvent(const Socket &socket){
+    int fd=socket.getFd();
     auto readEventPtr=std::make_shared<Event>(socket,readConf);
-    readEventPtr->setTask(std::bind(&TcpProcessor::doRead,this,readEventPtr));
-    eventMap.insert(readEventPtr);
+    
+    taskMap[fd]=std::bind(&TcpProcessor::doRead,this,readEventPtr,eventMap[fd]);
+    eventMap[fd]=readEventPtr;
     acceptor.add(readEventPtr);
 }
 
 void TcpProcessor::addWriteEvent(const Socket &socket){
+    int fd=socket.getFd();
     auto writeEventPtr=std::make_shared<Event>(socket,writeConf);
-    writeEventPtr->setTask(std::bind(&TcpProcessor::doWrite,this,writeEventPtr));
-    eventMap.insert(writeEventPtr);
+    eventMap[fd]=writeEventPtr;
+    taskMap[fd]=std::bind(&TcpProcessor::doWrite,this,writeEventPtr);
     acceptor.add(writeEventPtr);
 }
 
-void TcpProcessor::addHandler(int fd,bool in,Handler handler){
-    handlerMap.insert(fd,in,handler);
-}
-
-void TcpProcessor::addReadHandler(int fd,Handler handler){
-    handlerMap.insert(fd,true,handler);
-}
-
-void TcpProcessor::addWriteHandler(int fd,Handler handler){
-    handlerMap.insert(fd,false,handler);
+void TcpProcessor::addHandler(int fd,Handler handler){
+    taskMap[fd]=handler;
 }
 
 void TcpProcessor::doAccept(EventPtr eventPtr){
@@ -63,9 +63,10 @@ void TcpProcessor::doAccept(EventPtr eventPtr){
 }
 
 void TcpProcessor::doRead(EventPtr eventPtr){
-    auto buffer=eventPtr->getBuffer();
+    int fd=eventPtr->fd;
+    auto buffer=bufferMap[fd];
     auto sock=eventPtr->getSocket();
-    int ret=sock.read(buffer);
+    int ret=sock.read(*buffer);
     if(ret>0){
         doRead_G(eventPtr);
     }else if(ret==0){
@@ -87,9 +88,10 @@ void TcpProcessor::doRead(EventPtr eventPtr){
 }
 
 void TcpProcessor::doWrite(EventPtr eventPtr){
-    auto buffer=eventPtr->getBuffer();
+    int fd=eventPtr->fd;
+    auto bufferPtr=bufferMap[fd];
     auto sock=eventPtr->getSocket();
-    int ret=sock.write(buffer);
+    int ret=sock.write(*bufferPtr);
     if(ret>0){
         doWrite_G(eventPtr);
     }else if(ret<0){
@@ -118,11 +120,10 @@ void TcpProcessor::doWrite_L_EAGAIN(EventPtr eventPtr){
 }
 
 void TcpProcessor::doWrite_Z(EventPtr eventPtr){
-    auto task=handlerMap.get(eventPtr->fd,false);
-    if(task){
-        task(eventPtr);
+    int fd=eventPtr->fd;
+    if(taskMap.find(fd)!=taskMap.end()){
+        taskMap[fd](eventPtr,bufferMap[fd]);
     }
-    std::cout<<eventPtr->getBuffer()<<std::endl;
 }
 
 void TcpProcessor::doRead_Z(EventPtr eventPtr){
@@ -132,11 +133,9 @@ void TcpProcessor::doRead_Z(EventPtr eventPtr){
 }
 
 void TcpProcessor::doRead_L_EAGAIN(EventPtr eventPtr){
-    auto task=handlerMap.get(eventPtr->fd,true);
-    if(task){
-        task(eventPtr);
-    }else if(task=handlerMap.get(-1,true)){
-        task(eventPtr);
+    int fd=eventPtr->fd;
+    if(taskMap.find(fd)!=taskMap.end()){
+        taskMap[fd](eventPtr,bufferMap[fd]);
     }
     std::cout<<"read later\n";
     updateEvent(eventPtr->getSocket().getFd(),eventPtr->conf);

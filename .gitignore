@@ -2,6 +2,8 @@ cmake-build-debug/
 .idea/
 old/
 useless/
-.vscode/
 Etbase/
 src/*.o
+lib/
+test/*.bin
+unit_test/*.bin

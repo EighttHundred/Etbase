@@ -23,20 +23,12 @@ void TcpConnector::setAcceptConf(const EventConf &conf){
     acceptConf=conf;
 }
 
-void TcpConnector::updateSenderWriteEvent(){
-    processor.updateEvent(sendSock.getFd(),writeConf);
+void TcpConnector::setConnHandler(Handler handler){
+    processor.addHandler(0,handler);
 }
 
-void TcpConnector::setConnReadTask(Handler handler){
-    processor.addReadHandler(-1,handler);
-}
-
-void TcpConnector::setSenderReadTask(Handler handler){
-    processor.addReadHandler(sendSock.getFd(),handler);
-}
-
-void TcpConnector::setSenderWriteTask(Handler handler){
-    processor.addWriteHandler(sendSock.getFd(),handler);
+void TcpConnector::setSenderHandler(Handler handler){
+    processor.addHandler(sendSock.getFd(),handler);
 }
 
 void TcpConnector::start() {
@@ -64,13 +56,13 @@ void TcpConnector::initSender(const char *ip, const char *port, int times, int t
     timer.setDelay(delay);
     timer.setTimes(times);
     timer.setTimeout(timeout);
-    timer.setTask(std::bind(&TcpConnector::handleTimer,this,timer));
+    timer.setHandler(std::bind(&TcpConnector::handleTimer,this,timer));
     reactor.addTimer(timer);
 }
 
 TcpConnector::TcpConnector(Reactor &reactor_):reactor(reactor_),
     processor(reactor_.getAcceptor(),reactor_.getEventMap(),
-    readConf,writeConf,acceptConf){
+    readConf,writeConf,acceptConf),bufferMap(reactor_.getBufferMap()){
     // reactor.setTimeout(1000);
 }
 
@@ -84,10 +76,7 @@ void TcpConnector::handleTimer(Timer& timer_) {
 }
 
 void TcpConnector::setSendData(const Buffer& data) {
-    auto evptr=reactor.getEvent(sendSock.getFd(),0);
-    if(evptr!=nullptr){
-        evptr->setBuffer(data);
-    }
+    bufferMap[sendSock.getFd()]=std::make_shared<Buffer>(data);
 }
 
 

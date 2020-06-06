@@ -2,8 +2,8 @@
 .PHONY:Etbase genlib test runtest run
 export INC_DIR=$(PWD)/include
 export SRC_DIR=$(PWD)/src
-export PRO=$(PWD)/Etbase
-export LIB_DIR:=$(PRO)/lib
+export LIB_DIR=$(PWD)/lib
+export LIB_FILE=$(LIB_DIR)/libEtbase.a
 export CC=c++
 export CC_FLAG=-g
 export CC_LIB_FLAG=-L $(LIB_DIR) -lEtbase -lpthread
@@ -13,9 +13,11 @@ Etbase:
 test:Etbase
 	$(MAKE) -C test
 install:
-	sh $(TOOL_DIR)/install.sh
+	bash $(TOOL_DIR)/install.sh
 uninstall:
-	
+	bash $(TOOL_DIR)/uninstall.sh
+configure:
+	bash $(TOOL_DIR)/configure.sh
 run:run_unit_test
 
 run_unit_test:Etbase

@@ -72,6 +72,7 @@ void Buffer::clear() {
 }
 
 void Buffer::append(long len) {
+    Guard guard(mutex);
     tail+=len;
     if(bottom<tail+10) reallocate(0);
 }
@@ -85,6 +86,10 @@ Buffer::Buffer(const char *data) {
     push_back(data,strlen(data));
 }
 
+Mutex& Buffer::getMutex(){
+    return mutex;
+}
+
 namespace Etbase{
 
     std::ostream &operator<<(std::ostream &out, const Buffer &buff) {
@@ -95,6 +100,7 @@ namespace Etbase{
 
     std::istream &operator>>(std::istream &in, Buffer &buff) {
         //not yet implement
+        Guard(buff.getMutex());
         in>>buff.head;
         buff.tail=buff.head+strlen(buff.head);
         return in;
@@ -116,8 +122,9 @@ namespace Etbase{
     }
 
     void Buffer::init() {
-        if(head== nullptr){
+        if(head == nullptr){
             head=new char[100]();
+            tail=head;
             bottom=head+100;
         }
     }

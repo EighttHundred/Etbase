@@ -5,6 +5,7 @@
 #ifndef ETBASE_Buffer_H
 #define ETBASE_Buffer_H
 
+#include "Mutex.h"
 #include <iostream>
 namespace Etbase{
 
@@ -15,6 +16,7 @@ namespace Etbase{
         char* head= nullptr;
         char* tail= nullptr;
         char* bottom= nullptr;
+        Mutex mutex;
         void init();
         void reallocate(long size);
     public:
@@ -35,8 +37,10 @@ namespace Etbase{
         void append(long len);
         void clear();
         long spare();
+        Mutex& getMutex();
     };
-
+    typedef std::shared_ptr<Buffer> BufferPtr;
+    typedef std::map<int,BufferPtr> BufferMap;
 }
 
 

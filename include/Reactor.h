@@ -19,6 +19,7 @@ namespace Etbase{
     class Reactor {
         EventMap evmap;
         EventQueue evqueue;
+        BufferMap bufferMap;
         Epoll acceptor;
         ThreadPool pool;
         ReactorConf reactorConf;
@@ -38,6 +39,7 @@ namespace Etbase{
         void addTimer(const Timer& timer);
         EventPtr getEvent(int fd,bool in);
         ReactorConf getConf();
+        BufferMap& getBufferMap();
         void setConf(const ReactorConf& conf);
     };
 
