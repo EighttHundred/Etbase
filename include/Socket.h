@@ -30,7 +30,7 @@ namespace Etbase{
         bool listen(int num=1024);
         bool connect(const char* ip_,const char* port_);
         int write(const Buffer& data) const;
-        int read(Buffer buff) const;
+        int read(BufferPtr buff) const;
         bool close() const;
         bool setNonBlock(bool val=true);
     };

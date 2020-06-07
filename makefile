@@ -10,8 +10,8 @@ export CC_LIB_FLAG=-L $(LIB_DIR) -lEtbase -lpthread
 export TOOL_DIR=$(PWD)/scripts
 Etbase:
 	$(MAKE) -C src
-test:Etbase
-	$(MAKE) -C test
+example:Etbase
+	$(MAKE) -C example
 install:
 	bash $(TOOL_DIR)/install.sh
 uninstall:
@@ -22,3 +22,7 @@ run:run_unit_test
 
 run_unit_test:Etbase
 	$(MAKE) -C unit_test
+clean:
+	$(MAKE) -C src clean
+	$(MAKE) -C example clean
+	$(MAKE) -C unit_test clean

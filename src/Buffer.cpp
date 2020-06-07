@@ -67,6 +67,10 @@ Buffer &Buffer::operator+=(const Buffer &data) {
     return *this;
 }
 
+void Buffer::print(){
+    std::cout<<*this;
+}
+
 void Buffer::clear() {
     tail=head;
 }

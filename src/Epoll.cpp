@@ -25,7 +25,7 @@ void Epoll::run() {
     }
     for (int i = 0; i < n; ++i){
         int connfd = events[i].data.fd;
-        evqueue.push(evmap.get(connfd,(events[i].events&EPOLLIN)==EPOLLIN));
+        evqueue.push(evmap[connfd]);
     }
 }
 

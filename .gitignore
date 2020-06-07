@@ -5,5 +5,5 @@ useless/
 Etbase/
 src/*.o
 lib/
-test/*.bin
+example/*.bin
 unit_test/*.bin

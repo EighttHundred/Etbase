@@ -7,16 +7,17 @@
 
 #include "EventQueue.h"
 namespace Etbase{
+    class Reactor;
     class ThreadPool {
     public:
         //equals to number cpu cores
         int threadNum=3;
         bool stop=false;
         pthread_t* threads;
-        EventQueue& evqueue;
+        Reactor& reactor;
         Mutex mutex;
     public:
-        ThreadPool(EventQueue& evqueue_);
+        ThreadPool(Reactor& reactor);
         ~ThreadPool();
         void start();
         void setThreadNum(int num);

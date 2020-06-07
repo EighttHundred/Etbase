@@ -12,7 +12,11 @@ int main(){
     TcpConnector server(reactor);
     server.initServer("11111");
     server.setConnHandler([&server](EventPtr conn,BufferPtr buffer){
-        cout<<"read data:"<<buffer<<endl;
+        cout<<"read data:";
+        buffer->print();
+        cout<<endl;
+        //cout<<*buffer<<endl;
+        buffer->clear();
     });
     server.start();
 }

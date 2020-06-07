@@ -13,8 +13,16 @@ EventMap& Reactor::getEventMap(){
     return evmap;
 }
 
+TaskMap& Reactor::getTaskMap(){
+    return taskMap;
+}
+
+EventQueue& Reactor::getEventQueue(){
+    return evqueue;
+}
+
 Reactor::Reactor():
-    pool(evqueue),acceptor(evqueue,evmap) {
+    pool(*this),acceptor(evqueue,evmap) {
 }
 
 void Reactor::run() {
@@ -67,7 +75,7 @@ void Reactor::addTimer(const Timer &timer) {
 }
 
 bool Reactor::checkActive() {
-    return !(timerList.empty() && reactorConf.canStop);
+    return !(timerList.empty() && evqueue.size()==0 && reactorConf.canStop);
 }
 
 // bool Reactor::addEvent(const Event &event) {

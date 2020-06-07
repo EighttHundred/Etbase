@@ -3,7 +3,8 @@
 //
 
 #include "../include/ThreadPool.h"
-
+#include "../include/Reactor.h"
+using namespace Etbase;
 
 
 void *Etbase::ThreadPool::worker(void *arg) {
@@ -25,8 +26,10 @@ Etbase::ThreadPool::~ThreadPool() {
 void Etbase::ThreadPool::run() {
     while(true){
         if(checkStop()) break;
-        auto eventPtr=evqueue.get();
-        if(eventPtr) eventPtr->runTask();
+        auto eventPtr=reactor.getEventQueue().get();
+        if(eventPtr!=nullptr){
+            reactor.getTaskMap()[eventPtr->fd]();
+        }
     }
 //    pthread_exit(nullptr);
 }
@@ -53,7 +56,7 @@ void Etbase::ThreadPool::start() {
     }
 }
 
-Etbase::ThreadPool::ThreadPool(Etbase::EventQueue &evqueue_)
-    :evqueue(evqueue_){
+ThreadPool::ThreadPool(Reactor &reactor)
+    :reactor(reactor){
 }
 

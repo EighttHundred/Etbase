@@ -70,10 +70,10 @@ int Etbase::Socket::write(const Buffer& data) const{
     return ret;
 }
 
-int Etbase::Socket::read(Buffer buff) const{
+int Etbase::Socket::read(BufferPtr buff) const{
     int ret;
-    while((ret=::read(fd,buff.end(),buff.spare()))>0){
-        buff.append(ret);
+    while((ret=::read(fd,buff->end(),buff->spare()))>0){
+        buff->append(ret);
     }
     return ret;
 }

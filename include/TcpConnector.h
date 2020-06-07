@@ -9,7 +9,6 @@
 #include "Socket.h"
 #include "Reactor.h"
 #include "Timer.h"
-#include "TcpProcessor.h"
 namespace Etbase{
     class TcpConnector {
     private:
@@ -19,14 +18,14 @@ namespace Etbase{
         EventConf writeConf;
         EventConf acceptConf;
         Reactor &reactor;
-        BufferMap &bufferMap;
-        TcpProcessor processor;
-        void handleTimer(Timer& timer_);
+        HandlerMap specifyHandlerMap;
+        void doTimer(Timer& timer_);
+        void doAccept(EventPtr eventPtr,BufferPtr bufferPtr);
+        void doRead(EventPtr eventPtr,BufferPtr bufferPtr);
+        void doWrite(EventPtr eventPtr,BufferPtr bufferPtr);
+        void addEvent(Socket socket,EventConf eventConf);
     public:
         ~TcpConnector();
-        void setReadConf(const EventConf &conf);
-        void setWriteConf(const EventConf &conf);
-        void setAcceptConf(const EventConf &conf);
         void setConnHandler(Handler handler);
         void setSenderHandler(Handler handler);
         void start();

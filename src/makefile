@@ -7,3 +7,5 @@ $(LIB_FILE):$(OBJ_FILE)
 	$(AR) $(AR_FLAG) $(LIB_FILE) $^
 .cpp.o:
 	$(CC) $(CC_FLAG) -c -o $@ $<
+clean:
+	rm *.o

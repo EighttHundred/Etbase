@@ -6,7 +6,9 @@
 #define ETBASE_Buffer_H
 
 #include "Mutex.h"
+#include <map>
 #include <iostream>
+#include <memory>
 namespace Etbase{
 
     class Buffer {
@@ -37,6 +39,7 @@ namespace Etbase{
         void append(long len);
         void clear();
         long spare();
+        void print();
         Mutex& getMutex();
     };
     typedef std::shared_ptr<Buffer> BufferPtr;
