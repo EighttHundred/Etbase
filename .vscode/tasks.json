@@ -3,14 +3,8 @@
 	"tasks": [
 		{
 			"type": "shell",
-			"label": "C/C++: cpp build active file",
-			"command": "/usr/bin/cpp",
-			"args": [
-				"-g",
-				"${file}",
-				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
-			],
+			"label": "make example",
+			"command": "make example",
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},

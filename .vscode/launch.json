@@ -8,7 +8,9 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/example/server.bin",
+				// "${fileDirname}/${fileBasenameNoExtension}"
+            "program": "${fileDirname}/${fileBasenameNoExtension}.bin",
+            // "program": "${workspaceFolder}/example/server.bin",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -21,7 +23,8 @@
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+            "preLaunchTask": "make example"
         }
     ]
 }
